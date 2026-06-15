@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const lengths = [
+  {
+    title: "3 Days",
+    href: "/itineraries/3-day/",
+    description: "One city, done well. Built for shorter stays, long weekends, and trips where structure matters most.",
+  },
+  {
+    title: "7 Days",
+    href: "/itineraries/7-day/",
+    description: "Two cities that fit together. Designed for a more complete trip without making the pace feel forced.",
+  },
+  {
+    title: "10 Days",
+    href: "/itineraries/10-day/",
+    description: "A broader regional route. Enough time to connect multiple places without turning the trip into a sprint.",
+  },
+];
+---
+
+<BaseLayout
+  title="Itineraries"
+  description="Thoughtful itineraries built to help you experience a destination with more clarity and confidence."
+>
+  <Header />
+
+  <main class="page">
+    <div class="container">
+      <h1>Itineraries</h1>
+      <p class="section__intro">
+        Thoughtful itineraries built to help you experience a destination, or a region, with more clarity,
+        confidence, and intention. Start with a city. Go further with a region.
+      </p>
+
+      <div class="card-grid">
+        {lengths.map((item) => (
+          <article class="card">
+            <h3><a href={item.href}>{item.title}</a></h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+
+      <section class="section">
+        <h2>What to Expect</h2>
+        <p class="section__intro">
+          Each itinerary is designed to help you understand how to structure your time, where to focus your energy,
+          and how to make a trip feel smoother from the start. The 3 day guides help you do one city well.
+          The 7 and 10 day itineraries connect destinations that make sense together.
+        </p>
+        <a class="button button--secondary" href="/custom-inquiry/">Need Something More Tailored?</a>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

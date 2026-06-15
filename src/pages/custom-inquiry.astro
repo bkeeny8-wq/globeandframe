@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Plan a Custom Trip"
+  description="Get help building a trip around the experience you want to have."
+>
+  <Header />
+
+  <main class="page">
+    <div class="container prose">
+      <h1>Plan a Custom Trip</h1>
+      <p>
+        Not sure where to start? Tell me about the kind of trip you want to take and I&rsquo;ll help you
+        build a plan around the experience you&rsquo;re looking for.
+      </p>
+
+      <form class="inquiry-form" id="inquiry-form">
+        <label>
+          Name
+          <input type="text" name="name" required />
+        </label>
+
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+
+        <label>
+          Destination or region
+          <input type="text" name="destination" placeholder="e.g. Italy, Japan, Caribbean" />
+        </label>
+
+        <label>
+          Trip length
+          <select name="length">
+            <option value="">Select one</option>
+            <option value="Weekend (2-3 days)">Weekend (2-3 days)</option>
+            <option value="About a week">About a week</option>
+            <option value="10+ days">10+ days</option>
+            <option value="Not sure yet">Not sure yet</option>
+          </select>
+        </label>
+
+        <label>
+          What kind of experience are you looking for?
+          <textarea
+            name="details"
+            placeholder="Tell me about your travel style, priorities, and anything you already have in mind."
+            required
+          ></textarea>
+        </label>
+
+        <button class="button button--primary" type="submit">Send Inquiry</button>
+      </form>
+
+      <p>
+        Prefer email directly? <a href="mailto:bkeeny8@gmail.com">bkeeny8@gmail.com</a>
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script>
+    const form = document.getElementById("inquiry-form");
+
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form as HTMLFormElement);
+
+      const subject = encodeURIComponent("Custom Trip Inquiry — Globe & Frame");
+      const body = encodeURIComponent(
+        [
+          `Name: ${data.get("name")}`,
+          `Email: ${data.get("email")}`,
+          `Destination: ${data.get("destination") || "Not specified"}`,
+          `Trip length: ${data.get("length") || "Not specified"}`,
+          "",
+          "Details:",
+          `${data.get("details")}`,
+        ].join("\n"),
+      );
+
+      window.location.href = `mailto:bkeeny8@gmail.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+
+const itineraries = [
+  {
+    title: "Paris",
+    status: "Available",
+    description: "3 days — a structured city guide built around neighborhoods, major sights, meals, and pacing.",
+  },
+  {
+    title: "Rome",
+    status: "Coming Soon",
+    description: "3 days — a first-city structure built around what to prioritize, where to stay, and how to move through Rome well.",
+  },
+];
+---
+
+<BaseLayout title="3 Day Itineraries" description="One city, done well — structured itineraries for shorter stays.">
+  <Header />
+
+  <main class="page">
+    <div class="container">
+      <p><a href="/itineraries/">&larr; All Itineraries</a></p>
+      <h1>3 Day Itineraries</h1>
+      <p class="section__intro">
+        Shorter trips, long weekends, and city breaks built with more structure from the start.
+      </p>
+
+      <div class="card-grid">
+        {itineraries.map((item) => (
+          <article class="card">
+            <h3>{item.title}</h3>
+            <p><em>{item.status}</em></p>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

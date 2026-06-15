@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import articles from "../../data/articles.json";
+
+export function getStaticPaths() {
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+---
+
+<BaseLayout title={article.title} description={article.excerpt}>
+  <Header />
+
+  <main class="page">
+    <div class="container">
+      <p><a href="/elevate-your-travel/">&larr; Elevate Your Travel</a></p>
+      <article class="article-content" set:html={article.html} />
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

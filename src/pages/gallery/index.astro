@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const collections = [
+  {
+    title: "Regional Collections",
+    description: "Browse photography grouped by destination and explore the places that shaped the gallery.",
+  },
+  {
+    title: "Wildlife",
+    description: "From safari encounters to coastal wildlife — the animals and wild places that stood out most.",
+    items: ["Safari", "Kangaroos", "Sea Lions & Seals", "Great Barrier Reef"],
+  },
+  {
+    title: "Starry Skies",
+    description: "Night skies from destinations where seeing the stars felt like part of the trip itself.",
+    items: ["Tenerife", "Azores"],
+  },
+];
+---
+
+<BaseLayout
+  title="Gallery"
+  description="Photography from the places, details, and moments that have stayed with me."
+>
+  <Header />
+
+  <main class="page">
+    <div class="container">
+      <h1>Gallery</h1>
+      <p class="section__intro">
+        Photography from the places, details, and moments that have stayed with me. Browse by collection
+        or region, and bring a favorite destination home through print-ready digital downloads.
+      </p>
+
+      <div class="card-grid">
+        {collections.map((item) => (
+          <article class="card">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            {item.items && (
+              <ul>
+                {item.items.map((sub) => (
+                  <li>{sub}</li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+
+      <section class="section">
+        <h2>Print-Ready Digital Downloads</h2>
+        <p class="section__intro">
+          Images are available as digital downloads in a range of print-ready formats. Browse what&rsquo;s
+          available now on Etsy, with more collections added over time.
+        </p>
+        <a
+          class="button button--primary"
+          href="https://globeandframeco.etsy.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Shop on Etsy
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

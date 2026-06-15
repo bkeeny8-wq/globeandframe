@@ -1,0 +1,21 @@
+---
+const nav = [
+  { href: "/city-guides/", label: "City Guides" },
+  { href: "/itineraries/", label: "Itineraries" },
+  { href: "/elevate-your-travel/", label: "Elevate Your Travel" },
+  { href: "/gallery/", label: "Gallery" },
+  { href: "/shop/", label: "Shop" },
+  { href: "/about/", label: "About" },
+];
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-logo" href="/">Globe &amp; Frame</a>
+    <nav class="site-nav" aria-label="Main">
+      {nav.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const regions = [
+  {
+    name: "Europe",
+    places: ["France", "Italy", "Spain", "Portugal", "United Kingdom", "Netherlands", "Austria", "Germany", "Greece"],
+  },
+  {
+    name: "North America",
+    places: ["United States", "Mexico"],
+  },
+  {
+    name: "Caribbean",
+    places: ["Bahamas — Nassau", "Turks & Caicos — Providenciales", "Aruba — Oranjestad"],
+  },
+  {
+    name: "South America",
+    places: ["Brazil — Rio de Janeiro", "Brazil — São Paulo"],
+  },
+  {
+    name: "Africa",
+    places: ["Morocco", "Egypt", "South Africa — Cape Town", "South Africa — Kruger National Park"],
+  },
+  {
+    name: "Asia",
+    places: ["Japan", "Singapore", "Thailand", "Vietnam"],
+  },
+  {
+    name: "Oceania",
+    places: ["Australia"],
+  },
+];
+---
+
+<BaseLayout
+  title="City Guides"
+  description="City guides shaped by the places, people, and experiences that stay with you."
+>
+  <Header />
+
+  <main class="page">
+    <div class="container">
+      <h1>City Guides</h1>
+      <p class="section__intro">
+        Start with city guides shaped by the places, people, and experiences that stay with you.
+        Browse by region below — guides are added as destinations are completed.
+      </p>
+
+      <div class="card-grid">
+        {regions.map((region) => (
+          <article class="card">
+            <h3>{region.name}</h3>
+            <ul>
+              {region.places.map((place) => (
+                <li>{place}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+
+      <p class="section__intro" style="margin-top: 2rem;">
+        Interactive map coming soon. In the meantime, explore by region above or
+        <a href="/custom-inquiry/">plan a custom trip</a>.
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

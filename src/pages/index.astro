@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const pillars = [
+  {
+    title: "Explore Destinations",
+    href: "/city-guides/",
+    description:
+      "Start with city guides shaped by the places, people, and experiences that stay with you.",
+  },
+  {
+    title: "Plan Your Trip",
+    href: "/itineraries/",
+    description:
+      "Use ready-made itineraries to bring your trip together with more clarity, confidence, and room to enjoy it.",
+  },
+  {
+    title: "Go Deeper",
+    href: "/elevate-your-travel/",
+    description:
+      "Discover restaurants, neighborhoods, bars, and the smaller details that give a place its character.",
+  },
+  {
+    title: "Frame Your Memories",
+    href: "/shop/",
+    description:
+      "Bring the experience home through photography prints inspired by the moments that stay with you.",
+  },
+];
+---
+
+<BaseLayout title="Globe & Frame">
+  <Header />
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="hero__eyebrow">Globe &amp; Frame</p>
+        <h1>Plan better trips with guides built from real experience.</h1>
+        <p class="hero__lead">
+          Thoughtful itineraries, honest city breakdowns, and the places that define the experience.
+          Start with a destination. Build your plan. Experience it fully.
+        </p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="/city-guides/">Start With A Destination</a>
+          <a class="button button--secondary" href="/itineraries/">Use A Ready-Made Itinerary</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <h2>Explore Globe &amp; Frame</h2>
+        <div class="card-grid">
+          {pillars.map((item) => (
+            <article class="card">
+              <h3><a href={item.href}>{item.title}</a></h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Why Globe &amp; Frame</h2>
+        <p class="section__intro">
+          Most travel content tells you what exists. We tell you what&rsquo;s worth experiencing.
+          Every guide is built from real experience&mdash;structured so you can actually use it.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section--alt cta-band">
+      <div class="container">
+        <h2>Not Sure Where to Start?</h2>
+        <p>Let me help you build a trip around the experience you want to have.</p>
+        <a class="button button--primary" href="/custom-inquiry/">Plan a Custom Trip</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

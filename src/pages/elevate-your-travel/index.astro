@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import articles from "../../data/articles.json";
+---
+
+<BaseLayout
+  title="Elevate Your Travel"
+  description="Go deeper — restaurants, neighborhoods, bars, and the details that give a place its character."
+>
+  <Header />
+
+  <main class="page">
+    <div class="container">
+      <h1>Elevate Your Travel</h1>
+      <p class="section__intro">
+        Discover restaurants, neighborhoods, bars, and the smaller details that give a place its character.
+        Practical guides and honest takes built from real experience.
+      </p>
+
+      <div class="card-grid">
+        {articles.map((article) => (
+          <article class="card">
+            <h3>
+              <a href={`/elevate-your-travel/${article.slug}/`}>{article.title}</a>
+            </h3>
+            {article.excerpt && <p>{article.excerpt}</p>}
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

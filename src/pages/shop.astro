@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const collections = [
+  {
+    title: "Regional Collections",
+    description: "Photography grouped by destination and the places that shaped the gallery.",
+  },
+  {
+    title: "Wildlife",
+    description: "From safari encounters to coastal wildlife and the wild places that stood out most.",
+  },
+  {
+    title: "Starry Skies",
+    description: "Night skies from destinations where seeing the stars felt like part of the trip itself.",
+  },
+];
+---
+
+<BaseLayout
+  title="Shop"
+  description="Photography prints and travel itineraries from Globe & Frame — available on Etsy."
+>
+  <Header />
+
+  <main class="page">
+    <div class="container prose">
+      <h1>Shop</h1>
+      <p>
+        Bring the experience home through photography prints and thoughtfully built itineraries inspired
+        by the places, details, and moments that have stayed with me.
+      </p>
+
+      <div class="shop-cta">
+        <h2>Globe &amp; Frame on Etsy</h2>
+        <p>
+          Browse print-ready photography and itinerary downloads at our Etsy shop. Each product includes
+          details on format, delivery, and available options.
+        </p>
+        <p>
+          <a
+            class="button button--primary"
+            href="https://globeandframeco.etsy.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit the Etsy Shop
+          </a>
+        </p>
+      </div>
+
+      <h2>What You&rsquo;ll Find</h2>
+      <ul>
+        {collections.map((item) => (
+          <li>
+            <strong>{item.title}</strong> &mdash; {item.description}
+          </li>
+        ))}
+        <li>
+          <strong>Itineraries</strong> &mdash; Ready-made trip plans built from real experience, designed to
+          help you structure your time with more clarity and confidence.
+        </li>
+      </ul>
+
+      <p>
+        New collections and destinations are added as I travel. Check back on Etsy for the latest, or
+        <a href="/gallery/">browse the gallery</a> to see what&rsquo;s coming next.
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

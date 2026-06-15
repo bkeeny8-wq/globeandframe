@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+
+const itineraries = [
+  {
+    title: "Paris + London",
+    description: "7 days — a classic two-city route that balances major highlights with enough room to enjoy the rhythm of both cities.",
+  },
+  {
+    title: "Rome + Florence",
+    description: "7 days — a two-city Italy route built around contrast, pacing, and a better flow between culture, food, and time on foot.",
+  },
+];
+---
+
+<BaseLayout title="7 Day Itineraries" description="Two-city itineraries designed to feel coherent, not stitched together.">
+  <Header />
+
+  <main class="page">
+    <div class="container">
+      <p><a href="/itineraries/">&larr; All Itineraries</a></p>
+      <h1>7 Day Itineraries</h1>
+      <p class="section__intro">Regional pairings built to feel coherent, not stitched together.</p>
+
+      <div class="card-grid">
+        {itineraries.map((item) => (
+          <article class="card">
+            <h3>{item.title}</h3>
+            <p><em>Coming Soon</em></p>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
