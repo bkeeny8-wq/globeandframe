@@ -50,3 +50,4 @@ You can keep WordPress live until DNS is switched over.
 - **City guides:** `src/content/city-guides/your-slug.md`
 
 Commit and push — the site rebuilds automatically.
+# globeandframe
