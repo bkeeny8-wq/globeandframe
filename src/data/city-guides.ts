@@ -10,6 +10,9 @@ export type CityGuideRegion = {
   guides: CityGuide[];
 };
 
+/** Slugs with a live guide page at /city-guides/[slug]/ */
+export const publishedCityGuideSlugs = new Set<string>([]);
+
 export const cityGuideRegions: CityGuideRegion[] = [
   {
     "name": "Europe",
@@ -157,24 +160,6 @@ export const cityGuideRegions: CityGuideRegion[] = [
         "slug": "azores",
         "region": "Portugal \u00b7 Europe",
         "hook": "A hidden gem in the Atlantic \u2014 volcanic lakes, whale watching, and one of the least-crowded destinations in Europe."
-      },
-      {
-        "name": "Casablanca",
-        "slug": "casablanca",
-        "region": "Morocco \u00b7 Europe / Africa",
-        "hook": "A modern Moroccan city that surprises with its architecture, food, and the best entry point into the country."
-      },
-      {
-        "name": "Marrakech",
-        "slug": "marrakech",
-        "region": "Morocco \u00b7 Africa",
-        "hook": "A sensory overload in the best way \u2014 souks, riads, and food that makes every trip worth the chaos of the medina."
-      },
-      {
-        "name": "Saint Martin",
-        "slug": "saint-martin",
-        "region": "Caribbean",
-        "hook": "Two countries, one island, and some of the best beaches in the Caribbean with a French culinary twist."
       }
     ]
   },
@@ -363,24 +348,6 @@ export const cityGuideRegions: CityGuideRegion[] = [
   {
     "name": "Caribbean",
     "guides": [
-      {
-        "name": "Aruba \u2014 Oranjestad",
-        "slug": "aruba",
-        "region": "Aruba \u00b7 Caribbean",
-        "hook": "One happy island \u2014 calm water, consistent sun, and the clearest turquoise in the Caribbean."
-      },
-      {
-        "name": "Nassau \u2014 Bahamas",
-        "slug": "nassau",
-        "region": "Bahamas \u00b7 Caribbean",
-        "hook": "An easy Caribbean getaway from the East Coast with accessible beaches and culture that goes beyond the resorts."
-      },
-      {
-        "name": "Turks &amp; Caicos \u2014 Providenciales",
-        "slug": "providenciales",
-        "region": "Turks & Caicos \u00b7 Caribbean",
-        "hook": "Grace Bay is consistently ranked the best beach in the world. The water earns every accolade it gets."
-      },
       {
         "name": "Saint Martin",
         "slug": "saint-martin",

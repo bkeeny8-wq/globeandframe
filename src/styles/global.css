@@ -2969,6 +2969,15 @@ a.list-row {
   color: var(--color-gold);
 }
 
+.guide-card__read--soon {
+  color: var(--color-muted-mid);
+  cursor: default;
+}
+
+.guide-card:hover .guide-card__read--soon {
+  color: var(--color-muted-mid);
+}
+
 @media (max-width: 600px) {
   .guides-grid {
     grid-template-columns: 1fr;

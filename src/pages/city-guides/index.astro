@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { cityGuideRegions } from "../../data/city-guides";
+import { cityGuideRegions, publishedCityGuideSlugs } from "../../data/city-guides";
 
 const guideCount = new Set(cityGuideRegions.flatMap((region) => region.guides.map((guide) => guide.slug))).size;
 const regionCount = cityGuideRegions.length;
@@ -52,20 +52,32 @@ const regionCount = cityGuideRegions.length;
             </div>
             <div class="guides-grid">
               {
-                region.guides.map((guide) => (
-                  <article class="guide-card">
-                    <div class="guide-card__body">
-                      <h3 class="guide-card__name">
-                        <a href={`/city-guides/${guide.slug}/`}>{guide.name}</a>
-                      </h3>
-                      <p class="guide-card__region">{guide.region}</p>
-                      <p class="guide-card__hook">{guide.hook}</p>
-                      <a class="guide-card__read" href={`/city-guides/${guide.slug}/`}>
-                        Read the guide →
-                      </a>
-                    </div>
-                  </article>
-                ))
+                region.guides.map((guide) => {
+                  const isPublished = publishedCityGuideSlugs.has(guide.slug);
+
+                  return (
+                    <article class="guide-card">
+                      <div class="guide-card__body">
+                        <h3 class="guide-card__name">
+                          {isPublished ? (
+                            <a href={`/city-guides/${guide.slug}/`}>{guide.name}</a>
+                          ) : (
+                            guide.name
+                          )}
+                        </h3>
+                        <p class="guide-card__region">{guide.region}</p>
+                        <p class="guide-card__hook">{guide.hook}</p>
+                        {isPublished ? (
+                          <a class="guide-card__read" href={`/city-guides/${guide.slug}/`}>
+                            Read the guide →
+                          </a>
+                        ) : (
+                          <span class="guide-card__read guide-card__read--soon">Coming soon</span>
+                        )}
+                      </div>
+                    </article>
+                  );
+                })
               }
             </div>
           </section>
