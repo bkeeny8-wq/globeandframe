@@ -30,6 +30,12 @@ export const cityGuideRegions: CityGuideRegion[] = [
         "hook": "The origin of Western Civilization with ancient ruins you can put your hands on \u2014 best paired with a Greek isle trip."
       },
       {
+        "name": "Azores \u2014 S\u00e3o Miguel",
+        "slug": "azores",
+        "region": "Portugal \u00b7 Europe",
+        "hook": "A hidden gem in the Atlantic \u2014 volcanic lakes, whale watching, and one of the least-crowded destinations in Europe."
+      },
+      {
         "name": "Barcelona",
         "slug": "barcelona",
         "region": "Spain \u00b7 Europe",
@@ -90,9 +96,9 @@ export const cityGuideRegions: CityGuideRegion[] = [
         "hook": "History, Oktoberfest, Neuschwanstein Castle, and the original Hofbr\u00e4uhaus \u2014 3\u20134 days worth, easily."
       },
       {
-        "name": "Nice &amp; Monaco",
-        "slug": "nice-monaco",
-        "region": "France / Monaco \u00b7 Europe",
+        "name": "Nice",
+        "slug": "nice",
+        "region": "France \u00b7 Europe",
         "hook": "Ros\u00e9, pebble beaches, and the most famous race track in the world \u2014 20 minutes apart by train."
       },
       {
@@ -154,12 +160,6 @@ export const cityGuideRegions: CityGuideRegion[] = [
         "slug": "vienna",
         "region": "Austria \u00b7 Europe",
         "hook": "A symphony of elegance \u2014 imperial palaces, coffee houses, and a classical music scene unlike anywhere else."
-      },
-      {
-        "name": "Azores \u2014 S\u00e3o Miguel",
-        "slug": "azores",
-        "region": "Portugal \u00b7 Europe",
-        "hook": "A hidden gem in the Atlantic \u2014 volcanic lakes, whale watching, and one of the least-crowded destinations in Europe."
       }
     ]
   },
@@ -268,6 +268,12 @@ export const cityGuideRegions: CityGuideRegion[] = [
     "name": "Africa",
     "guides": [
       {
+        "name": "Cairo",
+        "slug": "cairo",
+        "region": "Egypt \u00b7 Africa",
+        "hook": "You are going for the pyramids. Their sheer size leaves a lasting impression that photos don\u2019t prepare you for."
+      },
+      {
         "name": "Cape Town",
         "slug": "cape-town",
         "region": "South Africa \u00b7 Africa",
@@ -278,12 +284,6 @@ export const cityGuideRegions: CityGuideRegion[] = [
         "slug": "kruger",
         "region": "South Africa \u00b7 Africa",
         "hook": "The safari that exceeded every expectation \u2014 elephants, lions on a water buffalo, and the white rhino in one day."
-      },
-      {
-        "name": "Egypt \u2014 Cairo",
-        "slug": "egypt",
-        "region": "Egypt \u00b7 Africa",
-        "hook": "You are going for the pyramids. Their sheer size leaves a lasting impression that photos don\u2019t prepare you for."
       },
       {
         "name": "Marrakech",
