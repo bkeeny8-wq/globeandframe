@@ -9,7 +9,7 @@ const nav = [
 ];
 ---
 
-<header class="site-header">
+<header class="site-header" id="site-header">
   <div class="container site-header__inner">
     <a class="site-logo" href="/" aria-label="Globe &amp; Frame home">
       <img
@@ -20,10 +20,53 @@ const nav = [
         height="2000"
       />
     </a>
-    <nav class="site-nav" aria-label="Main">
+
+    <button
+      class="site-nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      aria-label="Open menu"
+    >
+      <span class="site-nav-toggle__bar" aria-hidden="true"></span>
+      <span class="site-nav-toggle__bar" aria-hidden="true"></span>
+      <span class="site-nav-toggle__bar" aria-hidden="true"></span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Main">
       {nav.map((item) => (
         <a href={item.href}>{item.label}</a>
       ))}
     </nav>
   </div>
 </header>
+
+<script>
+  const header = document.getElementById("site-header");
+  const toggle = header?.querySelector(".site-nav-toggle");
+  const nav = document.getElementById("site-nav");
+
+  const setOpen = (open) => {
+    header?.classList.toggle("site-header--open", open);
+    toggle?.setAttribute("aria-expanded", String(open));
+    toggle?.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    document.body.classList.toggle("nav-open", open);
+  };
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = header?.classList.contains("site-header--open");
+    setOpen(!isOpen);
+  });
+
+  nav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setOpen(false));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setOpen(false);
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) setOpen(false);
+  });
+</script>
