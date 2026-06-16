@@ -270,14 +270,12 @@ p {
   border-block: 1px solid var(--color-border);
 }
 
-.home {
-  background: var(--color-sand);
-}
-
-.home .section,
+.home,
 .home .hero,
+.home .section,
+.home .section--alt,
 .home .cta-band {
-  background: transparent;
+  background: var(--color-sand);
   border: none;
 }
 
