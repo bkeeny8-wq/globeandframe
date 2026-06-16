@@ -2,38 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import articles from "../../data/articles.json";
-
-const topics = [
-  {
-    title: "Destinations & Inspiration",
-    description: "Places worth dreaming about, returning to, and experiencing more fully.",
-    slugs: [
-      "where-i-am-dreaming",
-      "cities-i-would-visit-again",
-      "top-10-beaches",
-      "f1-watching-locations",
-      "global-cigar-bars",
-    ],
-  },
-  {
-    title: "Planning & Pacing",
-    description: "How to structure a trip so the days actually work.",
-    slugs: ["how-to-do-3-days", "jet-lag", "booking-to-boarding"],
-  },
-  {
-    title: "Elevate the Journey",
-    description: "Small upgrades that make flights and travel days feel more intentional.",
-    slugs: [
-      "amenity-kit-diy",
-      "snack-box-diy",
-      "weekend-bag-review",
-      "business-class-rankings",
-    ],
-  },
-];
-
-const articleMap = Object.fromEntries(articles.map((article) => [article.slug, article]));
 ---
 
 <BaseLayout
@@ -42,44 +10,197 @@ const articleMap = Object.fromEntries(articles.map((article) => [article.slug, a
 >
   <Header />
 
-  <main class="page">
+  <main>
+    <section class="page-hero">
+      <div class="container page-hero__inner">
+        <p class="eyebrow">Go Deeper</p>
+        <h1>Elevate Your Travel</h1>
+        <p>
+          Restaurants, neighborhoods, bars, and the smaller details that give a place its character.
+          Practical guides and honest takes built from real experience.
+        </p>
+      </div>
+    </section>
+
     <div class="container">
-      <h1>Elevate Your Travel</h1>
-      <p class="section__intro">
-        Discover restaurants, neighborhoods, bars, and the smaller details that give a place its character.
-        Practical guides and honest takes built from real experience.
-      </p>
-
-      {topics.map((topic) => (
-        <section class="topic-section">
-          <div class="topic-section__header">
-            <h2>{topic.title}</h2>
-            <p>{topic.description}</p>
+      <div class="section-block">
+        <div class="section-header">
+          <div>
+            <h2>Destinations &amp; Inspiration</h2>
+            <p>Places worth dreaming about, returning to, and experiencing more fully.</p>
           </div>
+          <span class="section-count">5 articles</span>
+        </div>
 
-          <div class="topic-list">
-            {topic.slugs.map((slug) => {
-              const article = articleMap[slug];
-              if (!article) return null;
-
-              return (
-                <article class="topic-card">
-                  <div class="topic-card__body">
-                    <h3>
-                      <a href={`/elevate-your-travel/${article.slug}/`}>{article.title}</a>
-                    </h3>
-                    {article.excerpt && <p>{article.excerpt}</p>}
-                  </div>
-                  <a class="topic-card__link" href={`/elevate-your-travel/${article.slug}/`}>
-                    Read
-                  </a>
-                </article>
-              );
-            })}
+        <div class="feature-grid">
+          <a class="card-feature card-feature--ocean" href="/elevate-your-travel/cities-i-would-visit-again/">
+            <div class="card-feature__overlay"></div>
+            <div class="card-feature__body">
+              <span class="card-cat">Destinations</span>
+              <div class="card-feature__title">Cities I Would Visit Again</div>
+              <div class="card-feature__excerpt">
+                The cities I would go back to — not because I missed something, but because I know how to be there.
+              </div>
+              <span class="card-feature__read">Read the guide →</span>
+            </div>
+          </a>
+          <div class="side-stack">
+            <a class="card-feature card-feature--sm card-feature--amber" href="/elevate-your-travel/where-i-am-dreaming/">
+              <div class="card-feature__overlay"></div>
+              <div class="card-feature__body">
+                <span class="card-cat">Inspiration</span>
+                <div class="card-feature__title">Where I Am Dreaming</div>
+              </div>
+            </a>
+            <a class="card-feature card-feature--sm card-feature--teal" href="/elevate-your-travel/top-10-beaches/">
+              <div class="card-feature__overlay"></div>
+              <div class="card-feature__body">
+                <span class="card-cat">Beaches</span>
+                <div class="card-feature__title">Top 10 Beaches</div>
+              </div>
+            </a>
           </div>
-        </section>
-      ))}
+        </div>
+
+        <div class="row-cards">
+          <a class="row-card" href="/elevate-your-travel/f1-watching-locations/">
+            <div class="row-card__num">01</div>
+            <div class="row-card__title">F1 Watching Locations</div>
+            <div class="row-card__excerpt">
+              A running list of spots I've found while traveling where the race actually feels like an event,
+              not background noise.
+            </div>
+            <span class="row-card__read">Read →</span>
+          </a>
+          <a class="row-card" href="/elevate-your-travel/global-cigar-bars/">
+            <div class="row-card__num">02</div>
+            <div class="row-card__title">Global Cigar Bars</div>
+            <div class="row-card__excerpt">
+              Sometimes the best way to slow down while traveling is with a cigar, a drink, and a good place to
+              sit for a while.
+            </div>
+            <span class="row-card__read">Read →</span>
+          </a>
+          <a class="row-card row-card--cta" href="/custom-inquiry/">
+            <div class="row-card__num">✦</div>
+            <div class="row-card__title">Plan a Custom Trip</div>
+            <div class="row-card__excerpt">
+              Tell me where you want to go and I'll help you build a plan around the experience you're looking for.
+            </div>
+            <span class="row-card__read">Get in touch →</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-header">
+          <div>
+            <h2>Planning &amp; Pacing</h2>
+            <p>How to structure a trip so the days actually work.</p>
+          </div>
+          <span class="section-count">3 articles</span>
+        </div>
+        <div class="list-rows section-block__list">
+          <a class="list-row" href="/elevate-your-travel/how-to-do-3-days/">
+            <span class="list-row__num">i</span>
+            <div>
+              <div class="list-row__title">How to Do 3 Days</div>
+              <div class="list-row__excerpt">
+                A simple framework for getting the feel of a city without overcommitting to it.
+              </div>
+            </div>
+            <span class="list-row__arrow">→</span>
+          </a>
+          <a class="list-row" href="/elevate-your-travel/booking-to-boarding/">
+            <span class="list-row__num">ii</span>
+            <div>
+              <div class="list-row__title">Booking to Boarding</div>
+              <div class="list-row__excerpt">
+                A planning timeline for making travel feel smoother before you ever leave home.
+              </div>
+            </div>
+            <span class="list-row__arrow">→</span>
+          </a>
+          <a class="list-row" href="/elevate-your-travel/jet-lag/">
+            <span class="list-row__num">iii</span>
+            <div>
+              <div class="list-row__title">Jet Lag</div>
+              <div class="list-row__excerpt">
+                Jet Lag. 0/10. Would not recommend. 50+ long-haul flights worth of hard-won advice.
+              </div>
+            </div>
+            <span class="list-row__arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-header">
+          <div>
+            <h2>Elevate the Journey</h2>
+            <p>Small upgrades that make flights and travel days feel more intentional.</p>
+          </div>
+          <span class="section-count">4 articles</span>
+        </div>
+
+        <div class="feature-grid feature-grid--spaced">
+          <a class="card-feature card-feature--dusk" href="/elevate-your-travel/business-class-rankings/">
+            <div class="card-feature__overlay"></div>
+            <div class="card-feature__body">
+              <span class="card-cat">Reviews</span>
+              <div class="card-feature__title">Business Class Rankings</div>
+              <div class="card-feature__excerpt">
+                A personal look at which business class experiences are actually worth it, and which ones fall short
+                of the price.
+              </div>
+              <span class="card-feature__read">Read the rankings →</span>
+            </div>
+          </a>
+          <div class="side-stack">
+            <a class="card-feature card-feature--sm card-feature--slate" href="/elevate-your-travel/amenity-kit-diy/">
+              <div class="card-feature__overlay"></div>
+              <div class="card-feature__body">
+                <span class="card-cat">In-flight</span>
+                <div class="card-feature__title">Amenity Kit DIY</div>
+              </div>
+            </a>
+            <a class="card-feature card-feature--sm card-feature--bronze" href="/elevate-your-travel/snack-box-diy/">
+              <div class="card-feature__overlay"></div>
+              <div class="card-feature__body">
+                <span class="card-cat">In-flight</span>
+                <div class="card-feature__title">Snack Box DIY</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="list-rows">
+          <a class="list-row" href="/elevate-your-travel/weekend-bag-review/">
+            <span class="list-row__num">iv</span>
+            <div>
+              <div class="list-row__title">Weekend Bag Review</div>
+              <div class="list-row__excerpt">
+                Breaking a zipper forces your hand. My previous weekend bag had been great — until it wasn't.
+              </div>
+            </div>
+            <span class="list-row__arrow">→</span>
+          </a>
+        </div>
+      </div>
     </div>
+
+    <section class="cta-editorial">
+      <div class="container cta-editorial__inner">
+        <div>
+          <h3>Not sure where to start?</h3>
+          <p>
+            Tell me what kind of trip you want to take and I'll help you build a plan around the experience you're
+            looking for.
+          </p>
+        </div>
+        <a class="button button--primary" href="/custom-inquiry/">Plan a Custom Trip</a>
+      </div>
+    </section>
   </main>
 
   <Footer />
