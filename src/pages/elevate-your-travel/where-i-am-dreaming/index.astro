@@ -1,0 +1,305 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Where I'm Dreaming Of"
+  description="The running list of places currently pulling my attention — whether for the hotels, the beaches, the food, the landscapes, or the feeling they promise."
+>
+  <Header />
+
+  <main>
+    <section class="dreaming-hero">
+      <div class="container">
+        <p class="eyebrow">
+          <a href="/elevate-your-travel/" style="color:inherit;text-decoration:none;">← Elevate Your Travel</a>
+        </p>
+        <h1>Where I'm Dreaming Of</h1>
+        <p class="dreaming-hero__lead">
+          Some places stay on the list. Some move up faster than expected. This is the running list of places
+          currently pulling my attention — whether for the hotels, the beaches, the food, the landscapes, or the
+          feeling they promise.
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      <section class="dreaming-section">
+        <div class="dreaming-section-header">
+          <div>
+            <h2>The Shortlist</h2>
+            <p>The six places sitting closest to the top right now.</p>
+          </div>
+          <span class="dreaming-section-count">6 destinations</span>
+        </div>
+
+        <div class="dreaming-shortlist">
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/maldives.jpg"
+              alt="Aerial view of overwater bungalows and clear blue water in the Maldives"
+              width="600"
+              height="450"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Maldives</div>
+              <div class="dreaming-card__line">Overwater mornings and nowhere to be.</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/galapagos.jpg"
+              alt="Marine iguanas resting on rocks beside the ocean in the Galápagos"
+              width="600"
+              height="450"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Galápagos</div>
+              <div class="dreaming-card__line">Nature doing whatever it wants.</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/sicily.jpg"
+              alt="Coastal village with white buildings and turquoise water in Sicily"
+              width="600"
+              height="450"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Sicily</div>
+              <div class="dreaming-card__line">Wine, coastline, and beautiful chaos.</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/banff.jpg"
+              alt="Snow-capped mountains reflected in a turquoise lake in Banff"
+              width="600"
+              height="450"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Banff</div>
+              <div class="dreaming-card__line">That impossible shade of blue.</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/copenhagen.jpg"
+              alt="Colorful buildings lining a waterfront in Copenhagen"
+              width="600"
+              height="450"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Copenhagen</div>
+              <div class="dreaming-card__line">Clean design, good food, and cold water.</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/mauritius.jpg"
+              alt="Beach with turquoise water and mountains in Mauritius"
+              width="600"
+              height="450"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Mauritius</div>
+              <div class="dreaming-card__line">An island that feels worth crossing the world for.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dreaming-section">
+        <div class="dreaming-section-header">
+          <div>
+            <h2>Booked &amp; On Deck</h2>
+            <p>The places that have moved from idea to itinerary.</p>
+          </div>
+          <span class="dreaming-section-count">2 destinations</span>
+        </div>
+
+        <div class="dreaming-booked">
+          <div class="dreaming-card">
+            <span class="dreaming-card__badge">Booked</span>
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/budapest.jpg"
+              alt="Outdoor thermal spa with pools and historic buildings in Budapest"
+              width="800"
+              height="450"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Budapest</div>
+              <div class="dreaming-card__line">
+                Thermal baths, river views, and a city that feels ready for wandering.
+              </div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <span class="dreaming-card__badge">Booked</span>
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/corsica.jpg"
+              alt="Coastal town with colorful buildings and rocky cliffs in Corsica"
+              width="800"
+              height="450"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Corsica</div>
+              <div class="dreaming-card__line">
+                Coastline, cliffs, and the kind of beaches that make a trip feel inevitable.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dreaming-section">
+        <div class="dreaming-section-header">
+          <div>
+            <h2>Still Dreaming Of</h2>
+            <p>The rest of the list. Some are close, some are someday, and all are still calling.</p>
+          </div>
+          <span class="dreaming-section-count">7 destinations</span>
+        </div>
+
+        <div class="dreaming-moodboard">
+          <div class="dreaming-card">
+            <img class="dreaming-card__img" src="/images/dreaming/lapland.jpg" alt="Lapland" width="600" height="600" loading="lazy" />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Lapland</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/cartagena.jpg"
+              alt="Cartagena, Colombia"
+              width="600"
+              height="400"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Cartagena</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/zakynthos.jpg"
+              alt="Zakynthos, Greece"
+              width="600"
+              height="600"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Zakynthos</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img class="dreaming-card__img" src="/images/dreaming/fiji.jpg" alt="Fiji" width="600" height="400" loading="lazy" />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Fiji</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/grand-canyon.jpg"
+              alt="Grand Canyon"
+              width="600"
+              height="333"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Grand Canyon</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/buenos-aires.jpg"
+              alt="Buenos Aires, Argentina"
+              width="600"
+              height="400"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Buenos Aires</div>
+            </div>
+          </div>
+
+          <div class="dreaming-card">
+            <img
+              class="dreaming-card__img"
+              src="/images/dreaming/istanbul.jpg"
+              alt="Istanbul, Turkey"
+              width="600"
+              height="289"
+              loading="lazy"
+            />
+            <div class="dreaming-card__overlay"></div>
+            <div class="dreaming-card__body">
+              <div class="dreaming-card__name">Istanbul</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="dreaming-cta">
+      <div class="container dreaming-cta__inner">
+        <div>
+          <h3>If I'm not dreaming it, I've lived it.</h3>
+          <p>
+            Some places are still waiting. Others have already turned into guides, notes, routes, and memories.
+          </p>
+        </div>
+        <a class="button button--primary" href="/city-guides/">Explore the Guides</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

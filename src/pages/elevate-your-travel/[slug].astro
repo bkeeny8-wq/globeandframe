@@ -5,8 +5,16 @@ import Footer from "../../components/Footer.astro";
 import articles from "../../data/articles.json";
 
 export function getStaticPaths() {
+  const customSlugs = new Set([
+    "top-10-beaches",
+    "where-i-am-dreaming",
+    "cities-i-would-visit-again",
+    "f1-watching-locations",
+    "global-cigar-bars",
+  ]);
+
   return articles
-    .filter((article) => article.slug !== "top-10-beaches")
+    .filter((article) => !customSlugs.has(article.slug))
     .map((article) => ({
       params: { slug: article.slug },
       props: { article },

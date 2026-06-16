@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import { cigarContinents } from "../../../data/cigar-bars";
+---
+
+<BaseLayout
+  title="Cigar Bars While Traveling"
+  description="A running list of cigar-friendly spots found while traveling — from upscale hotel lounges to casual places that are easy to settle into."
+>
+  <Header />
+
+  <main>
+    <section class="dir-hero">
+      <div class="container">
+        <p class="eyebrow">
+          <a href="/elevate-your-travel/" style="color:inherit;text-decoration:none;">← Elevate Your Travel</a>
+        </p>
+        <h1>Cigar Bars While Traveling</h1>
+        <p class="dir-hero__lead">
+          Sometimes the best way to slow down while traveling is with a cigar, a drink, and a good place to sit for a
+          while. Some places are proper cigar lounges, others are rooftops, cafés, hotels, or bars where the setting
+          makes the experience. This is a running list of cigar-friendly spots found while traveling.
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      {
+        cigarContinents.map((continent) => (
+          <div class="dir-continent">
+            <div class="dir-continent__header">
+              <h2 class="dir-continent__name">{continent.name}</h2>
+              <span class="dir-continent__count">{continent.count}</span>
+            </div>
+
+            {continent.tbd ? (
+              <div class="dir-location dir-location--tbd">
+                <div class="dir-location__left">
+                  <div class="dir-location__venue">Still looking for the right spot.</div>
+                </div>
+              </div>
+            ) : (
+              continent.locations.map((location) => (
+                <div class="dir-location">
+                  <div class="dir-location__left">
+                    <div class="dir-location__city">{location.city}</div>
+                    <div class="dir-location__venue">{location.venue}</div>
+                  </div>
+                  <div class="dir-location__right">
+                    <div class="dir-location__fields">
+                      <div class="dir-field">
+                        <span class="dir-field__label">Cigars</span>
+                        <span class="dir-field__value">{location.cigars}</span>
+                      </div>
+                      <div class="dir-field">
+                        <span class="dir-field__label">Food &amp; Drink</span>
+                        <span class="dir-field__value">{location.foodDrink}</span>
+                      </div>
+                      <div class="dir-field">
+                        <span class="dir-field__label">Vibe</span>
+                        <span class="dir-field__value">{location.vibe}</span>
+                      </div>
+                    </div>
+                    <p class="dir-location__desc">{location.description}</p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    <section class="dreaming-cta">
+      <div class="container dreaming-cta__inner">
+        <div>
+          <h3>Know a good spot?</h3>
+          <p>
+            This list grows as I travel. If you have found a cigar-friendly spot worth knowing about, I'd like to hear
+            about it.
+          </p>
+        </div>
+        <a class="button button--primary" href="mailto:bkeeny8@gmail.com?subject=Cigar%20Spot%20Recommendation">
+          Send a recommendation
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

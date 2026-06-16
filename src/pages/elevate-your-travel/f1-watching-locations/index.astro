@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import { f1Continents } from "../../../data/f1-locations";
+---
+
+<BaseLayout
+  title="Where to Watch F1 While Traveling"
+  description="A running list of F1-friendly spots found while traveling — places where the race feels like an event, not background noise."
+>
+  <Header />
+
+  <main>
+    <section class="dir-hero">
+      <div class="container">
+        <p class="eyebrow">
+          <a href="/elevate-your-travel/" style="color:inherit;text-decoration:none;">← Elevate Your Travel</a>
+        </p>
+        <h1>Where to Watch F1 While Traveling</h1>
+        <p class="dir-hero__lead">
+          Sometimes when you are traveling, it is nice to keep a few familiar rituals. For me, that is Formula 1. It has
+          become one of the easiest ways to meet people on the road — a natural connection with others who are tuned into
+          the same race. This is a running list of F1-friendly spots I have found while traveling.
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      {
+        f1Continents.map((continent) => (
+          <div class="dir-continent">
+            <div class="dir-continent__header">
+              <h2 class="dir-continent__name">{continent.name}</h2>
+              <span class="dir-continent__count">{continent.count}</span>
+            </div>
+
+            {continent.tbd ? (
+              <div class="dir-location dir-location--tbd">
+                <div class="dir-location__left">
+                  <div class="dir-location__venue">Still looking for the right spot.</div>
+                </div>
+              </div>
+            ) : (
+              continent.locations.map((location) => (
+                <div class="dir-location">
+                  <div class="dir-location__left">
+                    <div class="dir-location__city">{location.city}</div>
+                    <div class="dir-location__venue">{location.venue}</div>
+                  </div>
+                  <div class="dir-location__right">
+                    <p class="dir-location__desc">{location.description}</p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    <section class="dreaming-cta">
+      <div class="container dreaming-cta__inner">
+        <div>
+          <h3>Know a great spot?</h3>
+          <p>
+            This list grows as I travel. If you have found a good place to watch F1 somewhere in the world, I'd
+            genuinely like to hear about it.
+          </p>
+        </div>
+        <a class="button button--primary" href="mailto:bkeeny8@gmail.com?subject=F1%20Spot%20Recommendation">
+          Send a recommendation
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

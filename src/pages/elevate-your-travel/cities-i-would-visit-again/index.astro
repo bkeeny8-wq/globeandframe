@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Cities I'd Go Back To"
+  description="The cities I would go back to — not because I missed something, but because I know how to be there."
+>
+  <Header />
+
+  <main>
+    <section class="cities-hero">
+      <div class="container">
+        <p class="eyebrow">
+          <a href="/elevate-your-travel/" style="color:inherit;text-decoration:none;">← Elevate Your Travel</a>
+        </p>
+        <h1>Cities I'd Go Back To</h1>
+        <p class="cities-hero__lead">
+          There are plenty of places I still want to see. But these are different. These are the cities I would go
+          back to — not because I missed something, but because I know how to be there. Where the rhythm makes
+          sense, and I know where to eat, where to go, and how to spend a day without overthinking it.
+        </p>
+      </div>
+    </section>
+
+    <div class="city-entries">
+      <div class="city-entry">
+        <div class="city-entry__photo">
+          <img
+            src="/images/cities/sydney.jpg"
+            alt="Sydney, Australia — coastal landscape"
+            width="960"
+            height="640"
+            loading="eager"
+          />
+        </div>
+        <div class="city-entry__body">
+          <span class="city-entry__eyebrow">Sydney, Australia</span>
+          <h2 class="city-entry__name">Sydney</h2>
+          <p class="city-entry__tagline">Southern California, just done better</p>
+          <p class="city-entry__text">
+            It feels familiar in the best way. Beach mornings, long afternoons, and a slower pace that never feels
+            forced.
+          </p>
+        </div>
+      </div>
+
+      <div class="city-entry">
+        <div class="city-entry__photo">
+          <img
+            src="/images/cities/london.jpg"
+            alt="London, England — street scene"
+            width="768"
+            height="1024"
+            loading="lazy"
+          />
+        </div>
+        <div class="city-entry__body">
+          <span class="city-entry__eyebrow">London, England</span>
+          <h2 class="city-entry__name">London</h2>
+          <p class="city-entry__tagline">Pub culture that carries the day</p>
+          <p class="city-entry__text">
+            There is something about being in another country that speaks your language but feels completely
+            different. Old pubs, proper pints, and the ability to let the day unfold without much of a plan.
+          </p>
+        </div>
+      </div>
+
+      <div class="city-entry">
+        <div class="city-entry__photo">
+          <img src="/images/cities/paris.jpg" alt="Paris, France" width="768" height="1024" loading="lazy" />
+        </div>
+        <div class="city-entry__body">
+          <span class="city-entry__eyebrow">Paris, France</span>
+          <h2 class="city-entry__name">Paris</h2>
+          <p class="city-entry__tagline">Shopping that ends in food</p>
+          <p class="city-entry__text">
+            I go for the shopping, but not for anything you would expect. I leave with cheese, butter, wine, and
+            mustard instead of clothing.
+          </p>
+        </div>
+      </div>
+
+      <div class="city-entry">
+        <div class="city-entry__photo">
+          <img src="/images/cities/tokyo.jpg" alt="Tokyo, Japan" width="576" height="820" loading="lazy" />
+        </div>
+        <div class="city-entry__body">
+          <span class="city-entry__eyebrow">Tokyo, Japan</span>
+          <h2 class="city-entry__name">Tokyo</h2>
+          <p class="city-entry__tagline">Clean, efficient, and endlessly good to eat</p>
+          <p class="city-entry__text">
+            The city runs smoothly, the food is consistently excellent, and there is always something new worth
+            finding.
+          </p>
+        </div>
+      </div>
+
+      <div class="city-entry">
+        <div class="city-entry__photo">
+          <img
+            src="/images/cities/san-diego.jpg"
+            alt="San Diego, United States"
+            width="683"
+            height="1024"
+            loading="lazy"
+          />
+        </div>
+        <div class="city-entry__body">
+          <span class="city-entry__eyebrow">San Diego, United States</span>
+          <h2 class="city-entry__name">San Diego</h2>
+          <p class="city-entry__tagline">Weather and a pace that never rushes you</p>
+          <p class="city-entry__text">
+            It is hard to beat the combination of perfect weather and a city that does not feel like it is trying
+            too hard. Beach days, casual meals, and a rhythm that makes everything feel simple.
+          </p>
+        </div>
+      </div>
+
+      <div class="city-entry">
+        <div class="city-entry__photo">
+          <img
+            src="/images/cities/steamboat.jpg"
+            alt="Steamboat Springs, Colorado"
+            width="738"
+            height="982"
+            loading="lazy"
+          />
+        </div>
+        <div class="city-entry__body">
+          <span class="city-entry__eyebrow">Steamboat Springs, Colorado</span>
+          <h2 class="city-entry__name">Steamboat Springs</h2>
+          <p class="city-entry__tagline">A ski weekend you already know how to do</p>
+          <p class="city-entry__text">
+            Knowing the mountain, the town, and where to eat changes everything. It turns a trip into a routine, and
+            that is what makes it worth going back to.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <section class="dreaming-cta">
+      <div class="container dreaming-cta__inner">
+        <div>
+          <h3>Want to go deeper on any of these?</h3>
+          <p>
+            City guides, itineraries, and the details that make a trip worth taking — built from real experience.
+          </p>
+        </div>
+        <a class="button button--primary" href="/city-guides/">Explore the Guides</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
