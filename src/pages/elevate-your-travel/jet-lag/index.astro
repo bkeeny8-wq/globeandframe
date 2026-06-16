@@ -1,0 +1,132 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Beating Jet Lag"
+  description="Jet Lag. 0/10. Would not recommend."
+>
+  <Header />
+
+<main>
+
+  <section class="article-hero">
+    <div class="container">
+      <p class="eyebrow">
+        <a href="/elevate-your-travel/" style="color:inherit;text-decoration:none;">
+          ← Elevate Your Travel
+        </a>
+      </p>
+      <h1>Beating Jet Lag</h1>
+      <p class="article-hero__lead">
+        Jet Lag. 0/10. Would not recommend. 50+ long-haul flights worth of
+        hard-won advice on arriving ready.
+      </p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="article-prose">
+      <p>When you only have a few days somewhere, jet lag can take up more of the trip than it
+      should. There are five main flight patterns to think about, and once I’m crossing more than
+      three time zones I start preparing ahead of time. The goal is simple: start living closer to
+      your destination’s clock before you even get on the plane.</p>
+    </div>
+
+    <!-- Tips grid -->
+    <h2 style="font-family:var(--font-serif);font-size:clamp(1.3rem,2.5vw,1.75rem);font-weight:500;color:#fff;margin-bottom:var(--space-md);">Key Points</h2>
+    <p style="font-size:0.9rem;color:var(--color-muted-mid);margin-bottom:var(--space-md);">50+ long-haul flights. These are the habits that consistently make a difference.</p>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <span class="tip-card__label">Avoid Alcohol</span>
+        <span class="tip-card__text">Alcohol does nothing for your sleep cycle. If my flight is under eight hours, I cut it off at the lounge. At the destination, avoid drinking during the day so you don’t give yourself an excuse to nap.</span>
+      </div>
+      <div class="tip-card">
+        <span class="tip-card__label">Seat Selection</span>
+        <span class="tip-card__text">If I plan to sleep, I take a window. If I plan to stay awake, I take an aisle. Nothing kills sleep faster than someone climbing over you every 30 minutes.</span>
+      </div>
+      <div class="tip-card">
+        <span class="tip-card__label">Shift Your Sleep</span>
+        <span class="tip-card__text">Adjusting when you wake up or go to bed by even an hour or two makes a real difference. Flying NYC to Europe? Get up earlier that morning. It makes it easier to sleep on the flight.</span>
+      </div>
+      <div class="tip-card">
+        <span class="tip-card__label">Avoid the Nap</span>
+        <span class="tip-card__text">No matter what, avoid the nap. Once you land, if you sleep during the day you are just delaying the adjustment. Get outside, stay active, and push through.</span>
+      </div>
+      <div class="tip-card">
+        <span class="tip-card__label">Fly Longer</span>
+        <span class="tip-card__text">If you’re visiting multiple destinations, make the flight where you plan to sleep the longest leg. More time in the air means more time to sleep and adjust.</span>
+      </div>
+    </div>
+
+    <!-- Business class upgrade section -->
+    <div class="article-prose">
+      <h2>Business Class Upgrade</h2>
+      <p>Business class is not just about comfort. It is about what that comfort is worth on a specific flight. When deciding whether to upgrade, travelers often forget to value the full benefit of a lie-flat seat.</p>
+
+      <h3>What to factor in</h3>
+      <ul>
+        <li><strong>Luggage</u> — Business class often includes up to two free checked bags, which can add real savings if you’re not using an airline credit card.</li>
+        <li><strong>Lounge access</strong> — Single-entry lounge access can run up to $75. With a connection, you may use it twice.</li>
+        <li><strong>Hotel replacement</strong> — If the flight lets you sleep properly, compare part of the upgrade cost to what you would have paid for a hotel night.</li>
+        <li><strong>Time on board</strong> — The longer the flight, the more hours you have to actually use the seat. Cost per hour starts to matter here.</li>
+        <li><strong>Time at destination</strong> — The shorter the trip, the more valuable a good night of sleep becomes.</li>
+      </ul>
+      <div class="pull-quote">
+        A $2,600 fare from NYC to Budapest, after backing out a checked bag, two lounge visits,
+        and a hotel night, leaves roughly $2,100 of seat value on a 7-hour flight — about $300/hr.
+        I want to see that closer to $200/hr.
+      </div>
+      <a class="article-link" href="/elevate-your-travel/business-class-rankings/">Business Class Rankings</a>
+    </div>
+
+    <!-- Flight patterns -->
+    <h2 style="font-family:var(--font-serif);font-size:clamp(1.3rem,2.5vw,1.75rem);font-weight:500;color:#fff;margin:var(--space-xl) 0 var(--space-md);">Flight Patterns</h2>
+
+    <div class="flight-pattern">
+      <h3>West to East — Short Overnight</h3>
+      <p class="tip-card__text" style="font-size:0.9rem;line-height:1.8;">NYC to London is the classic version. You are shifting several hours forward but don’t have much time to sleep. This is the toughest category and the one where preparation matters most. Wake up earlier that morning, stay active, cut off alcohol, take a melatonin, and choose a window seat. The goal is to fall asleep as quickly as possible once you are in the air.</p>
+    </div>
+    <div class="flight-pattern">
+      <h3>West to East — Long Overnight</h3>
+      <p class="tip-card__text" style="font-size:0.9rem;line-height:1.8;">Flights like Tokyo to NYC give you more time in the air but the time shift is much larger. Start adjusting a day before you fly — stay up slightly later, sleep in slightly longer. Once on the plane, align your sleep with your destination’s time.</p>
+    </div>
+    <div class="flight-pattern">
+      <h3>West to East — Daytime</h3>
+      <p class="tip-card__text" style="font-size:0.9rem;line-height:1.8;">West Coast to East Coast flights lose most of the day and you still arrive late. This one is not about sleeping — it’s about managing energy. Get up early, stay active, and remain awake for the entire flight. Plan for landing tired and hungry.</p>
+    </div>
+    <div class="flight-pattern">
+      <h3>East to West — Long Haul</h3>
+      <p class="tip-card__text" style="font-size:0.9rem;line-height:1.8;">Flights like NYC to Tokyo are long enough to reset your schedule mid-air. Stay awake early in the flight and sleep closer to your destination’s nighttime. Time it right and you can land tired in a useful way and fall into a normal rhythm that night.</p>
+    </div>
+    <div class="flight-pattern">
+      <h3>East to West — Daytime Return</h3>
+      <p class="tip-card__text" style="font-size:0.9rem;line-height:1.8;">Returning from Europe, flights leave early and land mid-day. The trick is a short power nap, not real sleep. Stay awake once you land. If you fully nap, you will not sleep that night and will carry jet lag into the next day.</p>
+    </div>
+    <div class="flight-pattern">
+      <h3>North to South / South to North</h3>
+      <p class="tip-card__text" style="font-size:0.9rem;line-height:1.8;">Long travel but minimal time change. This is more about comfort than jet lag. Sleep if it is overnight, stay awake if it is daytime, and you will be fine.</p>
+    </div>
+    <div class="flight-pattern">
+      <h3>The Plane Matters</h3>
+      <p class="tip-card__text" style="font-size:0.9rem;line-height:1.8;">The 787 is my favorite long-haul aircraft — its cabin is pressurized to a lower effective altitude than older models like the 777, which helps reduce jet lag. The Airbus A350 is a strong second. For flights longer than six hours, I avoid single-aisle aircraft like the 757, 737, or A321 family — fewer bathrooms and they fill up fast.</p>
+    </div>
+
+  </div><!-- end .container -->
+
+  <section class="dreaming-cta">
+    <div class="container dreaming-cta__inner">
+      <div>
+        <h3>Part of traveling well.</h3>
+        <p>Beating jet lag is about giving yourself a better chance to arrive ready — especially when the trip is short.</p>
+      </div>
+      <a class="button button--primary" href="/elevate-your-travel/">Back to Elevate Your Travel</a>
+    </div>
+  </section>
+
+</main>
+
+  <Footer />
+</BaseLayout>

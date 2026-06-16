@@ -1,0 +1,165 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Booking to Boarding"
+  description="A planning timeline for making travel feel smoother before you ever leave home."
+>
+  <Header />
+
+<main>
+
+  <section class="article-hero">
+    <div class="container">
+      <p class="eyebrow">
+        <a href="/elevate-your-travel/" style="color:inherit;text-decoration:none;">
+          ← Elevate Your Travel
+        </a>
+      </p>
+      <h1>Booking to Boarding</h1>
+      <p class="article-hero__lead">
+        A planning timeline for making travel feel smoother before you
+        ever leave home.
+      </p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="article-prose">
+      <p>This page exists for two reasons. I got stranded in San Francisco because I failed to
+      read the details of an Australian visa. And I got stuck inside the Louvre on my only sunny
+      day in Paris because I overplanned. Through those experiences, I built a timeline that
+      actually works.</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-entry">
+        <div class="timeline-entry__when">Start Now</div>
+        <div class="timeline-entry__title">Dream Destinations</div>
+        <div class="timeline-entry__rule">You are not planning the trip yet. You are giving the trip a reason to exist.</div>
+        <div class="timeline-entry__text">
+          <p>Before flights, hotels, or travel documents, decide where you actually want to go.
+          Travel is about fulfilling something — whether that is a desire, a passion, or a curiosity.</p>
+          <p>Whether it is the Super Bowl, Wimbledon, an exotic beach, or your favorite artist at
+          Red Rocks — it is your list to create. Start simple. Expect it to grow.</p>
+        </div>
+        <a class="article-link" href="/elevate-your-travel/where-i-am-dreaming/">My Dream Destinations</a>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-entry__when">As Early As Possible</div>
+        <div class="timeline-entry__title">Visa &amp; Travel Requirements</div>
+        <div class="timeline-entry__rule">Bad planning shows up at the airport.</div>
+        <div class="timeline-entry__text">
+          <p>It is never too early to check travel requirements. A U.S. passport opens a lot of
+          doors, but some countries still require visas, additional forms, vaccinations, or extra
+          planning. Check entry requirements when you start considering a destination and again
+          when you book the flight. The U.S. State Department is the best starting point.</p>
+        </div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-entry__when">9 to 13 Months Out</div>
+        <div class="timeline-entry__title">Flights</div>
+        <div class="timeline-entry__rule">The dream list becomes useful the second a deal appears.</div>
+        <div class="timeline-entry__text">
+          <p>Flight schedules usually open around 9 to 13 months out, depending on the airline.
+          If you are using points, earlier is usually better, especially for partner redemptions.</p>
+          <p>This is why having a dream list matters. When a good route or redemption appears,
+          you can move quickly instead of starting from scratch.</p>
+        </div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-entry__when">When You Book Flights</div>
+        <div class="timeline-entry__title">Hotels &amp; Ticket Research</div>
+        <div class="timeline-entry__rule">Flexibility is a feature, not a flaw.</div>
+        <div class="timeline-entry__text">
+          <p>I usually book accommodation when I book flights, but I avoid prepaid rates unless
+          I am completely locked in. Plans change. Trips evolve. Keeping hotel options flexible
+          lets you adjust once the details become clearer.</p>
+          <p>Also research ticket requirements for the sites you want to visit. Some sell out
+          early or have specific purchase windows — the Last Supper always comes to mind. Knowing
+          ahead of time saves you from missing out.</p>
+        </div>
+        <a class="article-link" href="/city-guides/">City Guides</a>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-entry__when">2 Months Out</div>
+        <div class="timeline-entry__title">Plans &amp; Ground Travel</div>
+        <div class="timeline-entry__rule">You are not planning every minute. You are setting the trip up to work.</div>
+        <div class="timeline-entry__text">
+          <p>This is when I start turning the idea of the trip into an actual plan. I do not need
+          a minute-by-minute agenda, but I want a clear list of things to see, eat, photograph,
+          and experience. Do not overplan. Some things are better left flexible for weather,
+          energy, or mood.</p>
+          <p>Once the plan starts to take shape, figure out ground transportation. Some cities
+          need a rental car, others are better with public transit or rideshare. If you are
+          renting in Europe and cannot drive manual, book an automatic early.</p>
+        </div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-entry__when">1 Week Out</div>
+        <div class="timeline-entry__title">Packing</div>
+        <div class="timeline-entry__rule">Future you is not packing calmly at midnight.</div>
+        <div class="timeline-entry__text">
+          <p>Open the weather app and start building the packing plan. Think through outfits,
+          adapters, chargers, cameras, batteries, and any other essentials before the night
+          before your flight. Do not wear the outfit you want pictures in at the Eiffel Tower
+          to work — put it in your suitcase ahead of time.</p>
+        </div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-entry__when">3 Days Out</div>
+        <div class="timeline-entry__title">Aircraft &amp; Flight Setup</div>
+        <div class="timeline-entry__rule">Control what you can before the airport controls you.</div>
+        <div class="timeline-entry__text">
+          <p>Check the aircraft and plan around it. One airline’s economy class can be completely
+          different from another’s, and even the same airline can vary by route.</p>
+          <ul>
+            <li>Can I charge my devices?</li>
+            <li>Will WiFi work for the whole flight?</li>
+            <li>Do I have lounge access?</li>
+            <li>Is there food I actually want?</li>
+            <li>Is there in-seat entertainment?</li>
+            <li>What is my delay or cancellation backup plan?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-entry__when">24 Hours Out</div>
+        <div class="timeline-entry__title">Final Adjustments</div>
+        <div class="timeline-entry__rule">At this point, you are not planning. You are executing.</div>
+        <div class="timeline-entry__text">
+          <p>Confirm reservations, check the weather, decide which days make sense for the items
+          on your list, and make any final bookings. Decide what time you need to get to the
+          airport. Schedule your transportation. Triple check your luggage.</p>
+          <p>You have done the work. Now the goal is to leave calmly and enjoy the trip.</p>
+        </div>
+      </div>
+
+    </div><!-- end .timeline -->
+  </div><!-- end .container -->
+
+  <section class="dreaming-cta">
+    <div class="container dreaming-cta__inner">
+      <div>
+        <h3>Plan early. Leave room to breathe.</h3>
+        <p>Know what you want to experience, but leave enough room for the trip to become something memorable.</p>
+      </div>
+      <a class="button button--primary" href="/elevate-your-travel/">Back to Elevate Your Travel</a>
+    </div>
+  </section>
+
+</main>
+
+  <Footer />
+</BaseLayout>
