@@ -2,83 +2,113 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { cityGuideRegions } from "../data/city-guides";
 
-const pillars = [
-  {
-    title: "Explore Destinations",
-    href: "/city-guides/",
-    description:
-      "Start with city guides shaped by the places, people, and experiences that stay with you.",
-  },
-  {
-    title: "Plan Your Trip",
-    href: "/itineraries/",
-    description:
-      "Use ready-made itineraries to bring your trip together with more clarity, confidence, and room to enjoy it.",
-  },
-  {
-    title: "Go Deeper",
-    href: "/elevate-your-travel/",
-    description:
-      "Discover restaurants, neighborhoods, bars, and the smaller details that give a place its character.",
-  },
-  {
-    title: "Frame Your Memories",
-    href: "/shop/",
-    description:
-      "Bring the experience home through photography prints inspired by the moments that stay with you.",
-  },
-];
+const guideCount = new Set(cityGuideRegions.flatMap((region) => region.guides.map((guide) => guide.slug))).size;
+const regionCount = cityGuideRegions.length;
 ---
 
 <BaseLayout title="Globe & Frame">
   <Header />
 
   <main class="home">
+    <!-- ─── HERO ─────────────────────────────────────── -->
     <section class="hero">
-      <div class="container">
-        <p class="hero__eyebrow">Globe &amp; Frame</p>
-        <h1>Plan better trips with guides built from real experience.</h1>
-        <p class="hero__lead">
-          Thoughtful itineraries, honest city breakdowns, and the places that define the experience.
-          Start with a destination. Build your plan. Experience it fully.
-        </p>
-        <div class="hero__actions">
-          <a class="button button--primary" href="/city-guides/">Start With A Destination</a>
-          <a class="button button--secondary" href="/itineraries/">Use A Ready-Made Itinerary</a>
+      <div class="container hero__inner">
+        <div class="hero__body">
+          <p class="eyebrow">Globe &amp; Frame</p>
+          <h1>Plan better trips with guides built from real experience.</h1>
+          <p class="hero__lead">
+            Thoughtful itineraries, honest city breakdowns, and the places that define the experience. Start with a
+            destination, or tell me where you want to go and I'll build the plan for you.
+          </p>
+          <div class="hero-ctas">
+            <a class="button button--primary" href="/custom-inquiry/">Plan a Custom Trip</a>
+            <a class="button button--ghost" href="/city-guides/">Browse City Guides</a>
+            <a class="button button--ghost" href="/itineraries/">Ready-Made Itineraries</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <h2>Explore Globe &amp; Frame</h2>
-        <div class="card-grid">
-          {pillars.map((item) => (
-            <article class="card">
-              <h3><a href={item.href}>{item.title}</a></h3>
-              <p>{item.description}</p>
-            </article>
-          ))}
+    <!-- ─── CUSTOM TRIP PITCH ────────────────────────── -->
+    <section class="custom-pitch">
+      <div class="container custom-pitch__inner">
+        <div>
+          <div class="custom-pitch__label">Custom Trip Planning</div>
+          <h2>Tell me where you want to go.</h2>
+          <p class="custom-pitch__body">
+            I'll build a day-by-day plan around the experience you're actually looking for — where to eat, what to see,
+            how to pace it, and what to skip. Built from 30+ countries of real experience, not a template.
+          </p>
+          <div class="custom-pitch__details">
+            <div class="custom-pitch__detail">
+              <span class="custom-pitch__detail-label">Built for</span>
+              <span class="custom-pitch__detail-value">Any destination</span>
+            </div>
+            <div class="custom-pitch__detail">
+              <span class="custom-pitch__detail-label">Trip length</span>
+              <span class="custom-pitch__detail-value">3, 7, or 10 days</span>
+            </div>
+            <div class="custom-pitch__detail">
+              <span class="custom-pitch__detail-label">Based on</span>
+              <span class="custom-pitch__detail-value">Real experience</span>
+            </div>
+            <div class="custom-pitch__detail">
+              <span class="custom-pitch__detail-label">Includes</span>
+              <span class="custom-pitch__detail-value">Restaurants, sights, pacing</span>
+            </div>
+          </div>
+        </div>
+        <div class="custom-pitch__cta">
+          <a class="button button--primary" href="/custom-inquiry/">Get Started</a>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <!-- ─── EXPLORE CARDS ───────────────────────────── -->
+    <section class="explore">
       <div class="container">
-        <h2>Why Globe &amp; Frame</h2>
+        <h2 class="section__title">Explore Globe &amp; Frame</h2>
+        <div class="explore-grid">
+          <article class="explore-card explore-card--featured">
+            <h3><a href="/custom-inquiry/">Custom Trip Planning</a></h3>
+            <p>
+              Tell me your destination, travel style, and how long you have. I'll build a day-by-day plan around the
+              experience you're looking for — restaurants, sights, pacing, and what to skip.
+            </p>
+          </article>
+          <article class="explore-card">
+            <h3><a href="/city-guides/">Explore Destinations</a></h3>
+            <p>
+              Start with city guides shaped by the places, people, and experiences that stay with you. {guideCount}
+              destinations across {regionCount} regions.
+            </p>
+          </article>
+          <article class="explore-card">
+            <h3><a href="/itineraries/">Ready-Made Itineraries</a></h3>
+            <p>
+              Use ready-made itineraries to bring your trip together with more clarity, confidence, and room to enjoy it.
+            </p>
+          </article>
+          <article class="explore-card">
+            <h3><a href="/elevate-your-travel/">Elevate Your Travel</a></h3>
+            <p>
+              Jet lag strategy, business class decisions, packing systems, and how to plan a trip that actually works.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── WHY GLOBE & FRAME ───────────────────────── -->
+    <section class="why">
+      <div class="container">
+        <h2 class="section__title">Why Globe &amp; Frame</h2>
         <p class="section__intro">
-          Most travel content tells you what exists. We tell you what&rsquo;s worth experiencing.
-          Every guide is built from real experience&mdash;structured so you can actually use it.
+          Most travel content tells you what exists. We tell you what's worth experiencing. Every guide is built from real
+          experience — structured so you can actually use it.
         </p>
-      </div>
-    </section>
-
-    <section class="section cta-band">
-      <div class="container">
-        <h2>Not Sure Where to Start?</h2>
-        <p>Let me help you build a trip around the experience you want to have.</p>
-        <a class="button button--primary" href="/custom-inquiry/">Plan a Custom Trip</a>
       </div>
     </section>
   </main>

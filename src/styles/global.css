@@ -2987,3 +2987,220 @@ a.list-row {
     gap: var(--space-md);
   }
 }
+
+/* =============================================
+   HOMEPAGE — custom trip priority
+   ============================================= */
+
+/* Hero CTA group — primary gold + two ghost secondaries */
+.hero-ctas {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: var(--space-lg);
+}
+
+.hero-ctas .button--primary {
+  background: var(--color-gold);
+  color: var(--color-navy);
+  font-weight: 700;
+}
+
+.hero-ctas .button--primary:hover {
+  background: #b8962e;
+}
+
+.hero-ctas .button--ghost {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-ctas .button--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+/* Custom trip pitch band — sits between hero and explore cards */
+.custom-pitch {
+  background: var(--color-surface);
+  border-top: 1px solid rgba(200, 168, 75, 0.15);
+  border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+  padding: var(--space-xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-pitch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(200, 168, 75, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.custom-pitch__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.custom-pitch__label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-pitch__label::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--color-gold);
+  display: block;
+}
+
+.custom-pitch h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: var(--space-sm);
+}
+
+.custom-pitch__body {
+  font-size: 0.92rem;
+  color: var(--color-muted-mid);
+  line-height: 1.75;
+  max-width: 48ch;
+}
+
+.custom-pitch__details {
+  display: flex;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.custom-pitch__detail {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.custom-pitch__detail-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.custom-pitch__detail-value {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.custom-pitch__cta {
+  flex-shrink: 0;
+}
+
+.explore,
+.why {
+  padding: var(--space-lg) 0;
+}
+
+.why {
+  padding-bottom: var(--space-xl);
+}
+
+.section__title {
+  color: #fff;
+  margin-bottom: var(--space-lg);
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-md);
+}
+
+.explore-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+}
+
+.explore-card h3 a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.explore-card h3 a:hover {
+  color: var(--color-gold);
+}
+
+.explore-card p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+/* Explore cards — custom trip card gets gold border treatment */
+.explore-card--featured {
+  border-color: rgba(200, 168, 75, 0.3);
+  background: rgba(200, 168, 75, 0.04);
+  position: relative;
+}
+
+.explore-card--featured::before {
+  content: "Premium";
+  position: absolute;
+  top: -1px;
+  right: 16px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  background: var(--color-gold);
+  padding: 3px 8px;
+  border-radius: 0 0 4px 4px;
+}
+
+.home .custom-pitch,
+.home .explore,
+.home .why {
+  background: var(--color-page);
+  border: none;
+}
+
+.home .custom-pitch {
+  background: var(--color-surface);
+  border-top: 1px solid rgba(200, 168, 75, 0.15);
+  border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+}
+
+@media (max-width: 768px) {
+  .custom-pitch__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .custom-pitch__cta {
+    width: 100%;
+  }
+
+  .custom-pitch__cta .button--primary {
+    width: 100%;
+    text-align: center;
+  }
+}
