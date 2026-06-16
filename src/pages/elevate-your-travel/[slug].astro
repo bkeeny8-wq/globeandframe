@@ -5,10 +5,12 @@ import Footer from "../../components/Footer.astro";
 import articles from "../../data/articles.json";
 
 export function getStaticPaths() {
-  return articles.map((article) => ({
-    params: { slug: article.slug },
-    props: { article },
-  }));
+  return articles
+    .filter((article) => article.slug !== "top-10-beaches")
+    .map((article) => ({
+      params: { slug: article.slug },
+      props: { article },
+    }));
 }
 
 const { article } = Astro.props;

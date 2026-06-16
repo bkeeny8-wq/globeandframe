@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import { beaches } from "../../../data/beaches";
+
+const first = beaches[0];
+---
+
+<BaseLayout
+  title="Top 10 Beaches"
+  description="The beaches that stay with you — from iconic stretches of sand to hidden coves and dramatic coastlines."
+>
+  <Header />
+
+  <main>
+    <section class="beaches-page-hero">
+      <div class="container">
+        <p class="eyebrow">Elevate Your Travel</p>
+        <h1>My Top Beaches Around the World</h1>
+        <p>
+          The beaches that stay with you are not always the easiest ones to get to. Some are polished and effortless,
+          others feel earned. This list is a mix of both.
+        </p>
+      </div>
+    </section>
+
+    <div class="beach-featured" id="beach-featured">
+      <div class="beach-featured__bg bg-1" id="beach-bg"></div>
+      <div class="beach-featured__overlay"></div>
+      <div class="beach-featured__body">
+        <div class="bf-left" id="bf-left">
+          <div class="bf-rank" id="bf-rank">No. {first.num} · {first.name}</div>
+          <div class="bf-name" id="bf-name">{first.name}</div>
+          <div class="bf-location" id="bf-location">{first.location}</div>
+          <div class="bf-tagline" id="bf-tagline">{first.tagline}</div>
+          <div class="bf-take" id="bf-take">{first.take}</div>
+        </div>
+        <div class="bf-stats">
+          <div class="bf-stat"><h4>Beach Type</h4><p id="s-type">{first.type}</p></div>
+          <div class="bf-stat"><h4>Access</h4><p id="s-access">{first.access}</p></div>
+          <div class="bf-stat"><h4>Crowd Level</h4><p id="s-crowd">{first.crowd}</p></div>
+          <div class="bf-stat"><h4>Setup &amp; Gear</h4><p id="s-gear">{first.gear}</p></div>
+          <div class="bf-stat"><h4>Nearby Scene</h4><p id="s-scene">{first.scene}</p></div>
+          <div class="bf-stat"><h4>Water &amp; Conditions</h4><p id="s-water">{first.water}</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="beach-ranked-list" id="beach-ranked-list">
+        {
+          beaches.map((beach, index) => (
+            <div class={`beach-rank-item${index === 0 ? " is-active" : ""}`} data-index={index}>
+              <div class="bri-num">{beach.num}</div>
+              <div class="bri-thumb">
+                <div class={`bri-thumb__bg th-${beach.num}`}></div>
+                <div class="bri-thumb__emoji">{beach.emoji}</div>
+              </div>
+              <div class="bri-body">
+                <div class="bri-name">{beach.name}</div>
+                <div class="bri-location">{beach.location}</div>
+                <div class="bri-tagline">{beach.tagline}</div>
+              </div>
+              <div class="bri-tags">
+                {beach.tags.map((tag) => (
+                  <span class="bri-tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script define:vars={{ beaches }}>
+    let currentIndex = 0;
+
+    function selectBeach(index) {
+      if (index === currentIndex) return;
+      const b = beaches[index];
+
+      document.querySelectorAll(".beach-rank-item").forEach((el, i) => {
+        el.classList.toggle("is-active", i === index);
+      });
+
+      const bg = document.getElementById("beach-bg");
+      if (bg) {
+        bg.className = "beach-featured__bg bg-" + (index + 1);
+        bg.style.backgroundImage = b.photo ? `url('${b.photo}')` : "";
+      }
+
+      const left = document.getElementById("bf-left");
+      if (left) {
+        left.classList.remove("animating");
+        void left.offsetWidth;
+        left.classList.add("animating");
+      }
+
+      const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      };
+
+      setText("bf-rank", `No. ${b.num} · ${b.name}`);
+      setText("bf-name", b.name);
+      setText("bf-location", b.location);
+      setText("bf-tagline", b.tagline);
+      setText("bf-take", b.take);
+      setText("s-type", b.type);
+      setText("s-access", b.access);
+      setText("s-crowd", b.crowd);
+      setText("s-gear", b.gear);
+      setText("s-scene", b.scene);
+      setText("s-water", b.water);
+
+      document.getElementById("beach-featured")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      currentIndex = index;
+    }
+
+    document.querySelectorAll(".beach-rank-item").forEach((el, i) => {
+      el.addEventListener("click", () => selectBeach(i));
+    });
+  </script>
+</BaseLayout>
