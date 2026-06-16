@@ -2,71 +2,94 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import { cityGuideRegions } from "../../data/city-guides";
 
-const regions = [
-  {
-    name: "Europe",
-    places: ["France", "Italy", "Spain", "Portugal", "United Kingdom", "Netherlands", "Austria", "Germany", "Greece"],
-  },
-  {
-    name: "North America",
-    places: ["United States", "Mexico"],
-  },
-  {
-    name: "Caribbean",
-    places: ["Bahamas — Nassau", "Turks & Caicos — Providenciales", "Aruba — Oranjestad"],
-  },
-  {
-    name: "South America",
-    places: ["Brazil — Rio de Janeiro", "Brazil — São Paulo"],
-  },
-  {
-    name: "Africa",
-    places: ["Morocco", "Egypt", "South Africa — Cape Town", "South Africa — Kruger National Park"],
-  },
-  {
-    name: "Asia",
-    places: ["Japan", "Singapore", "Thailand", "Vietnam"],
-  },
-  {
-    name: "Oceania",
-    places: ["Australia"],
-  },
-];
+const guideCount = new Set(cityGuideRegions.flatMap((region) => region.guides.map((guide) => guide.slug))).size;
+const regionCount = cityGuideRegions.length;
 ---
 
 <BaseLayout
-  title="City Guides"
-  description="City guides shaped by the places, people, and experiences that stay with you."
+  title={`Travel Guides by Destination — ${guideCount} Cities Reviewed`}
+  description={`Honest travel guides to ${guideCount} destinations across Europe, Asia, Africa, and the Americas — built from real experience. Find where to eat, stay, and what to see, without the fluff.`}
 >
   <Header />
 
-  <main class="page">
-    <div class="container">
-      <h1>City Guides</h1>
-      <p class="section__intro">
-        Start with city guides shaped by the places, people, and experiences that stay with you.
-        Browse by region below — guides are added as destinations are completed.
-      </p>
-
-      <div class="card-grid">
-        {regions.map((region) => (
-          <article class="card">
-            <h3>{region.name}</h3>
-            <ul>
-              {region.places.map((place) => (
-                <li>{place}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
+  <main>
+    <section class="guides-hero">
+      <div class="container">
+        <p class="eyebrow">Globe &amp; Frame</p>
+        <h1>City Guides</h1>
+        <p class="guides-hero__lead">
+          {guideCount} destinations reviewed from real experience — not press trips, not aggregated lists. Find where
+          to eat, where to stay, what to see, and what to skip.
+        </p>
+        <div class="guides-hero__stats">
+          <div>
+            <span class="guides-stat__num">{guideCount}</span>
+            <span class="guides-stat__label">Destinations</span>
+          </div>
+          <div>
+            <span class="guides-stat__num">{regionCount}</span>
+            <span class="guides-stat__label">Regions</span>
+          </div>
+          <div>
+            <span class="guides-stat__num">50+</span>
+            <span class="guides-stat__label">Long-haul flights</span>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <p class="section__intro" style="margin-top: 2rem;">
-        Interactive map coming soon. In the meantime, explore by region above or
-        <a href="/custom-inquiry/">plan a custom trip</a>.
-      </p>
+    <div class="container">
+      {
+        cityGuideRegions.map((region) => (
+          <section class="guides-region">
+            <div class="guides-region__header">
+              <h2 class="guides-region__name">{region.name}</h2>
+              <span class="guides-region__count">
+                {region.guides.length} {region.guides.length === 1 ? "guide" : "guides"}
+              </span>
+            </div>
+            <div class="guides-grid">
+              {
+                region.guides.map((guide) => (
+                  <article class="guide-card">
+                    <div class="guide-card__body">
+                      <h3 class="guide-card__name">
+                        <a href={`/city-guides/${guide.slug}/`}>{guide.name}</a>
+                      </h3>
+                      <p class="guide-card__region">{guide.region}</p>
+                      <p class="guide-card__hook">{guide.hook}</p>
+                      <a class="guide-card__read" href={`/city-guides/${guide.slug}/`}>
+                        Read the guide →
+                      </a>
+                    </div>
+                  </article>
+                ))
+              }
+            </div>
+          </section>
+        ))
+      }
     </div>
+
+    <section class="dreaming-cta">
+      <div class="container dreaming-cta__inner">
+        <div>
+          <h3>Don't see where you're going?</h3>
+          <p>Tell me your destination and I'll help you build a plan — or check Etsy for a ready-made itinerary.</p>
+        </div>
+        <div style="display:flex;gap:var(--space-sm);flex-wrap:wrap;">
+          <a class="button button--primary" href="/custom-inquiry/">Plan a Custom Trip</a>
+          <a
+            class="button button--secondary"
+            href="https://globeandframeco.etsy.com"
+            target="_blank"
+            rel="noopener noreferrer">Shop Itineraries on Etsy</a
+          >
+        </div>
+      </div>
+    </section>
   </main>
 
   <Footer />

@@ -2772,3 +2772,209 @@ a.list-row {
     gap: var(--space-md) var(--space-lg);
   }
 }
+
+/* =============================================
+   CITY GUIDES INDEX — destination directory
+   ============================================= */
+
+.guides-hero {
+  background: var(--color-surface);
+  padding: var(--space-xl) 0 calc(var(--space-xl) * 0.75);
+  border-bottom: 1px solid rgba(200, 168, 75, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.guides-hero::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -40px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(200, 168, 75, 0.06) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.guides-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.guides-hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+  max-width: 20ch;
+}
+
+.guides-hero__lead {
+  font-size: 0.95rem;
+  color: var(--color-muted-mid);
+  max-width: 40rem;
+  line-height: 1.75;
+  margin: 0 0 var(--space-lg);
+}
+
+.guides-hero__stats {
+  display: flex;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.guides-stat__num {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  line-height: 1;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.guides-stat__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted-mid);
+}
+
+.guides-region {
+  padding: var(--space-xl) 0 0;
+}
+
+.guides-region + .guides-region {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.guides-region__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid rgba(200, 168, 75, 0.2);
+}
+
+.guides-region__name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 500;
+  color: #fff;
+}
+
+.guides-region__count {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: rgba(200, 168, 75, 0.4);
+  white-space: nowrap;
+}
+
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-sm);
+  padding-bottom: var(--space-xl);
+}
+
+.guide-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.guide-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.guide-card:hover {
+  background: rgba(200, 168, 75, 0.05);
+  border-color: rgba(200, 168, 75, 0.2);
+  transform: translateY(-2px);
+}
+
+.guide-card:hover::before {
+  opacity: 1;
+}
+
+.guide-card__body {
+  padding: var(--space-md);
+}
+
+.guide-card__name {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.guide-card__name a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.guide-card:hover .guide-card__name a {
+  color: var(--color-gold);
+}
+
+.guide-card__region {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-sm);
+}
+
+.guide-card__hook {
+  font-size: 0.82rem;
+  color: var(--color-muted-mid);
+  line-height: 1.65;
+  margin-bottom: var(--space-sm);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.guide-card__read {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.guide-card:hover .guide-card__read {
+  color: var(--color-gold);
+}
+
+@media (max-width: 600px) {
+  .guides-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guides-hero__stats {
+    gap: var(--space-md);
+  }
+}
