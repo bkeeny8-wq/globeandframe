@@ -3,6 +3,37 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import articles from "../../data/articles.json";
+
+const topics = [
+  {
+    title: "Destinations & Inspiration",
+    description: "Places worth dreaming about, returning to, and experiencing more fully.",
+    slugs: [
+      "where-i-am-dreaming",
+      "cities-i-would-visit-again",
+      "top-10-beaches",
+      "f1-watching-locations",
+      "global-cigar-bars",
+    ],
+  },
+  {
+    title: "Planning & Pacing",
+    description: "How to structure a trip so the days actually work.",
+    slugs: ["how-to-do-3-days", "jet-lag", "booking-to-boarding"],
+  },
+  {
+    title: "Elevate the Journey",
+    description: "Small upgrades that make flights and travel days feel more intentional.",
+    slugs: [
+      "amenity-kit-diy",
+      "snack-box-diy",
+      "weekend-bag-review",
+      "business-class-rankings",
+    ],
+  },
+];
+
+const articleMap = Object.fromEntries(articles.map((article) => [article.slug, article]));
 ---
 
 <BaseLayout
@@ -19,16 +50,35 @@ import articles from "../../data/articles.json";
         Practical guides and honest takes built from real experience.
       </p>
 
-      <div class="card-grid">
-        {articles.map((article) => (
-          <article class="card">
-            <h3>
-              <a href={`/elevate-your-travel/${article.slug}/`}>{article.title}</a>
-            </h3>
-            {article.excerpt && <p>{article.excerpt}</p>}
-          </article>
-        ))}
-      </div>
+      {topics.map((topic) => (
+        <section class="topic-section">
+          <div class="topic-section__header">
+            <h2>{topic.title}</h2>
+            <p>{topic.description}</p>
+          </div>
+
+          <div class="topic-list">
+            {topic.slugs.map((slug) => {
+              const article = articleMap[slug];
+              if (!article) return null;
+
+              return (
+                <article class="topic-card">
+                  <div class="topic-card__body">
+                    <h3>
+                      <a href={`/elevate-your-travel/${article.slug}/`}>{article.title}</a>
+                    </h3>
+                    {article.excerpt && <p>{article.excerpt}</p>}
+                  </div>
+                  <a class="topic-card__link" href={`/elevate-your-travel/${article.slug}/`}>
+                    Read
+                  </a>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ))}
     </div>
   </main>
 
