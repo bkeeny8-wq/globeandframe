@@ -1,40 +1,17 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Header from "../../../components/Header.astro";
-import Footer from "../../../components/Footer.astro";
-
-const itineraries = [
-  {
-    title: "Paris + London + Amsterdam",
-    description: "10 days — a broader city route with enough time to enjoy each destination without turning the trip into a sprint.",
-  },
-  {
-    title: "Tokyo + Kyoto + Osaka",
-    description: "10 days — a broader Japan route built to balance major city energy with a more complete trip through the region.",
-  },
-];
+import ItineraryTierPage from "../../../components/ItineraryTierPage.astro";
+import { tenDayItineraries } from "../../../data/itineraries";
 ---
 
-<BaseLayout title="10 Day Itineraries" description="Broader regional routes for trips that move beyond the highlights.">
-  <Header />
-
-  <main class="page">
-    <div class="container">
-      <p><a href="/itineraries/">&larr; All Itineraries</a></p>
-      <h1>10 Day Itineraries</h1>
-      <p class="section__intro">Broader routes for trips that move beyond the highlights.</p>
-
-      <div class="card-grid">
-        {itineraries.map((item) => (
-          <article class="card">
-            <h3>{item.title}</h3>
-            <p><em>Coming Soon</em></p>
-            <p>{item.description}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </main>
-
-  <Footer />
-</BaseLayout>
+<ItineraryTierPage
+  title="10 Day Itineraries"
+  description="Broader regional routes for trips that move beyond the highlights."
+  pageTitle="10-Day Itineraries"
+  lead="Three cities, one coherent trip. Broader regional routes with enough time to connect multiple destinations without turning the trip into a sprint."
+  activeTier="10-day"
+  daysLabel="10 Days"
+  regions={tenDayItineraries}
+  ctaTitle="Need something different?"
+  ctaBody="Different trip length, different destinations, or a specific experience in mind — tell me what you're after."
+  ctaActions={[{ label: "Plan a Custom Trip", href: "/custom-inquiry/" }]}
+/>

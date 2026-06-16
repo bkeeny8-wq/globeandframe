@@ -1,40 +1,17 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Header from "../../../components/Header.astro";
-import Footer from "../../../components/Footer.astro";
-
-const itineraries = [
-  {
-    title: "Paris + London",
-    description: "7 days — a classic two-city route that balances major highlights with enough room to enjoy the rhythm of both cities.",
-  },
-  {
-    title: "Rome + Florence",
-    description: "7 days — a two-city Italy route built around contrast, pacing, and a better flow between culture, food, and time on foot.",
-  },
-];
+import ItineraryTierPage from "../../../components/ItineraryTierPage.astro";
+import { sevenDayItineraries } from "../../../data/itineraries";
 ---
 
-<BaseLayout title="7 Day Itineraries" description="Two-city itineraries designed to feel coherent, not stitched together.">
-  <Header />
-
-  <main class="page">
-    <div class="container">
-      <p><a href="/itineraries/">&larr; All Itineraries</a></p>
-      <h1>7 Day Itineraries</h1>
-      <p class="section__intro">Regional pairings built to feel coherent, not stitched together.</p>
-
-      <div class="card-grid">
-        {itineraries.map((item) => (
-          <article class="card">
-            <h3>{item.title}</h3>
-            <p><em>Coming Soon</em></p>
-            <p>{item.description}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </main>
-
-  <Footer />
-</BaseLayout>
+<ItineraryTierPage
+  title="7 Day Itineraries"
+  description="Two-city itineraries designed to feel coherent, not stitched together."
+  pageTitle="7-Day Itineraries"
+  lead="Two cities that fit together. Regional pairings built around how destinations complement each other — not just what's nearby on a map."
+  activeTier="7-day"
+  daysLabel="7 Days"
+  regions={sevenDayItineraries}
+  ctaTitle="Want to add a third city?"
+  ctaBody="Any 7-day itinerary can be extended into a 10-day route. Browse the full multi-city options."
+  ctaActions={[{ label: "Browse 10-Day Routes", href: "/itineraries/10-day/" }]}
+/>

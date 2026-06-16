@@ -1,44 +1,20 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Header from "../../../components/Header.astro";
-import Footer from "../../../components/Footer.astro";
-
-const itineraries = [
-  {
-    title: "Paris",
-    status: "Available",
-    description: "3 days — a structured city guide built around neighborhoods, major sights, meals, and pacing.",
-  },
-  {
-    title: "Rome",
-    status: "Coming Soon",
-    description: "3 days — a first-city structure built around what to prioritize, where to stay, and how to move through Rome well.",
-  },
-];
+import ItineraryTierPage from "../../../components/ItineraryTierPage.astro";
+import { threeDayItineraries } from "../../../data/itineraries";
 ---
 
-<BaseLayout title="3 Day Itineraries" description="One city, done well — structured itineraries for shorter stays.">
-  <Header />
-
-  <main class="page">
-    <div class="container">
-      <p><a href="/itineraries/">&larr; All Itineraries</a></p>
-      <h1>3 Day Itineraries</h1>
-      <p class="section__intro">
-        Shorter trips, long weekends, and city breaks built with more structure from the start.
-      </p>
-
-      <div class="card-grid">
-        {itineraries.map((item) => (
-          <article class="card">
-            <h3>{item.title}</h3>
-            <p><em>{item.status}</em></p>
-            <p>{item.description}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </main>
-
-  <Footer />
-</BaseLayout>
+<ItineraryTierPage
+  title="3 Day Itineraries"
+  description="One city, done well — structured 3-day itineraries for shorter stays and city breaks."
+  pageTitle="3-Day Itineraries"
+  lead="One city, done well. Built for shorter stays, long weekends, and city breaks where structure matters most. Each guide covers what to see, where to eat, and how to pace it."
+  activeTier="3-day"
+  daysLabel="3 Days"
+  regions={threeDayItineraries}
+  ctaTitle="Want 7 or 10 days?"
+  ctaBody="3-day guides stack into multi-city itineraries. Browse the 7 and 10-day routes built from these same destinations."
+  ctaActions={[
+    { label: "7-Day Itineraries", href: "/itineraries/7-day/" },
+    { label: "10-Day Itineraries", href: "/itineraries/10-day/", variant: "secondary" },
+  ]}
+/>

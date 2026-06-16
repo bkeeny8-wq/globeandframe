@@ -3204,3 +3204,316 @@ a.list-row {
     text-align: center;
   }
 }
+/* =============================================   ITINERARIES — all pages   ============================================= */
+/* Page hero */
+.itin-hero  {
+    background: var(--color-surface);
+    padding: var(--space-xl) 0 calc(var(--space-xl) * 0.75);
+    border-bottom: 1px solid rgba(200,168,75,0.12);
+    position: relative;
+   overflow: hidden;
+  }
+
+.itin-hero::before  {
+    content: '';
+   position: absolute;
+   top: -80px;
+   right: -40px;
+    width: 360px;
+   height: 360px;
+    background: radial-gradient(circle, rgba(200,168,75,0.06) 0%, transparent 65%);
+    border-radius: 50%;
+   pointer-events: none;
+  }
+
+.itin-hero .container  {
+   position: relative;
+   z-index: 1;
+   }
+
+.itin-hero h1  {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 500;
+   color: #fff;
+    line-height: 1.1;
+   margin-bottom: var(--space-md);
+  }
+
+.itin-hero__lead  {
+    font-size: 0.95rem;
+   color: var(--color-muted-mid);
+    max-width: 40rem;
+   line-height: 1.75;
+   margin: 0 0 var(--space-lg);
+  }
+
+.itin-hero__tiers  {
+    display: flex;
+   gap: var(--space-sm);
+   flex-wrap: wrap;
+  }
+
+.itin-tier-link  {
+    display: inline-flex;
+   align-items: center;
+   gap: 6px;
+    padding: 8px 16px;
+    border: 1.5px solid rgba(200,168,75,0.35);
+    border-radius: 100px;
+    font-size: 0.75rem;
+   font-weight: 600;
+   letter-spacing: 0.08em;
+    text-transform: uppercase;
+   color: var(--color-gold);
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+.itin-tier-link:hover  {
+    background: rgba(200,168,75,0.08);
+    border-color: var(--color-gold);
+  }
+
+.itin-tier-link--active  {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-navy);
+  }
+
+.itin-tier-link--active:hover  {
+   background: #B8962E;
+   }
+
+/* Region section header */
+.itin-region  {
+   padding: var(--space-xl) 0 0;
+   }
+
+.itin-region + .itin-region  {
+   border-top: 1px solid rgba(255,255,255,0.06);
+   }
+
+.itin-region__header  {
+    display: flex;
+   align-items: baseline;
+   justify-content: space-between;
+    margin-bottom: var(--space-lg);
+   padding-bottom: var(--space-md);
+    border-bottom: 1px solid rgba(200,168,75,0.2);
+  }
+
+.itin-region__name  {
+    font-family: var(--font-serif);
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+   font-weight: 500;
+   color: #fff;
+  }
+
+.itin-region__count  {
+    font-family: var(--font-serif);
+   font-size: 0.8rem;
+    font-style: italic;
+   color: rgba(200,168,75,0.4);
+  }
+
+/* Itinerary card grid */
+.itin-grid  {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-sm);
+    padding-bottom: var(--space-xl);
+  }
+
+.itin-card  {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    display: flex;
+   flex-direction: column;
+   gap: var(--space-sm);
+    position: relative;
+   overflow: hidden;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  }
+
+.itin-card::before  {
+    content: '';
+    position: absolute;
+   top: 0;
+   left: 0;
+    width: 100%;
+   height: 2px;
+    background: linear-gradient(90deg, var(--color-gold), transparent);
+    opacity: 0;
+   transition: opacity 0.2s;
+  }
+
+.itin-card:hover  {
+    background: rgba(200,168,75,0.04);
+    border-color: rgba(200,168,75,0.2);
+    transform: translateY(-2px);
+  }
+
+.itin-card:hover::before  {
+   opacity: 1;
+   }
+
+.itin-card__destinations  {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+   font-weight: 600;
+   color: #fff;
+    line-height: 1.2;
+  }
+
+.itin-card__meta  {
+    display: flex;
+   gap: var(--space-md);
+   align-items: center;
+  }
+
+.itin-card__days  {
+    font-size: 0.65rem;
+   font-weight: 600;
+   letter-spacing: 0.14em;
+    text-transform: uppercase;
+   color: var(--color-gold);
+  }
+
+.itin-card__time  {
+    font-size: 0.7rem;
+   color: rgba(255,255,255,0.35);
+    font-style: italic;
+  }
+
+.itin-card__why  {
+    font-size: 0.82rem;
+   color: var(--color-muted-mid);
+    line-height: 1.65;
+   flex: 1;
+  }
+
+.itin-card__footer  {
+    display: flex;
+   align-items: center;
+   justify-content: space-between;
+    padding-top: var(--space-sm);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: auto;
+  }
+
+.itin-card__status  {
+    font-size: 0.65rem;
+   font-weight: 600;
+   letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+.itin-card__status--available  {
+   color: #4CAF50;
+   }
+
+.itin-card__status--soon  {
+   color: rgba(255,255,255,0.3);
+   }
+
+.itin-card__buy  {
+    font-size: 0.65rem;
+   font-weight: 700;
+   letter-spacing: 0.1em;
+    text-transform: uppercase;
+   color: var(--color-navy);
+    background: var(--color-gold);
+    padding: 5px 12px;
+   border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+.itin-card__buy:hover  {
+   background: #B8962E;
+   }
+
+.itin-card__buy--soon  {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.3);
+    cursor: default;
+  }
+
+.itin-card__buy--soon:hover  {
+   background: transparent;
+   }
+
+/* Index page — tier cards */
+.itin-tier-grid  {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+
+.itin-tier-card  {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius);
+    padding: var(--space-lg);
+    text-decoration: none;
+    display: flex;
+   flex-direction: column;
+   gap: var(--space-sm);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  }
+
+.itin-tier-card:hover  {
+    background: rgba(200,168,75,0.05);
+    border-color: rgba(200,168,75,0.25);
+    transform: translateY(-2px);
+  }
+
+.itin-tier-card__days  {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+   font-weight: 600;
+   color: var(--color-gold);
+    line-height: 1;
+  }
+
+.itin-tier-card__label  {
+    font-size: 0.62rem;
+   font-weight: 600;
+   letter-spacing: 0.18em;
+    text-transform: uppercase;
+   color: rgba(255,255,255,0.4);
+  }
+
+.itin-tier-card__desc  {
+    font-size: 0.85rem;
+   color: var(--color-muted-mid);
+   line-height: 1.65;
+  }
+
+.itin-tier-card__cta  {
+    font-size: 0.7rem;
+   font-weight: 600;
+   letter-spacing: 0.1em;
+    text-transform: uppercase;
+   color: var(--color-gold);
+    margin-top: auto;
+   padding-top: var(--space-sm);
+  }
+
+/* Mobile */
+@media (max-width: 600px)  {
+    .itin-grid  {
+   grid-template-columns: 1fr;
+   }
+
+  .itin-tier-grid  {
+   grid-template-columns: 1fr;
+   }
+
+}
+

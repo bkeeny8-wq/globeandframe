@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import ItineraryCard from "./ItineraryCard.astro";
+import type { ItineraryRegion } from "../data/itineraries";
+
+type CtaAction = {
+  label: string;
+  href: string;
+  variant?: "primary" | "secondary";
+};
+
+type Props = {
+  title: string;
+  description: string;
+  pageTitle: string;
+  lead: string;
+  activeTier: "3-day" | "7-day" | "10-day";
+  daysLabel: string;
+  regions: ItineraryRegion[];
+  ctaTitle: string;
+  ctaBody: string;
+  ctaActions: CtaAction[];
+};
+
+const {
+  title,
+  description,
+  pageTitle,
+  lead,
+  activeTier,
+  daysLabel,
+  regions,
+  ctaTitle,
+  ctaBody,
+  ctaActions,
+} = Astro.props;
+
+const tiers = [
+  { href: "/itineraries/3-day/", label: "3 Days", id: "3-day" },
+  { href: "/itineraries/7-day/", label: "7 Days", id: "7-day" },
+  { href: "/itineraries/10-day/", label: "10 Days", id: "10-day" },
+] as const;
+---
+
+<BaseLayout {title} {description}>
+  <Header />
+
+  <main>
+    <section class="itin-hero">
+      <div class="container">
+        <p><a href="/itineraries/" style="color:var(--color-muted-mid);text-decoration:none;">← All Itineraries</a></p>
+        <h1>{pageTitle}</h1>
+        <p class="itin-hero__lead">{lead}</p>
+        <div class="itin-hero__tiers">
+          {
+            tiers.map((tier) => (
+              <a
+                class:list={["itin-tier-link", { "itin-tier-link--active": tier.id === activeTier }]}
+                href={tier.href}>{tier.label}</a
+              >
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      {
+        regions.map((region) => (
+          <section class="itin-region">
+            <div class="itin-region__header">
+              <h2 class="itin-region__name">{region.name}</h2>
+              <span class="itin-region__count">{region.countLabel}</span>
+            </div>
+            <div class="itin-grid">
+              {region.itineraries.map((itinerary) => <ItineraryCard {itinerary} {daysLabel} />)}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    <section class="dreaming-cta">
+      <div class="container dreaming-cta__inner">
+        <div>
+          <h3>{ctaTitle}</h3>
+          <p>{ctaBody}</p>
+        </div>
+        {
+          ctaActions.length > 1 ? (
+            <div style="display:flex;gap:var(--space-sm);flex-wrap:wrap;">
+              {
+                ctaActions.map((action) => (
+                  <a
+                    class:list={[
+                      "button",
+                      action.variant === "secondary" ? "button--secondary" : "button--primary",
+                    ]}
+                    href={action.href}>{action.label}</a
+                  >
+                ))
+              }
+            </div>
+          ) : (
+            <a class="button button--primary" href={ctaActions[0].href}>{ctaActions[0].label}</a>
+          )
+        }
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

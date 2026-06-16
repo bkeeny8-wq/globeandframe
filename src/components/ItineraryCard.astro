@@ -1,0 +1,39 @@
+---
+import type { Itinerary } from "../data/itineraries";
+
+type Props = {
+  itinerary: Itinerary;
+  daysLabel: string;
+};
+
+const { itinerary, daysLabel } = Astro.props;
+---
+
+<div class="itin-card">
+  <div class="itin-card__destinations">{itinerary.destinations}</div>
+  <div class="itin-card__meta">
+    <span class="itin-card__days">{daysLabel}</span>
+    {itinerary.bestTime && <span class="itin-card__time">{itinerary.bestTime}</span>}
+  </div>
+  <p class="itin-card__why">{itinerary.why}</p>
+  <div class="itin-card__footer">
+    {
+      itinerary.available ? (
+        <>
+          <span class="itin-card__status itin-card__status--available">Available</span>
+          <a
+            class="itin-card__buy"
+            href={itinerary.etsyUrl}
+            target="_blank"
+            rel="noopener noreferrer">Buy on Etsy →</a
+          >
+        </>
+      ) : (
+        <>
+          <span class="itin-card__status itin-card__status--soon">Coming Soon</span>
+          <span class="itin-card__buy itin-card__buy--soon">Coming Soon</span>
+        </>
+      )
+    }
+  </div>
+</div>
