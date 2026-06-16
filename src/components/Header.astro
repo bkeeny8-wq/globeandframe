@@ -11,7 +11,15 @@ const nav = [
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="site-logo" href="/">Globe &amp; Frame</a>
+    <a class="site-logo" href="/" aria-label="Globe &amp; Frame home">
+      <img
+        class="site-logo__img"
+        src="/images/logo.jpg"
+        alt="Globe &amp; Frame"
+        width="3000"
+        height="2000"
+      />
+    </a>
     <nav class="site-nav" aria-label="Main">
       {nav.map((item) => (
         <a href={item.href}>{item.label}</a>
