@@ -1,0 +1,132 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import { airlineRankings, airlineComingSoon } from "../../../data/business-class-rankings";
+---
+
+<BaseLayout
+  title="Business Class Rankings"
+  description="A personal comparison of which business class experiences are actually worth the upgrade — by route, aircraft, and what each airline delivers."
+>
+  <Header />
+
+  <main>
+    <section class="review-hero">
+      <div class="container">
+        <p class="eyebrow">
+          <a href="/elevate-your-travel/" style="color:inherit;text-decoration:none;">← Elevate Your Travel</a>
+        </p>
+        <h1>Business Class Rankings</h1>
+        <p class="review-hero__lead">
+          A personal look at which business class experiences are actually worth it, and which ones fall short.
+          Airlines vary wildly in what they offer — even the same airline can feel different depending on the route
+          and aircraft. This is a direct, personal comparison designed to help you figure out when the upgrade
+          actually delivers.
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="review-section-header">
+        <h2>The Rankings</h2>
+        <span>5 airlines reviewed</span>
+      </div>
+
+      <div class="bag-rankings">
+        {
+          airlineRankings.map((airline) => (
+            <div class="bag-card">
+              <div class="bag-card__rank">{airline.rank}</div>
+              <div class="bag-card__body">
+                <div class="bag-card__header">
+                  <div class="bag-card__name">{airline.name}</div>
+                  <div class="bag-card__meta">
+                    <div class="airline-score">
+                      <span class="airline-score__num">{airline.score}</span>
+                      <span class="airline-score__denom">/10</span>
+                    </div>
+                    <span class={`bag-card__rating rating--${airline.badgeClass}`}>{airline.badge}</span>
+                  </div>
+                </div>
+
+                <div class="airline-meta">
+                  <div class="airline-meta__item">
+                    <span class="airline-meta__label">Route</span>
+                    <span class="airline-meta__value">{airline.route}</span>
+                  </div>
+                  <div class="airline-meta__item">
+                    <span class="airline-meta__label">Aircraft</span>
+                    <span class="airline-meta__value">{airline.aircraft}</span>
+                  </div>
+                  <div class="airline-meta__item">
+                    <span class="airline-meta__label">Flown</span>
+                    <span class="airline-meta__value">{airline.flown}</span>
+                  </div>
+                  <div class="airline-meta__item">
+                    <span class="airline-meta__label">Best For</span>
+                    <span class="airline-meta__value">{airline.bestFor}</span>
+                  </div>
+                </div>
+
+                <div class="airline-categories">
+                  {
+                    airline.categories.map((category) => (
+                      <div class="airline-cat">
+                        <span class="airline-cat__label">{category.label}</span>
+                        <span class="airline-cat__text">{category.text}</span>
+                      </div>
+                    ))
+                  }
+                </div>
+
+                <div class="bag-card__take">
+                  <div class="bag-card__take-label">Verdict</div>
+                  {airline.verdict}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+
+        <div class="bag-card bag-card--tbd">
+          <div class="bag-card__rank">→</div>
+          <div class="bag-card__body">
+            <div class="bag-card__header">
+              <div class="bag-card__name">{airlineComingSoon.name}</div>
+              <div class="bag-card__meta">
+                <span class="bag-card__rating rating--fair">Coming Soon</span>
+              </div>
+            </div>
+            <div class="airline-meta">
+              <div class="airline-meta__item">
+                <span class="airline-meta__label">Route</span>
+                <span class="airline-meta__value">{airlineComingSoon.route}</span>
+              </div>
+              <div class="airline-meta__item">
+                <span class="airline-meta__label">Aircraft</span>
+                <span class="airline-meta__value">{airlineComingSoon.aircraft}</span>
+              </div>
+              <div class="airline-meta__item">
+                <span class="airline-meta__label">Scheduled</span>
+                <span class="airline-meta__value">{airlineComingSoon.scheduled}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="dreaming-cta">
+      <div class="container dreaming-cta__inner">
+        <div>
+          <h3>Worth the upgrade?</h3>
+          <p>Depends entirely on the aircraft. Read the jet lag guide for what to look for before you book.</p>
+        </div>
+        <a class="button button--primary" href="/elevate-your-travel/jet-lag/">Read the Jet Lag Guide</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

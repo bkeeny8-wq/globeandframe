@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import { weekendBags, reviewCriteria } from "../../../data/weekend-bags";
+---
+
+<BaseLayout
+  title="My Favorite Weekend Bags"
+  description="Seven weekend bags tested against the same long-haul carry-on load — ranked by capacity, durability, access, usability, and cost."
+>
+  <Header />
+
+  <main>
+    <section class="review-hero">
+      <div class="container">
+        <p class="eyebrow">
+          <a href="/elevate-your-travel/" style="color:inherit;text-decoration:none;">← Elevate Your Travel</a>
+        </p>
+        <h1>My Favorite Weekend Bags</h1>
+        <p class="review-hero__lead">
+          I ordered 7 bags. One stood above the rest, the remaining were sent back. Every bag had to handle
+          the same setup: a true weekend load plus everything I carry on a long-haul flight.
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="review-criteria">
+        <h2>What Actually Matters</h2>
+        <div class="review-criteria-grid">
+          {
+            reviewCriteria.map((criterion) => (
+              <div class="review-criterion">
+                <span class="review-criterion__name">{criterion.name}</span>
+                <span class="review-criterion__desc">{criterion.description}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="review-section-header">
+        <h2>The Rankings</h2>
+        <span>7 bags tested</span>
+      </div>
+
+      <div class="bag-rankings">
+      {
+        weekendBags.map((bag) => (
+          <div class="bag-card">
+            <div class="bag-card__rank">{bag.rank}</div>
+            <div class="bag-card__body">
+              <div class="bag-card__header">
+                <div class="bag-card__name">{bag.name}</div>
+                <div class="bag-card__meta">
+                  <span class="bag-card__price">{bag.price}</span>
+                  <span class={`bag-card__rating rating--${bag.rating}`}>{bag.ratingLabel}</span>
+                </div>
+              </div>
+              <p class="bag-card__tagline">{bag.tagline}</p>
+              <div class="bag-card__fields">
+                <div class="bag-field">
+                  <span class="bag-field__label">Durability</span>
+                  <span class="bag-field__value">{bag.durability}</span>
+                </div>
+                <div class="bag-field">
+                  <span class="bag-field__label">Usability</span>
+                  <span class="bag-field__value">{bag.usability}</span>
+                </div>
+              </div>
+              <div class="bag-card__take">
+                <div class="bag-card__take-label">My Take</div>
+                {bag.take}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+      </div>
+    </div>
+
+    <section class="dreaming-cta">
+      <div class="container dreaming-cta__inner">
+        <div>
+          <h3>Everything else that goes in the bag.</h3>
+          <p>
+            Amenity kit, snack box, and the gear worth packing — built from what actually works on a
+            long-haul flight.
+          </p>
+        </div>
+        <a class="button button--primary" href="/elevate-your-travel/">Back to Elevate Your Travel</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

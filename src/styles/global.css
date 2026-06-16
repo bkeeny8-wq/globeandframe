@@ -447,8 +447,16 @@ p {
   color: rgba(255, 255, 255, 0.75);
 }
 
-.shop-cta a {
+.shop-cta a:not(.button) {
   color: var(--color-gold);
+}
+
+.shop-cta .button--primary {
+  color: #1b2a4a;
+}
+
+.shop-cta .button--primary:hover {
+  color: #1b2a4a;
 }
 
 .shop-cta p:last-child {
@@ -2004,5 +2012,406 @@ a.list-row {
 
   .dir-location__city {
     margin-bottom: 2px;
+  }
+}
+
+/* =============================================
+   WEEKEND BAG REVIEW — ranked product review
+   ============================================= */
+
+.review-hero {
+  background: var(--color-surface);
+  padding: var(--space-xl) 0 calc(var(--space-xl) * 0.75);
+  border-bottom: 1px solid rgba(200, 168, 75, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.review-hero::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -40px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(200, 168, 75, 0.06) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.review-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.review-hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+  max-width: 20ch;
+}
+
+.review-hero__lead {
+  font-size: 0.95rem;
+  color: var(--color-muted-mid);
+  max-width: 42rem;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.review-criteria {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  margin: var(--space-xl) 0;
+}
+
+.review-criteria h2 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: var(--space-md);
+}
+
+.review-criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-sm);
+}
+
+.review-criterion {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.review-criterion__name {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.review-criterion__desc {
+  font-size: 0.82rem;
+  color: var(--color-muted-mid);
+  line-height: 1.5;
+}
+
+.review-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid rgba(200, 168, 75, 0.2);
+  margin-bottom: var(--space-lg);
+}
+
+.review-section-header h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+}
+
+.review-section-header span {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: rgba(200, 168, 75, 0.4);
+}
+
+.bag-card {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: var(--space-sm) var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  align-items: start;
+}
+
+.bag-card:last-child {
+  border-bottom: none;
+}
+
+.bag-card__rank {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: rgba(200, 168, 75, 0.18);
+  line-height: 1;
+  text-align: center;
+  padding-top: 4px;
+}
+
+.bag-rankings .bag-card:nth-child(1) .bag-card__rank {
+  color: rgba(200, 168, 75, 0.55);
+}
+
+.bag-rankings .bag-card:nth-child(2) .bag-card__rank {
+  color: rgba(200, 168, 75, 0.35);
+}
+
+.bag-rankings .bag-card:nth-child(3) .bag-card__rank {
+  color: rgba(200, 168, 75, 0.25);
+}
+
+.bag-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.bag-card__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.bag-card__name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.bag-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.bag-card__price {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.bag-card__rating {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.rating--excellent {
+  background: rgba(200, 168, 75, 0.2);
+  color: #c8a84b;
+}
+
+.rating--verygood {
+  background: rgba(100, 180, 120, 0.15);
+  color: #6db87a;
+}
+
+.rating--good {
+  background: rgba(100, 140, 200, 0.15);
+  color: #7eb5dd;
+}
+
+.rating--fair {
+  background: rgba(180, 140, 60, 0.15);
+  color: #b8963c;
+}
+
+.rating--poor {
+  background: rgba(200, 80, 80, 0.12);
+  color: #cc6666;
+}
+
+.bag-card__tagline {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.5;
+}
+
+.bag-card__fields {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.bag-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  min-width: 160px;
+}
+
+.bag-field__label {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.bag-field__value {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.4;
+}
+
+.bag-card__take {
+  font-size: 0.88rem;
+  color: var(--color-muted-mid);
+  line-height: 1.8;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: var(--space-sm);
+}
+
+.bag-card__take-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 6px;
+}
+
+@media (max-width: 600px) {
+  .bag-card {
+    grid-template-columns: 48px 1fr;
+    gap: var(--space-sm);
+  }
+
+  .bag-card__rank {
+    font-size: 1.8rem;
+  }
+
+  .bag-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bag-field {
+    min-width: 0;
+    flex: 1;
+  }
+}
+
+/* =============================================
+   BUSINESS CLASS RANKINGS — additions
+   Requires bag-card base classes from weekend bag review
+   ============================================= */
+
+.airline-score {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+.airline-score__num {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-gold);
+}
+
+.airline-score__denom {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.airline-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.airline-meta__item {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 0.78rem;
+}
+
+.airline-meta__label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.airline-meta__value {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.airline-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.airline-cat {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--space-sm);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  align-items: baseline;
+}
+
+.airline-cat:last-child {
+  border-bottom: none;
+}
+
+.airline-cat__label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  padding-top: 2px;
+}
+
+.airline-cat__text {
+  font-size: 0.85rem;
+  color: var(--color-muted-mid);
+  line-height: 1.65;
+}
+
+.bag-card--tbd {
+  opacity: 0.4;
+}
+
+.bag-card--tbd .bag-card__rank {
+  color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 600px) {
+  .airline-cat {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .airline-meta {
+    gap: 4px var(--space-xs);
   }
 }
