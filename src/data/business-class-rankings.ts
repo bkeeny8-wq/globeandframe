@@ -18,13 +18,6 @@ export type AirlineRanking = {
   photos: string[];
 };
 
-export type AirlineComingSoon = {
-  name: string;
-  route: string;
-  aircraft: string;
-  scheduled: string;
-};
-
 export const airlineRankings: AirlineRanking[] = [
   {
     rank: 1,
@@ -246,11 +239,47 @@ export const airlineRankings: AirlineRanking[] = [
       "/images/business-class/ana-3.jpg",
     ],
   },
+  {
+    rank: 6,
+    name: "Lufthansa 747-8",
+    score: "6.8",
+    badge: "Fair",
+    badgeClass: "fair",
+    route: "Newark → Budapest",
+    aircraft: "Boeing 747-8",
+    flown: "June 2026",
+    bestFor: "747 nostalgia",
+    categories: [
+      {
+        label: "Lounge",
+        text: "Weak for the price point. Better lounges are available for the same money, which makes the pre-flight experience feel behind before boarding even starts.",
+      },
+      {
+        label: "Seat",
+        text: "The upper deck has real novelty, but the 2-2 business class layout feels badly outdated. No direct aisle access is hard to justify when it has become the global standard.",
+      },
+      {
+        label: "Meals & Drinks",
+        text: "The inability to request advance specialty meals is a clear miss, especially compared with stronger long-haul business class products.",
+      },
+      {
+        label: "Amenity Kit",
+        text: "Not a standout and not enough to offset the larger product gaps. The overall experience needs a more serious refresh.",
+      },
+      {
+        label: "Service",
+        text: "The cabin crew was delightful and the clear bright spot of the flight. The people helped, but they could not fully overcome the aging hard product.",
+      },
+      {
+        label: "Value",
+        text: "$2,075 bought the novelty of flying one of the last 747s more than a competitive business class experience. I would not choose it again unless the aircraft itself was the point.",
+      },
+    ],
+    verdict:
+      "It's a novelty at this point. With only a handful of airlines still flying the 747, my window to experience it is closing as these beautiful planes are slowly retired. Onboard, the cabin crew was delightful — but the product gaps are glaring. No advance specialty meals, and a hard product that feels badly outdated. No direct aisle access, which has become the global business-class standard. It's all underscored by a weak lounge experience, when far better lounges are available for the same money. The cost here bought a novelty — the aircraft itself — and I doubt these planes will ever get the refurbishment they'd need to truly shine in their last remaining years.",
+    photos: [
+      "/images/business-class/lufthansa-1.jpg",
+      "/images/business-class/lufthansa-2.jpg",
+    ],
+  },
 ];
-
-export const airlineComingSoon: AirlineComingSoon = {
-  name: "Lufthansa",
-  route: "Newark → Budapest",
-  aircraft: "Boeing 747-800",
-  scheduled: "June 2026",
-};

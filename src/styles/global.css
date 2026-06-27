@@ -2146,6 +2146,24 @@ a.list-row {
   border-bottom: none;
 }
 
+.bag-card--photo {
+  grid-template-columns: 64px 220px 1fr;
+}
+
+.bag-card__media {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+}
+
+.bag-card__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
 .bag-card__rank {
   font-family: var(--font-serif);
   font-size: 2.5rem;
@@ -2296,9 +2314,18 @@ a.list-row {
 }
 
 @media (max-width: 600px) {
-  .bag-card {
+  .bag-card,
+  .bag-card--photo {
     grid-template-columns: 48px 1fr;
     gap: var(--space-sm);
+  }
+
+  .bag-card--photo .bag-card__media {
+    grid-column: 1 / -1;
+  }
+
+  .bag-card__img {
+    aspect-ratio: 16 / 9;
   }
 
   .bag-card__rank {

@@ -2,7 +2,7 @@
 import ElevateLayout from "../../../layouts/ElevateLayout.astro";
 import Header from "../../../components/Header.astro";
 import Footer from "../../../components/Footer.astro";
-import { airlineRankings, airlineComingSoon } from "../../../data/business-class-rankings";
+import { airlineRankings } from "../../../data/business-class-rankings";
 ---
 
 <ElevateLayout
@@ -30,7 +30,7 @@ import { airlineRankings, airlineComingSoon } from "../../../data/business-class
     <div class="container">
       <div class="review-section-header">
         <h2>The Rankings</h2>
-        <span>5 airlines reviewed</span>
+        <span>6 airlines reviewed</span>
       </div>
 
       <div class="bag-rankings">
@@ -101,32 +101,6 @@ import { airlineRankings, airlineComingSoon } from "../../../data/business-class
             </div>
           ))
         }
-
-        <div class="bag-card bag-card--tbd">
-          <div class="bag-card__rank">→</div>
-          <div class="bag-card__body">
-            <div class="bag-card__header">
-              <div class="bag-card__name">{airlineComingSoon.name}</div>
-              <div class="bag-card__meta">
-                <span class="bag-card__rating rating--fair">Coming Soon</span>
-              </div>
-            </div>
-            <div class="airline-meta">
-              <div class="airline-meta__item">
-                <span class="airline-meta__label">Route</span>
-                <span class="airline-meta__value">{airlineComingSoon.route}</span>
-              </div>
-              <div class="airline-meta__item">
-                <span class="airline-meta__label">Aircraft</span>
-                <span class="airline-meta__value">{airlineComingSoon.aircraft}</span>
-              </div>
-              <div class="airline-meta__item">
-                <span class="airline-meta__label">Scheduled</span>
-                <span class="airline-meta__value">{airlineComingSoon.scheduled}</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 

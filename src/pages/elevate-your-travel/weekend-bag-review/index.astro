@@ -48,8 +48,18 @@ import { weekendBags, reviewCriteria } from "../../../data/weekend-bags";
       <div class="bag-rankings">
       {
         weekendBags.map((bag) => (
-          <div class="bag-card">
+          <div class="bag-card bag-card--photo">
             <div class="bag-card__rank">{bag.rank}</div>
+            <div class="bag-card__media">
+              <img
+                class="bag-card__img"
+                src={bag.photo}
+                alt={bag.name}
+                width="320"
+                height="240"
+                loading="lazy"
+              />
+            </div>
             <div class="bag-card__body">
               <div class="bag-card__header">
                 <div class="bag-card__name">{bag.name}</div>
