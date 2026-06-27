@@ -1,11 +1,44 @@
 ---
+import {
+  absoluteUrl,
+  buildJsonLd,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+  webPageSchema,
+} from "../lib/seo";
+
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  ogType?: "website" | "article";
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
 }
 
-const { title, description = "Plan better trips with guides built from real experience." } = Astro.props;
-const fullTitle = title === "Globe & Frame" ? title : `${title} — Globe & Frame`;
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  image = DEFAULT_OG_IMAGE,
+  ogType = "website",
+  jsonLd,
+  noindex = false,
+} = Astro.props;
+
+const fullTitle = title === SITE_NAME ? title : `${title} — ${SITE_NAME}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = absoluteUrl(image);
+
+const extraNodes = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const structuredData = buildJsonLd(
+  webPageSchema({
+    title: fullTitle,
+    description,
+    url: canonicalURL.href,
+  }),
+  ...extraNodes,
+);
 
 import "../styles/global.css";
 ---
@@ -16,7 +49,22 @@ import "../styles/global.css";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="icon" href="/images/logo.jpg" type="image/jpeg" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonicalURL.href} />
+    <link rel="icon" href="/images/logo.svg" type="image/svg+xml" />
+
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={ogImageURL} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -24,6 +72,7 @@ import "../styles/global.css";
       rel="stylesheet"
     />
     <title>{fullTitle}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
     <slot />

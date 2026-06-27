@@ -4,6 +4,7 @@ import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import ItineraryCard from "./ItineraryCard.astro";
 import type { ItineraryRegion } from "../data/itineraries";
+import { itemListSchema } from "../lib/seo";
 
 type CtaAction = {
   label: string;
@@ -42,9 +43,23 @@ const tiers = [
   { href: "/itineraries/7-day/", label: "7 Days", id: "7-day" },
   { href: "/itineraries/10-day/", label: "10 Days", id: "10-day" },
 ] as const;
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const listItems = regions.flatMap((region) =>
+  region.itineraries.map((itinerary) => ({
+    name: `${itinerary.destinations} — ${daysLabel} Itinerary`,
+    url: itinerary.available ? itinerary.etsyUrl : undefined,
+  })),
+);
+const jsonLd = itemListSchema({
+  name: pageTitle,
+  description,
+  url: pageUrl,
+  items: listItems,
+});
 ---
 
-<BaseLayout {title} {description}>
+<BaseLayout {title} {description} {jsonLd}>
   <Header />
 
   <main>

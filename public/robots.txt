@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://globeandframe.com/sitemap-index.xml

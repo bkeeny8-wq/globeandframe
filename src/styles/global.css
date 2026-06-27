@@ -1192,10 +1192,6 @@ a.list-row {
   transition: transform 0.3s ease;
 }
 
-.bri-thumb__bg[style*="url("] ~ .bri-thumb__emoji {
-  display: none;
-}
-
 .beach-rank-item:hover:not(.is-active) .bri-thumb__bg {
   transform: scale(1.06);
 }

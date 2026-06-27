@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import { collectionPageSchema } from "../../lib/seo";
 
 const collections = [
   {
@@ -19,12 +20,24 @@ const collections = [
     items: ["Tenerife", "Azores"],
   },
 ];
+
+const pageTitle = "Gallery";
+const pageDescription = "Photography from the places, details, and moments that have stayed with me.";
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const galleryItems = collections.flatMap((collection) =>
+  collection.items
+    ? collection.items.map((item) => ({ name: item, description: collection.description }))
+    : [{ name: collection.title, description: collection.description }],
+);
+const jsonLd = collectionPageSchema({
+  title: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  items: galleryItems,
+});
 ---
 
-<BaseLayout
-  title="Gallery"
-  description="Photography from the places, details, and moments that have stayed with me."
->
+<BaseLayout title={pageTitle} description={pageDescription} {jsonLd}>
   <Header />
 
   <main class="page">

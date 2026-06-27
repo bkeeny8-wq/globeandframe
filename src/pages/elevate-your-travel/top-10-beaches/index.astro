@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ElevateLayout from "../../../layouts/ElevateLayout.astro";
 import Header from "../../../components/Header.astro";
 import Footer from "../../../components/Footer.astro";
 import { beaches } from "../../../data/beaches";
@@ -7,7 +7,7 @@ import { beaches } from "../../../data/beaches";
 const first = beaches[0];
 ---
 
-<BaseLayout
+<ElevateLayout
   title="Top 10 Beaches"
   description="The beaches that stay with you — from iconic stretches of sand to hidden coves and dramatic coastlines."
 >
@@ -64,7 +64,7 @@ const first = beaches[0];
                   class={`bri-thumb__bg th-${beach.num}`}
                   style={beach.photo ? `background-image: url('${beach.photo}')` : undefined}
                 ></div>
-                <div class="bri-thumb__emoji">{beach.emoji}</div>
+                {!beach.photo && <div class="bri-thumb__emoji">{beach.emoji}</div>}
               </div>
               <div class="bri-body">
                 <div class="bri-name">{beach.name}</div>
@@ -134,4 +134,4 @@ const first = beaches[0];
       el.addEventListener("click", () => selectBeach(i));
     });
   </script>
-</BaseLayout>
+</ElevateLayout>
