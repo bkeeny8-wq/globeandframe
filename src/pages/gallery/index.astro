@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { collectionPageSchema } from "../../lib/seo";
+import { webPageSchema } from "../../lib/seo";
 
 const ETSY_SHOP = "https://globeandframeco.etsy.com";
 
@@ -12,55 +12,13 @@ type Shot = {
   etsy?: string;
 };
 
-// TODO (owner): keep only images sold as prints and replace each `etsy`
-// with the specific listing URL. Links fall back to the Etsy shop.
-const collections: { title: string; description: string; shots: Shot[] }[] = [
-  {
-    title: "Destinations",
-    description: "Frames from the road that became prints.",
-    shots: [
-      { src: "/images/city-guides/paris.jpg", title: "Paris" },
-      { src: "/images/city-guides/london.jpg", title: "London" },
-      { src: "/images/city-guides/tokyo.jpg", title: "Tokyo" },
-      { src: "/images/city-guides/sydney.jpg", title: "Sydney" },
-      { src: "/images/city-guides/cape-town.jpg", title: "Cape Town" },
-      { src: "/images/city-guides/azores.jpg", title: "Azores" },
-    ],
-  },
-  {
-    title: "Dream Destinations",
-    description: "Places still pulling me toward the next frame.",
-    shots: [
-      { src: "/images/dreaming/banff.jpg", title: "Banff" },
-      { src: "/images/dreaming/maldives.jpg", title: "Maldives" },
-      { src: "/images/dreaming/galapagos.jpg", title: "Galapagos" },
-      { src: "/images/dreaming/mauritius.jpg", title: "Mauritius" },
-    ],
-  },
-  {
-    title: "Coasts & Cities",
-    description: "Shorelines, skylines, and city details with a sense of place.",
-    shots: [
-      { src: "/images/city-guides/nice.jpg", title: "Nice" },
-      { src: "/images/city-guides/mallorca.jpg", title: "Mallorca" },
-      { src: "/images/city-guides/venice.jpg", title: "Venice" },
-      { src: "/images/city-guides/san-francisco.jpg", title: "San Francisco" },
-    ],
-  },
-];
+// Owner: add collections here when gallery images and Etsy listing URLs are ready.
+const collections: { title: string; description: string; shots: Shot[] }[] = [];
 
 const pageTitle = "Gallery";
 const pageDescription = "Photography from the places, details, and moments that have stayed with me.";
 const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
-const galleryItems = collections.flatMap((collection) =>
-  collection.shots.map((shot) => ({ name: shot.title, description: collection.description })),
-);
-const jsonLd = collectionPageSchema({
-  title: pageTitle,
-  description: pageDescription,
-  url: pageUrl,
-  items: galleryItems,
-});
+const jsonLd = webPageSchema({ title: pageTitle, description: pageDescription, url: pageUrl });
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} {jsonLd}>
@@ -69,10 +27,6 @@ const jsonLd = collectionPageSchema({
   <main class="page">
     <div class="container">
       <h1>Gallery</h1>
-      <p class="section__intro">
-        Photography from the places, details, and moments that have stayed with me. Browse by collection
-        or region, and bring a favorite destination home through print-ready digital downloads.
-      </p>
 
       {
         collections.map((collection) => (
@@ -98,22 +52,6 @@ const jsonLd = collectionPageSchema({
           </section>
         ))
       }
-
-      <section class="section">
-        <h2>Print-Ready Digital Downloads</h2>
-        <p class="section__intro">
-          Images are available as digital downloads in a range of print-ready formats. Browse what&rsquo;s
-          available now on Etsy, with more collections added over time.
-        </p>
-        <a
-          class="button button--primary"
-          href="https://globeandframeco.etsy.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Shop on Etsy
-        </a>
-      </section>
     </div>
   </main>
 
