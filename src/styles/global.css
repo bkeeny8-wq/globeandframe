@@ -2710,13 +2710,20 @@ a.list-row {
 
 .about-hero__inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 520px;
+  grid-template-columns: minmax(0, 0.85fr) 1fr;
+  align-items: center;
+  gap: var(--space-xl);
+  width: min(100% - 2rem, var(--max-width));
+  margin-inline: auto;
+  padding: var(--space-xl) 0;
 }
 
 .about-hero__photo {
   position: relative;
   overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 4 / 5;
+  max-height: 460px;
 }
 
 .about-hero__photo img {

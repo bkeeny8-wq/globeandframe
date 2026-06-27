@@ -278,8 +278,8 @@ export const airlineRankings: AirlineRanking[] = [
     verdict:
       "It's a novelty at this point. With only a handful of airlines still flying the 747, my window to experience it is closing as these beautiful planes are slowly retired. Onboard, the cabin crew was delightful — but the product gaps are glaring. No advance specialty meals, and a hard product that feels badly outdated. No direct aisle access, which has become the global business-class standard. It's all underscored by a weak lounge experience, when far better lounges are available for the same money. The cost here bought a novelty — the aircraft itself — and I doubt these planes will ever get the refurbishment they'd need to truly shine in their last remaining years.",
     photos: [
-      "/images/business-class/lufthansa-1.jpg",
-      "/images/business-class/lufthansa-2.jpg",
+      "/images/business-class/lufthansa-seat.jpg",
+      "/images/business-class/lufthansa-suite.jpg",
     ],
   },
 ];
