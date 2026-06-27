@@ -15,6 +15,7 @@ export type AirlineRanking = {
   bestFor: string;
   categories: AirlineCategory[];
   verdict: string;
+  photos: string[];
 };
 
 export type AirlineComingSoon = {
@@ -63,6 +64,11 @@ export const airlineRankings: AirlineRanking[] = [
     ],
     verdict:
       "A world-renowned product for a reason. From check-in to deplaning, the experience is consistently excellent. The only real miss is the amenity kit, but everything else delivers at a high level and justifies the cost on a flight of this length.",
+    photos: [
+      "/images/business-class/singapore-1.jpg",
+      "/images/business-class/singapore-2.jpg",
+      "/images/business-class/singapore-3.jpg",
+    ],
   },
   {
     rank: 2,
@@ -102,6 +108,11 @@ export const airlineRankings: AirlineRanking[] = [
     ],
     verdict:
       "Air France delivers one of the most complete business class experiences available. The A350 seat, strong food and wine, and polished service set a high bar. Note: the Air France 777 experience is not the same — make sure you are on the A350 before booking.",
+    photos: [
+      "/images/business-class/air-france-1.jpg",
+      "/images/business-class/air-france-2.jpg",
+      "/images/business-class/air-france-3.jpg",
+    ],
   },
   {
     rank: 3,
@@ -141,6 +152,11 @@ export const airlineRankings: AirlineRanking[] = [
     ],
     verdict:
       "United Polaris ranks here because it is consistent. If you want to ensure a reliable experience without researching plane and route differences on every booking, this is a home run.",
+    photos: [
+      "/images/business-class/united-polaris-1.jpg",
+      "/images/business-class/united-polaris-2.jpg",
+      "/images/business-class/united-polaris-3.jpg",
+    ],
   },
   {
     rank: 4,
@@ -180,6 +196,11 @@ export const airlineRankings: AirlineRanking[] = [
     ],
     verdict:
       "Delta One ranks here because the ground experience is excellent but the onboard product does not match it. The Delta One Lounge at JFK is genuinely impressive, but the older 767-300 seat makes the overall experience feel incomplete. With the right aircraft, Delta could rank higher.",
+    photos: [
+      "/images/business-class/delta-one-1.jpg",
+      "/images/business-class/delta-one-2.jpg",
+      "/images/business-class/delta-one-3.jpg",
+    ],
   },
   {
     rank: 5,
@@ -219,6 +240,11 @@ export const airlineRankings: AirlineRanking[] = [
     ],
     verdict:
       "ANA stands out for its service and food, both among the best in business class. However, the older seat holds it back from ranking higher. If the hard product matched the soft product, this would be a top-tier experience across the board.",
+    photos: [
+      "/images/business-class/ana-1.jpg",
+      "/images/business-class/ana-2.jpg",
+      "/images/business-class/ana-3.jpg",
+    ],
   },
 ];
 

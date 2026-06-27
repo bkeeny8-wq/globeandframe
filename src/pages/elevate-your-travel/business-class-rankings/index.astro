@@ -84,6 +84,19 @@ import { airlineRankings, airlineComingSoon } from "../../../data/business-class
                   <div class="bag-card__take-label">Verdict</div>
                   {airline.verdict}
                 </div>
+
+                {airline.photos && airline.photos.length > 0 && (
+                  <div class="airline-gallery">
+                    {airline.photos.map((photo) => (
+                      <img
+                        class="airline-gallery__img"
+                        src={photo}
+                        alt={`${airline.name} business class`}
+                        loading="lazy"
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ))
