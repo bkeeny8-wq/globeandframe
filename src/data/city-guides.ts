@@ -29,7 +29,7 @@ export type CityGuideContent = {
 };
 
 /** Slugs with a live guide page at /city-guides/[slug]/ */
-export const publishedCityGuideSlugs = new Set<string>(["london"]);
+export const publishedCityGuideSlugs = new Set<string>([]);
 
 export const cityGuideRegions: CityGuideRegion[] = [
   {
