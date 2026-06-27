@@ -4,20 +4,48 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { collectionPageSchema } from "../../lib/seo";
 
-const collections = [
+const ETSY_SHOP = "https://globeandframeco.etsy.com";
+
+type Shot = {
+  src: string;
+  title: string;
+  etsy?: string;
+};
+
+// TODO (owner): keep only images sold as prints and replace each `etsy`
+// with the specific listing URL. Links fall back to the Etsy shop.
+const collections: { title: string; description: string; shots: Shot[] }[] = [
   {
-    title: "Regional Collections",
-    description: "Browse photography grouped by destination and explore the places that shaped the gallery.",
+    title: "Destinations",
+    description: "Frames from the road that became prints.",
+    shots: [
+      { src: "/images/city-guides/paris.jpg", title: "Paris" },
+      { src: "/images/city-guides/london.jpg", title: "London" },
+      { src: "/images/city-guides/tokyo.jpg", title: "Tokyo" },
+      { src: "/images/city-guides/sydney.jpg", title: "Sydney" },
+      { src: "/images/city-guides/cape-town.jpg", title: "Cape Town" },
+      { src: "/images/city-guides/azores.jpg", title: "Azores" },
+    ],
   },
   {
-    title: "Wildlife",
-    description: "From safari encounters to coastal wildlife — the animals and wild places that stood out most.",
-    items: ["Safari", "Kangaroos", "Sea Lions & Seals", "Great Barrier Reef"],
+    title: "Dream Destinations",
+    description: "Places still pulling me toward the next frame.",
+    shots: [
+      { src: "/images/dreaming/banff.jpg", title: "Banff" },
+      { src: "/images/dreaming/maldives.jpg", title: "Maldives" },
+      { src: "/images/dreaming/galapagos.jpg", title: "Galapagos" },
+      { src: "/images/dreaming/mauritius.jpg", title: "Mauritius" },
+    ],
   },
   {
-    title: "Starry Skies",
-    description: "Night skies from destinations where seeing the stars felt like part of the trip itself.",
-    items: ["Tenerife", "Azores"],
+    title: "Coasts & Cities",
+    description: "Shorelines, skylines, and city details with a sense of place.",
+    shots: [
+      { src: "/images/city-guides/nice.jpg", title: "Nice" },
+      { src: "/images/city-guides/mallorca.jpg", title: "Mallorca" },
+      { src: "/images/city-guides/venice.jpg", title: "Venice" },
+      { src: "/images/city-guides/san-francisco.jpg", title: "San Francisco" },
+    ],
   },
 ];
 
@@ -25,9 +53,7 @@ const pageTitle = "Gallery";
 const pageDescription = "Photography from the places, details, and moments that have stayed with me.";
 const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
 const galleryItems = collections.flatMap((collection) =>
-  collection.items
-    ? collection.items.map((item) => ({ name: item, description: collection.description }))
-    : [{ name: collection.title, description: collection.description }],
+  collection.shots.map((shot) => ({ name: shot.title, description: collection.description })),
 );
 const jsonLd = collectionPageSchema({
   title: pageTitle,
@@ -48,21 +74,30 @@ const jsonLd = collectionPageSchema({
         or region, and bring a favorite destination home through print-ready digital downloads.
       </p>
 
-      <div class="card-grid">
-        {collections.map((item) => (
-          <article class="card">
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            {item.items && (
-              <ul>
-                {item.items.map((sub) => (
-                  <li>{sub}</li>
-                ))}
-              </ul>
-            )}
-          </article>
-        ))}
-      </div>
+      {
+        collections.map((collection) => (
+          <section class="gallery-collection">
+            <h2>{collection.title}</h2>
+            <p class="section__intro">{collection.description}</p>
+            <div class="photo-grid">
+              {collection.shots.map((shot) => (
+                <a
+                  class="photo-card"
+                  href={shot.etsy ?? ETSY_SHOP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img class="photo-card__img" src={shot.src} alt={shot.title} loading="lazy" decoding="async" />
+                  <span class="photo-card__overlay">
+                    <span class="photo-card__title">{shot.title}</span>
+                    <span class="photo-card__cta">View print &rarr;</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))
+      }
 
       <section class="section">
         <h2>Print-Ready Digital Downloads</h2>
@@ -83,4 +118,72 @@ const jsonLd = collectionPageSchema({
   </main>
 
   <Footer />
+
+  <style>
+    .gallery-collection {
+      margin-top: var(--space-xl);
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .photo-card {
+      position: relative;
+      display: block;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+    }
+
+    .photo-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .photo-card:hover .photo-card__img {
+      transform: scale(1.05);
+    }
+
+    .photo-card__overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 0.15rem;
+      padding: var(--space-sm);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      background: linear-gradient(to top, rgba(10, 15, 26, 0.85), transparent 60%);
+    }
+
+    .photo-card:hover .photo-card__overlay {
+      opacity: 1;
+    }
+
+    .photo-card__title {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: 1.15rem;
+    }
+
+    .photo-card__cta {
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-gold-light);
+    }
+
+    @media (hover: none) {
+      .photo-card__overlay {
+        opacity: 1;
+      }
+    }
+  </style>
 </BaseLayout>

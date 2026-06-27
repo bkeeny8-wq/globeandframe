@@ -2,6 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+
+// Optional Web3Forms backend. Add the access key to send inquiries directly
+// from GitHub Pages; until then the form falls back to a prefilled email.
+const ACCESS_KEY = "9acd25aa-e19e-461f-a74e-8cfac2d5fbc8";
+const hasBackend = Boolean(ACCESS_KEY);
 ---
 
 <BaseLayout
@@ -18,7 +23,18 @@ import Footer from "../components/Footer.astro";
         build a plan around the experience you&rsquo;re looking for.
       </p>
 
-      <form class="inquiry-form" id="inquiry-form">
+      <form
+        class="inquiry-form"
+        id="inquiry-form"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+        data-has-backend={hasBackend ? "true" : "false"}
+      >
+        {hasBackend && <input type="hidden" name="access_key" value={ACCESS_KEY} />}
+        <input type="hidden" name="subject" value="Custom Trip Inquiry — Globe & Frame" />
+        <input type="hidden" name="from_name" value="Globe & Frame" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
         <label>
           Name
           <input type="text" name="name" required />
@@ -54,7 +70,8 @@ import Footer from "../components/Footer.astro";
           ></textarea>
         </label>
 
-        <button class="button button--primary" type="submit">Send Inquiry</button>
+        <button class="button button--primary" type="submit" id="inquiry-submit">Send Inquiry</button>
+        <p class="inquiry-status" id="inquiry-status" role="status" aria-live="polite"></p>
       </form>
 
       <p>
@@ -66,12 +83,11 @@ import Footer from "../components/Footer.astro";
   <Footer />
 
   <script>
-    const form = document.getElementById("inquiry-form");
+    const form = document.getElementById("inquiry-form") as HTMLFormElement | null;
+    const status = document.getElementById("inquiry-status");
+    const submit = document.getElementById("inquiry-submit") as HTMLButtonElement | null;
 
-    form?.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const data = new FormData(form as HTMLFormElement);
-
+    function openMailto(data: FormData) {
       const subject = encodeURIComponent("Custom Trip Inquiry — Globe & Frame");
       const body = encodeURIComponent(
         [
@@ -86,6 +102,64 @@ import Footer from "../components/Footer.astro";
       );
 
       window.location.href = `mailto:bkeeny8@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form) return;
+
+      const data = new FormData(form);
+
+      if (form.dataset.hasBackend !== "true") {
+        openMailto(data);
+        return;
+      }
+
+      if (!status || !submit) return;
+
+      submit.disabled = true;
+      submit.textContent = "Sending...";
+      status.className = "inquiry-status";
+      status.textContent = "";
+
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: data,
+        });
+        const result = await res.json();
+
+        if (!res.ok || !result.success) {
+          throw new Error(result.message || "Submission failed");
+        }
+
+        form.reset();
+        status.classList.add("inquiry-status--ok");
+        status.textContent = "Thanks — your inquiry is on its way. I'll be in touch by email soon.";
+        submit.textContent = "Sent";
+      } catch {
+        status.classList.add("inquiry-status--err");
+        status.innerHTML =
+          'Something went wrong sending the form. Please email me directly at <a href="mailto:bkeeny8@gmail.com">bkeeny8@gmail.com</a>.';
+        submit.disabled = false;
+        submit.textContent = "Send Inquiry";
+      }
     });
   </script>
+
+  <style>
+    .inquiry-status {
+      margin-top: var(--space-sm);
+      min-height: 1.2em;
+    }
+
+    .inquiry-status--ok {
+      color: var(--color-gold-light);
+    }
+
+    .inquiry-status--err {
+      color: #e88;
+    }
+  </style>
 </BaseLayout>

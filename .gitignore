@@ -1,4 +1,14 @@
-node_modules/
+# build output
 dist/
 .astro/
+
+# os / editor
 .DS_Store
+Archive.zip
+
+# data migration artifacts
+src/data/articles.backup-*.json
+src/data/articles.rewritten.preview.json
+
+# deps
+node_modules/

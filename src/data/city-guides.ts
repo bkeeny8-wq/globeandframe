@@ -3,6 +3,7 @@ export type CityGuide = {
   slug: string;
   region: string;
   hook: string;
+  content?: CityGuideContent;
 };
 
 export type CityGuideRegion = {
@@ -10,8 +11,25 @@ export type CityGuideRegion = {
   guides: CityGuide[];
 };
 
+export type GuideListItem = {
+  name: string;
+  note: string;
+};
+
+export type CityGuideContent = {
+  heroImage?: string;
+  intro: string;
+  bestTime?: string;
+  highlights: GuideListItem[];
+  whereToEat?: GuideListItem[];
+  whereToStay?: GuideListItem[];
+  whatToSkip?: string[];
+  etsyItineraryUrl?: string;
+  relatedSlugs?: string[];
+};
+
 /** Slugs with a live guide page at /city-guides/[slug]/ */
-export const publishedCityGuideSlugs = new Set<string>([]);
+export const publishedCityGuideSlugs = new Set<string>(["london"]);
 
 export const cityGuideRegions: CityGuideRegion[] = [
   {
@@ -69,7 +87,36 @@ export const cityGuideRegions: CityGuideRegion[] = [
         "name": "London",
         "slug": "london",
         "region": "United Kingdom \u00b7 Europe",
-        "hook": "My favorite city in the world. Historic pubs, great transport, and the best Indian food outside India."
+        "hook": "My favorite city in the world. Historic pubs, great transport, and the best Indian food outside India.",
+        "content": {
+          "intro": "London is the city I keep coming back to — layered, walkable, and endlessly re-visitable. This guide covers how I'd spend a first or fifth trip without wasting a day. /* TODO: owner voice */",
+          "bestTime": "Best: late spring and September",
+          "highlights": [
+            {
+              "name": "Historic pubs",
+              "note": "/* TODO: verify specific picks */"
+            },
+            {
+              "name": "Borough Market",
+              "note": "Go hungry, go early."
+            },
+            {
+              "name": "A West End show",
+              "note": "/* TODO: booking tip */"
+            }
+          ],
+          "whereToEat": [
+            {
+              "name": "Indian in the East End",
+              "note": "/* TODO: verify */"
+            }
+          ],
+          "whatToSkip": [
+            "/* TODO: an honest 'skip this' the owner stands behind */"
+          ],
+          "etsyItineraryUrl": "https://globeandframeco.etsy.com",
+          "relatedSlugs": ["paris"]
+        }
       },
       {
         "name": "Madrid",
@@ -392,3 +439,32 @@ export const cityGuideRegions: CityGuideRegion[] = [
     ]
   }
 ];
+
+export const allCityGuides: CityGuide[] = cityGuideRegions.flatMap((region) => region.guides);
+
+export function getCityGuide(slug: string): CityGuide | undefined {
+  return allCityGuides.find((guide) => guide.slug === slug);
+}
+
+export function relatedGuides(slug: string, max = 3): CityGuide[] {
+  const guide = getCityGuide(slug);
+
+  if (!guide) return [];
+
+  const explicit = (guide.content?.relatedSlugs ?? [])
+    .map(getCityGuide)
+    .filter(
+      (related): related is CityGuide =>
+        Boolean(related) && related.slug !== slug && publishedCityGuideSlugs.has(related.slug),
+    );
+  const pool = explicit.length
+    ? explicit
+    : allCityGuides.filter(
+        (candidate) =>
+          candidate.region === guide.region &&
+          candidate.slug !== slug &&
+          publishedCityGuideSlugs.has(candidate.slug),
+      );
+
+  return pool.slice(0, max);
+}
