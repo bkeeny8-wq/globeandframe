@@ -27,33 +27,34 @@ const first = beaches[0];
       </div>
     </section>
 
-    <div class="beach-featured" id="beach-featured">
-      <div
-        class="beach-featured__bg bg-1"
-        id="beach-bg"
-        style={first.photo ? `background-image: url('${first.photo}')` : undefined}
-      ></div>
-      <div class="beach-featured__overlay"></div>
-      <div class="beach-featured__body">
-        <div class="bf-left" id="bf-left">
-          <div class="bf-rank" id="bf-rank">No. {first.num} · {first.name}</div>
-          <div class="bf-name" id="bf-name">{first.name}</div>
-          <div class="bf-location" id="bf-location">{first.location}</div>
-          <div class="bf-tagline" id="bf-tagline">{first.tagline}</div>
-          <div class="bf-take" id="bf-take">{first.take}</div>
-        </div>
-        <div class="bf-stats">
-          <div class="bf-stat"><h4>Beach Type</h4><p id="s-type">{first.type}</p></div>
-          <div class="bf-stat"><h4>Access</h4><p id="s-access">{first.access}</p></div>
-          <div class="bf-stat"><h4>Crowd Level</h4><p id="s-crowd">{first.crowd}</p></div>
-          <div class="bf-stat"><h4>Setup &amp; Gear</h4><p id="s-gear">{first.gear}</p></div>
-          <div class="bf-stat"><h4>Nearby Scene</h4><p id="s-scene">{first.scene}</p></div>
-          <div class="bf-stat"><h4>Water &amp; Conditions</h4><p id="s-water">{first.water}</p></div>
-        </div>
-      </div>
-    </div>
-
     <div class="container">
+      <article class="beach-feature" id="beach-featured">
+        <div class="beach-feature__media">
+          <div
+            class="beach-feature__img bg-1"
+            id="beach-bg"
+            style={first.photo ? `background-image: url('${first.photo}')` : undefined}
+          ></div>
+          <span class="beach-feature__badge" id="bf-rank">No. {first.num}</span>
+          <div class="beach-feature__caption">
+            <h2 class="beach-feature__name" id="bf-name">{first.name}</h2>
+            <p class="beach-feature__location" id="bf-location">{first.location}</p>
+          </div>
+        </div>
+        <div class="beach-feature__content" id="bf-content">
+          <p class="beach-feature__tagline" id="bf-tagline">{first.tagline}</p>
+          <p class="beach-feature__take" id="bf-take">{first.take}</p>
+          <div class="beach-feature__stats">
+            <div class="bf-stat"><h4>Beach Type</h4><p id="s-type">{first.type}</p></div>
+            <div class="bf-stat"><h4>Access</h4><p id="s-access">{first.access}</p></div>
+            <div class="bf-stat"><h4>Crowd Level</h4><p id="s-crowd">{first.crowd}</p></div>
+            <div class="bf-stat"><h4>Setup &amp; Gear</h4><p id="s-gear">{first.gear}</p></div>
+            <div class="bf-stat"><h4>Nearby Scene</h4><p id="s-scene">{first.scene}</p></div>
+            <div class="bf-stat"><h4>Water &amp; Conditions</h4><p id="s-water">{first.water}</p></div>
+          </div>
+        </div>
+      </article>
+
       <div class="beach-ranked-list" id="beach-ranked-list">
         {
           beaches.map((beach, index) => (
@@ -98,15 +99,15 @@ const first = beaches[0];
 
       const bg = document.getElementById("beach-bg");
       if (bg) {
-        bg.className = "beach-featured__bg bg-" + (index + 1);
+        bg.className = "beach-feature__img bg-" + (index + 1);
         bg.style.backgroundImage = b.photo ? `url('${b.photo}')` : "";
       }
 
-      const left = document.getElementById("bf-left");
-      if (left) {
-        left.classList.remove("animating");
-        void left.offsetWidth;
-        left.classList.add("animating");
+      const content = document.getElementById("bf-content");
+      if (content) {
+        content.classList.remove("animating");
+        void content.offsetWidth;
+        content.classList.add("animating");
       }
 
       const setText = (id, value) => {
@@ -114,7 +115,7 @@ const first = beaches[0];
         if (el) el.textContent = value;
       };
 
-      setText("bf-rank", `No. ${b.num} · ${b.name}`);
+      setText("bf-rank", `No. ${b.num}`);
       setText("bf-name", b.name);
       setText("bf-location", b.location);
       setText("bf-tagline", b.tagline);

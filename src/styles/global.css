@@ -960,140 +960,141 @@ a.list-row {
   z-index: 1;
 }
 
-.beach-featured {
-  position: relative;
+.beach-feature {
+  margin-top: var(--space-lg);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
   overflow: hidden;
-  aspect-ratio: 16 / 9;
-  max-height: 440px;
 }
 
-.beach-featured__bg {
+.beach-feature__media {
+  position: relative;
+  aspect-ratio: 21 / 9;
+  max-height: 460px;
+  overflow: hidden;
+}
+
+.beach-feature__img {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center 35%;
-  transition: opacity 0.4s ease;
+  background-position: center 40%;
+  transition: transform 0.5s ease;
 }
 
-.beach-featured__bg.bg-1 {
-  background-image: linear-gradient(145deg, #0d2b4a, #2980b9);
-}
-
-.beach-featured__bg.bg-2 {
-  background-image: linear-gradient(145deg, #4a1800, #c0392b);
-}
-
-.beach-featured__bg.bg-3 {
-  background-image: linear-gradient(145deg, #1a3a5c, #85c1e9);
-}
-
-.beach-featured__bg.bg-4 {
-  background-image: linear-gradient(145deg, #2c1810, #8b5e3c);
-}
-
-.beach-featured__bg.bg-5 {
-  background-image: linear-gradient(145deg, #003d5c, #48b5d8);
-}
-
-.beach-featured__bg.bg-6 {
-  background-image: linear-gradient(145deg, #1a0a00, #7a4a1a);
-}
-
-.beach-featured__bg.bg-7 {
-  background-image: linear-gradient(145deg, #1e4080, #85c1e9);
-}
-
-.beach-featured__bg.bg-8 {
-  background-image: linear-gradient(145deg, #0d3349, #48c9b0);
-}
-
-.beach-featured__bg.bg-9 {
-  background-image: linear-gradient(145deg, #1a0a2e, #9b59b6);
-}
-
-.beach-featured__bg.bg-10 {
-  background-image: linear-gradient(145deg, #003366, #66b3ff);
-}
-
-.beach-featured__overlay {
+.beach-feature__media::after {
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.92) 0%,
-    rgba(0, 0, 0, 0.3) 50%,
-    rgba(0, 0, 0, 0.15) 100%
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.25) 38%,
+    rgba(0, 0, 0, 0) 65%
   );
 }
 
-.beach-featured__body {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: var(--space-lg);
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: var(--space-xl);
-  align-items: flex-end;
+.beach-feature__img.bg-1 {
+  background-image: linear-gradient(145deg, #0d2b4a, #2980b9);
+}
+.beach-feature__img.bg-2 {
+  background-image: linear-gradient(145deg, #4a1800, #c0392b);
+}
+.beach-feature__img.bg-3 {
+  background-image: linear-gradient(145deg, #1a3a5c, #85c1e9);
+}
+.beach-feature__img.bg-4 {
+  background-image: linear-gradient(145deg, #2c1810, #8b5e3c);
+}
+.beach-feature__img.bg-5 {
+  background-image: linear-gradient(145deg, #003d5c, #48b5d8);
+}
+.beach-feature__img.bg-6 {
+  background-image: linear-gradient(145deg, #1a0a00, #7a4a1a);
+}
+.beach-feature__img.bg-7 {
+  background-image: linear-gradient(145deg, #1e4080, #85c1e9);
+}
+.beach-feature__img.bg-8 {
+  background-image: linear-gradient(145deg, #0d3349, #48c9b0);
+}
+.beach-feature__img.bg-9 {
+  background-image: linear-gradient(145deg, #1a0a2e, #9b59b6);
+}
+.beach-feature__img.bg-10 {
+  background-image: linear-gradient(145deg, #003366, #66b3ff);
 }
 
-.bf-rank {
+.beach-feature__badge {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  z-index: 2;
   font-size: 0.62rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-gold);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.bf-rank::before {
-  content: "";
-  width: 20px;
-  height: 1px;
+  color: var(--color-navy);
   background: var(--color-gold);
-  display: block;
+  padding: 5px 12px;
+  border-radius: 999px;
 }
 
-.bf-name {
+.beach-feature__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+}
+
+.beach-feature__name {
   font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-size: clamp(1.9rem, 4vw, 3rem);
   font-weight: 600;
   color: #fff;
-  line-height: 1.1;
-  margin-bottom: 6px;
+  line-height: 1.05;
+  margin: 0 0 4px;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.5);
 }
 
-.bf-location {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-style: italic;
-  margin-bottom: 12px;
-}
-
-.bf-tagline {
+.beach-feature__location {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.82);
   font-style: italic;
-  max-width: 48ch;
-  line-height: 1.6;
-  margin-bottom: var(--space-sm);
+  margin: 0;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
 }
 
-.bf-take {
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.55);
+.beach-feature__content {
+  padding: var(--space-lg);
+}
+
+.beach-feature__tagline {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--color-gold);
+  line-height: 1.4;
+  margin: 0 0 var(--space-md);
+}
+
+.beach-feature__take {
+  font-size: 0.92rem;
+  color: var(--color-muted);
   line-height: 1.75;
-  max-width: 52ch;
+  max-width: 68ch;
+  margin: 0 0 var(--space-lg);
 }
 
-.bf-stats {
+.beach-feature__stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md) var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
 }
 
 .bf-stat h4 {
@@ -1102,13 +1103,13 @@ a.list-row {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-gold);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .bf-stat p {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.62);
-  line-height: 1.5;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  line-height: 1.55;
   margin: 0;
 }
 
@@ -1123,7 +1124,7 @@ a.list-row {
   }
 }
 
-.bf-left.animating {
+.beach-feature__content.animating {
   animation: beachFadeUp 0.35s ease forwards;
 }
 
@@ -1380,18 +1381,21 @@ a.list-row {
     align-items: flex-start;
   }
 
-  .beach-featured {
-    height: 580px;
+  .beach-feature__media {
+    aspect-ratio: 4 / 3;
   }
 
-  .beach-featured__body {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
+  .beach-feature__caption {
     padding: var(--space-md);
   }
 
-  .bf-stats {
-    display: none;
+  .beach-feature__content {
+    padding: var(--space-md);
+  }
+
+  .beach-feature__stats {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
   }
 
   .beach-rank-item {
