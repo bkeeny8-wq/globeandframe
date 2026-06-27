@@ -57,6 +57,13 @@ const regionCount = cityGuideRegions.length;
 
                   return (
                     <article class="guide-card">
+                      <img
+                        class="guide-card__image"
+                        src={`/images/city-guides/${guide.slug}.jpg`}
+                        alt={guide.name}
+                        loading="lazy"
+                        decoding="async"
+                      />
                       <div class="guide-card__body">
                         <h3 class="guide-card__name">
                           {isPublished ? (

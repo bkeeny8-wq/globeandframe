@@ -30,6 +30,7 @@ export const beaches: Beach[] = [
     water: "Surf, warm water, and very strong sun",
     emoji: "🏖️",
     tags: ["Golden sand", "Surf", "Iconic"],
+    photo: "/images/beaches/bondi-beach.jpg",
   },
   {
     num: 2,
@@ -45,6 +46,7 @@ export const beaches: Beach[] = [
     water: "Strong waves, better for quick dips than long swims",
     emoji: "🌊",
     tags: ["Wide sand", "Energetic", "Always active"],
+    photo: "/images/beaches/copacabana-beach.jpg",
   },
   {
     num: 3,
@@ -60,6 +62,7 @@ export const beaches: Beach[] = [
     water: "Clear, dramatic water with a rocky entry",
     emoji: "🏔️",
     tags: ["Rocky cove", "30-min hike", "Clear water"],
+    photo: "/images/beaches/cala-figuera.jpg",
   },
   {
     num: 4,
@@ -75,6 +78,7 @@ export const beaches: Beach[] = [
     water: "Cold Atlantic water, strong waves, dramatic scenery",
     emoji: "🌅",
     tags: ["Rock formations", "Steep hike", "Secluded"],
+    photo: "/images/beaches/praia-da-ursa.jpg",
   },
   {
     num: 5,
@@ -90,6 +94,7 @@ export const beaches: Beach[] = [
     water: "Calm, shallow, crystal-clear water made for floating",
     emoji: "🏝️",
     tags: ["Turquoise", "White sand", "Calm water"],
+    photo: "/images/beaches/cala-brandinchi.jpg",
   },
   {
     num: 6,
@@ -105,6 +110,7 @@ export const beaches: Beach[] = [
     water: "Strong Atlantic waves with deep water and a rugged feel",
     emoji: "🌋",
     tags: ["Black sand", "Cliffs", "Atlantic waves"],
+    photo: "/images/beaches/playa-el-bollullo.jpg",
   },
   {
     num: 7,
@@ -120,6 +126,7 @@ export const beaches: Beach[] = [
     water: "Cool Pacific water with steady waves and consistent wind",
     emoji: "🤙",
     tags: ["Wide sand", "Surf culture", "Pier"],
+    photo: "/images/beaches/huntington-beach.jpg",
   },
   {
     num: 8,
@@ -135,6 +142,7 @@ export const beaches: Beach[] = [
     water: "Clear, calm water with excellent visibility",
     emoji: "⛵",
     tags: ["Pebble", "Crystal clear", "Pine trees"],
+    photo: "/images/beaches/plaza-kasjuni.jpg",
   },
   {
     num: 9,
@@ -150,6 +158,7 @@ export const beaches: Beach[] = [
     water: "Clear, deep water with a quick drop-off and refreshing temperature",
     emoji: "🥂",
     tags: ["Riviera", "Pebble", "Promenade"],
+    photo: "/images/beaches/plage-de-carras.jpg",
   },
   {
     num: 10,
@@ -165,5 +174,6 @@ export const beaches: Beach[] = [
     water: "Calm, warm Gulf water with gentle waves",
     emoji: "☀️",
     tags: ["White sand", "Warm Gulf", "Easy access"],
+    photo: "/images/beaches/clearwater-beach.jpg",
   },
 ];

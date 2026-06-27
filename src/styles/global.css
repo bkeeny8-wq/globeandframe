@@ -2914,6 +2914,14 @@ a.list-row {
   opacity: 1;
 }
 
+.guide-card__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
 .guide-card__body {
   padding: var(--space-md);
 }

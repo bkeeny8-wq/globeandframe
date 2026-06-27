@@ -209,6 +209,12 @@ export const cityGuideRegions: CityGuideRegion[] = [
         "hook": "Sunshine, food trucks, and a sprawl that rewards having a plan \u2014 the beach neighborhoods are where the city actually lives."
       },
       {
+        "name": "Nashville",
+        "slug": "nashville",
+        "region": "Tennessee \u00b7 USA",
+        "hook": "Live music on every block, hot chicken worth the wait, and a city that knows how to have a good time without trying too hard."
+      },
+      {
         "name": "New Orleans",
         "slug": "new-orleans",
         "region": "Louisiana \u00b7 USA",
@@ -278,6 +284,12 @@ export const cityGuideRegions: CityGuideRegion[] = [
         "slug": "cape-town",
         "region": "South Africa \u00b7 Africa",
         "hook": "LA vibes on the waterfront, exceptional food, and the best gateway to an African safari you\u2019ll ever find."
+      },
+      {
+        "name": "Casablanca",
+        "slug": "casablanca",
+        "region": "Morocco \u00b7 Africa",
+        "hook": "A modern Moroccan city that surprises with its architecture, food, and the best entry point into the country."
       },
       {
         "name": "Hazyview / Kruger National Park",

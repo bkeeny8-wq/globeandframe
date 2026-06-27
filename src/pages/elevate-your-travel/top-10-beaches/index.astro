@@ -28,7 +28,11 @@ const first = beaches[0];
     </section>
 
     <div class="beach-featured" id="beach-featured">
-      <div class="beach-featured__bg bg-1" id="beach-bg"></div>
+      <div
+        class="beach-featured__bg bg-1"
+        id="beach-bg"
+        style={first.photo ? `background-image: url('${first.photo}')` : undefined}
+      ></div>
       <div class="beach-featured__overlay"></div>
       <div class="beach-featured__body">
         <div class="bf-left" id="bf-left">
@@ -56,7 +60,10 @@ const first = beaches[0];
             <div class={`beach-rank-item${index === 0 ? " is-active" : ""}`} data-index={index}>
               <div class="bri-num">{beach.num}</div>
               <div class="bri-thumb">
-                <div class={`bri-thumb__bg th-${beach.num}`}></div>
+                <div
+                  class={`bri-thumb__bg th-${beach.num}`}
+                  style={beach.photo ? `background-image: url('${beach.photo}')` : undefined}
+                ></div>
                 <div class="bri-thumb__emoji">{beach.emoji}</div>
               </div>
               <div class="bri-body">
