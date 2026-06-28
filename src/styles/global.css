@@ -1737,11 +1737,16 @@ a.list-row {
   margin: 0;
 }
 
+.city-entries {
+  width: min(100% - 2rem, 60rem);
+  margin-inline: auto;
+}
+
 .city-entry {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
-  min-height: 480px;
+  min-height: 360px;
   border-bottom: 1px solid rgba(12, 32, 66, 0.06);
   overflow: hidden;
 }
