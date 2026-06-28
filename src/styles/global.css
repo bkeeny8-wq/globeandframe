@@ -3628,3 +3628,10 @@ a.list-row {
 .dreaming-cta a:not(.button),
 .custom-pitch a:not(.button) { color: var(--color-gold); }
 .card-feature__overlay, .dreaming-card__overlay { color: rgba(255, 255, 255, 0.88); }
+
+/* Home custom-pitch sits on a light surface, not the navy band — use dark text. */
+.home .custom-pitch,
+.home .custom-pitch p,
+.home .custom-pitch__body,
+.home .custom-pitch__text { color: var(--color-muted-mid); }
+.home .custom-pitch h2 { color: var(--color-navy); }
