@@ -2,7 +2,7 @@ export const SITE_URL = "https://globeandframe.com";
 export const SITE_NAME = "Globe & Frame";
 export const DEFAULT_DESCRIPTION =
   "Plan better trips with guides built from real experience — city guides, itineraries, and travel advice from first-hand trips.";
-export const DEFAULT_OG_IMAGE = "/images/bradon-about.jpg";
+export const DEFAULT_OG_IMAGE = "/images/og-default.png";
 
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).href;

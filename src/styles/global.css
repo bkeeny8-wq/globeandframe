@@ -1,22 +1,36 @@
 :root {
-  /* Dark editorial palette — Navy / Gold / Dark */
-  --color-page: #0a0f1a;
-  --color-surface: #0f1923;
-  --color-surface-raise: #141e2e;
-  --color-card: rgba(255, 255, 255, 0.03);
-  --color-card-hover: rgba(200, 168, 75, 0.05);
-  --color-navy: #1b2a4a;
-  --color-navy-deep: #111d33;
-  --color-gold: #c8a84b;
-  --color-gold-dim: rgba(200, 168, 75, 0.4);
-  --color-gold-ghost: rgba(200, 168, 75, 0.15);
-  --color-gold-light: #f2e8c6;
-  --color-sand: #f5f0e8;
-  --color-text: rgba(255, 255, 255, 0.85);
-  --color-muted: rgba(255, 255, 255, 0.38);
+  /* === Brand palette: 5 colors total ===
+     Ink #0c2042 · Navy #0c2042 · Gold #d2af3b · White #fefefe · Sand #f5f0e8
+     Everything below is one of these five, or an opacity of white/gold/navy
+     (opacities are shades, not new colors). */
+  --navy: #0c2042;   /* single deep navy: page, surfaces, mark, accents */
+  --ink: var(--navy); /* alias kept so existing tokens resolve */
+  --gold: #d2af3b;
+  --white: #fefefe;
+  --sand: #f5f0e8;
+
+  /* Backgrounds — all Ink; elevation comes from the white overlay on cards */
+  --color-page: var(--ink);
+  --color-surface: var(--ink);
+  --color-surface-raise: var(--ink);
+  --color-card: rgba(255, 255, 255, 0.04);
+  --color-card-hover: rgba(210, 175, 59, 0.06);
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--ink);
+
+  /* Gold — one value; "dim/ghost/light" are opacities of the same gold */
+  --color-gold: var(--gold);
+  --color-gold-dim: rgba(210, 175, 59, 0.4);
+  --color-gold-ghost: rgba(210, 175, 59, 0.15);
+  --color-gold-light: var(--sand);
+  --color-sand: var(--sand);
+
+  /* Text & lines — opacities of white (shades, not new colors) */
+  --color-text: rgba(255, 255, 255, 0.88);
+  --color-muted: rgba(255, 255, 255, 0.4);
   --color-muted-mid: rgba(255, 255, 255, 0.55);
-  --color-border: rgba(255, 255, 255, 0.07);
-  --color-border-gold: rgba(200, 168, 75, 0.2);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-gold: rgba(210, 175, 59, 0.25);
 
   /* Semantic aliases */
   --color-bg: var(--color-page);
@@ -70,7 +84,7 @@ a {
 }
 
 a:hover {
-  color: #e0c060;
+  color: #d2af3b;
 }
 
 h1,
@@ -167,7 +181,6 @@ p {
   display: block;
   height: 52px;
   width: auto;
-  border-radius: 4px;
 }
 
 .site-nav {
@@ -188,7 +201,7 @@ p {
 }
 
 .site-footer {
-  background: #080d14;
+  background: #0c2042;
   border-top: 1px solid var(--color-border);
   padding: var(--space-lg) 0;
   margin-top: 0;
@@ -254,13 +267,13 @@ p {
 
 .button--primary {
   background: var(--color-gold);
-  color: #1b2a4a;
+  color: #0c2042;
   font-weight: 700;
 }
 
 .button--primary:hover {
-  background: #b8962e;
-  color: #1b2a4a;
+  background: #b8932e;
+  color: #0c2042;
 }
 
 .button--secondary {
@@ -452,11 +465,11 @@ p {
 }
 
 .shop-cta .button--primary {
-  color: #1b2a4a;
+  color: #0c2042;
 }
 
 .shop-cta .button--primary:hover {
-  color: #1b2a4a;
+  color: #0c2042;
 }
 
 .shop-cta p:last-child {
@@ -482,7 +495,7 @@ p {
   right: -80px;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(200, 168, 75, 0.07) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(210, 175, 59, 0.07) 0%, transparent 65%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -609,31 +622,31 @@ a.card-feature {
 }
 
 .card-feature--ocean {
-  background: linear-gradient(145deg, #0d2b4a 0%, #1a5276 100%);
+  background: linear-gradient(145deg, #0c2042 0%, #16305c 100%);
 }
 
 .card-feature--amber {
-  background: linear-gradient(145deg, #5c3a00 0%, #b8860b 100%);
+  background: linear-gradient(145deg, #0c2042 0%, #8a6d22 100%);
 }
 
 .card-feature--teal {
-  background: linear-gradient(145deg, #0a2f35 0%, #1a6b78 100%);
+  background: linear-gradient(145deg, #0c2042 0%, #16305c 100%);
 }
 
 .card-feature--dusk {
-  background: linear-gradient(145deg, #2d1b4e 0%, #6a3fa5 100%);
+  background: linear-gradient(145deg, #0c2042 0%, #16305c 100%);
 }
 
 .card-feature--slate {
-  background: linear-gradient(145deg, #1a1f2e 0%, #384260 100%);
+  background: linear-gradient(145deg, #0c2042 0%, #16305c 100%);
 }
 
 .card-feature--bronze {
-  background: linear-gradient(145deg, #3b2500 0%, #8b5e1a 100%);
+  background: linear-gradient(145deg, #0c2042 0%, #8a6d22 100%);
 }
 
 .card-feature--navy {
-  background: linear-gradient(145deg, #0f1923 0%, #1b2a4a 100%);
+  background: linear-gradient(145deg, #0c2042 0%, #16305c 100%);
 }
 
 .card-feature__overlay {
@@ -795,12 +808,12 @@ a.row-card {
 }
 
 .row-card--cta {
-  background: rgba(200, 168, 75, 0.06);
+  background: rgba(210, 175, 59, 0.06);
   border-color: var(--color-border-gold);
 }
 
 .row-card--cta .row-card__num {
-  color: rgba(200, 168, 75, 0.25);
+  color: rgba(210, 175, 59, 0.25);
 }
 
 .row-card--cta .row-card__title {
@@ -879,7 +892,7 @@ a.list-row {
 }
 
 .cta-editorial {
-  background: linear-gradient(100deg, var(--color-navy) 0%, #111d33 100%);
+  background: linear-gradient(100deg, var(--color-navy) 0%, #0c2042 100%);
   border-top: 1px solid var(--color-border-gold);
   border-bottom: 1px solid var(--color-border-gold);
   padding: var(--space-xl) 0;
@@ -917,7 +930,7 @@ a.list-row {
 .beaches-page-hero {
   background: var(--color-surface);
   padding: var(--space-xl) 0 calc(var(--space-xl) * 0.8);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.12);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.12);
   position: relative;
   overflow: hidden;
 }
@@ -929,7 +942,7 @@ a.list-row {
   right: -60px;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(200, 168, 75, 0.07) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(210, 175, 59, 0.07) 0%, transparent 65%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -996,34 +1009,34 @@ a.list-row {
 }
 
 .beach-feature__img.bg-1 {
-  background-image: linear-gradient(145deg, #0d2b4a, #2980b9);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 .beach-feature__img.bg-2 {
-  background-image: linear-gradient(145deg, #4a1800, #c0392b);
+  background-image: linear-gradient(145deg, #0c2042, #8a6d22);
 }
 .beach-feature__img.bg-3 {
-  background-image: linear-gradient(145deg, #1a3a5c, #85c1e9);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 .beach-feature__img.bg-4 {
-  background-image: linear-gradient(145deg, #2c1810, #8b5e3c);
+  background-image: linear-gradient(145deg, #0c2042, #8a6d22);
 }
 .beach-feature__img.bg-5 {
-  background-image: linear-gradient(145deg, #003d5c, #48b5d8);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 .beach-feature__img.bg-6 {
-  background-image: linear-gradient(145deg, #1a0a00, #7a4a1a);
+  background-image: linear-gradient(145deg, #0c2042, #8a6d22);
 }
 .beach-feature__img.bg-7 {
-  background-image: linear-gradient(145deg, #1e4080, #85c1e9);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 .beach-feature__img.bg-8 {
-  background-image: linear-gradient(145deg, #0d3349, #48c9b0);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 .beach-feature__img.bg-9 {
-  background-image: linear-gradient(145deg, #1a0a2e, #9b59b6);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 .beach-feature__img.bg-10 {
-  background-image: linear-gradient(145deg, #003366, #66b3ff);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 
 .beach-feature__badge {
@@ -1147,7 +1160,7 @@ a.list-row {
 }
 
 .beach-rank-item:hover {
-  background: rgba(200, 168, 75, 0.04);
+  background: rgba(210, 175, 59, 0.04);
 }
 
 .beach-rank-item.is-active {
@@ -1168,13 +1181,13 @@ a.list-row {
   font-family: var(--font-serif);
   font-size: 1.1rem;
   font-style: italic;
-  color: rgba(200, 168, 75, 0.35);
+  color: rgba(210, 175, 59, 0.35);
   text-align: center;
   transition: color 0.15s;
 }
 
 .beach-rank-item:not(.is-active):hover .bri-num {
-  color: rgba(200, 168, 75, 0.7);
+  color: rgba(210, 175, 59, 0.7);
 }
 
 .bri-thumb {
@@ -1208,43 +1221,43 @@ a.list-row {
 }
 
 .th-1 {
-  background-image: linear-gradient(145deg, #0d2b4a, #2980b9);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 
 .th-2 {
-  background-image: linear-gradient(145deg, #4a1800, #c0392b);
+  background-image: linear-gradient(145deg, #0c2042, #8a6d22);
 }
 
 .th-3 {
-  background-image: linear-gradient(145deg, #1a3a5c, #85c1e9);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 
 .th-4 {
-  background-image: linear-gradient(145deg, #2c1810, #8b5e3c);
+  background-image: linear-gradient(145deg, #0c2042, #8a6d22);
 }
 
 .th-5 {
-  background-image: linear-gradient(145deg, #003d5c, #48b5d8);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 
 .th-6 {
-  background-image: linear-gradient(145deg, #1a0a00, #7a4a1a);
+  background-image: linear-gradient(145deg, #0c2042, #8a6d22);
 }
 
 .th-7 {
-  background-image: linear-gradient(145deg, #1e4080, #85c1e9);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 
 .th-8 {
-  background-image: linear-gradient(145deg, #0d3349, #48c9b0);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 
 .th-9 {
-  background-image: linear-gradient(145deg, #1a0a2e, #9b59b6);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 
 .th-10 {
-  background-image: linear-gradient(145deg, #003366, #66b3ff);
+  background-image: linear-gradient(145deg, #0c2042, #16305c);
 }
 
 .bri-name {
@@ -1415,7 +1428,7 @@ a.list-row {
 .dreaming-hero {
   background: var(--color-surface);
   padding: var(--space-xl) 0 calc(var(--space-xl) * 0.75);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.12);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.12);
   position: relative;
   overflow: hidden;
 }
@@ -1427,7 +1440,7 @@ a.list-row {
   right: -40px;
   width: 360px;
   height: 360px;
-  background: radial-gradient(circle, rgba(200, 168, 75, 0.06) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(210, 175, 59, 0.06) 0%, transparent 65%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -1469,7 +1482,7 @@ a.list-row {
   justify-content: space-between;
   margin-bottom: var(--space-lg);
   padding-bottom: var(--space-md);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.2);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.2);
 }
 
 .dreaming-section-header h2 {
@@ -1489,7 +1502,7 @@ a.list-row {
 .dreaming-section-count {
   font-family: var(--font-serif);
   font-size: 0.8rem;
-  color: rgba(200, 168, 75, 0.4);
+  color: rgba(210, 175, 59, 0.4);
   font-style: italic;
   white-space: nowrap;
 }
@@ -1582,8 +1595,8 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #1b2a4a;
-  background: #c8a84b;
+  color: #0c2042;
+  background: #d2af3b;
   padding: 3px 10px;
   border-radius: 999px;
   z-index: 1;
@@ -1610,9 +1623,9 @@ a.list-row {
 }
 
 .dreaming-cta {
-  background: linear-gradient(100deg, var(--color-navy) 0%, #111d33 100%);
-  border-top: 1px solid rgba(200, 168, 75, 0.15);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+  background: linear-gradient(100deg, var(--color-navy) 0%, #0c2042 100%);
+  border-top: 1px solid rgba(210, 175, 59, 0.15);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.15);
   padding: var(--space-xl) 0;
   margin-top: var(--space-xl);
 }
@@ -1683,7 +1696,7 @@ a.list-row {
 .cities-hero {
   background: var(--color-surface);
   padding: var(--space-xl) 0 calc(var(--space-xl) * 0.75);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.12);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.12);
   position: relative;
   overflow: hidden;
 }
@@ -1695,7 +1708,7 @@ a.list-row {
   right: -40px;
   width: 360px;
   height: 360px;
-  background: radial-gradient(circle, rgba(200, 168, 75, 0.06) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(210, 175, 59, 0.06) 0%, transparent 65%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -1857,7 +1870,7 @@ a.list-row {
 .dir-hero {
   background: var(--color-surface);
   padding: var(--space-xl) 0 calc(var(--space-xl) * 0.75);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.12);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.12);
   position: relative;
   overflow: hidden;
 }
@@ -1869,7 +1882,7 @@ a.list-row {
   right: -40px;
   width: 360px;
   height: 360px;
-  background: radial-gradient(circle, rgba(200, 168, 75, 0.06) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(210, 175, 59, 0.06) 0%, transparent 65%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -1912,7 +1925,7 @@ a.list-row {
   justify-content: space-between;
   margin-bottom: var(--space-lg);
   padding-bottom: var(--space-md);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.2);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.2);
 }
 
 .dir-continent__name {
@@ -1926,7 +1939,7 @@ a.list-row {
   font-family: var(--font-serif);
   font-size: 0.8rem;
   font-style: italic;
-  color: rgba(200, 168, 75, 0.4);
+  color: rgba(210, 175, 59, 0.4);
 }
 
 .dir-location {
@@ -2027,7 +2040,7 @@ a.list-row {
 .review-hero {
   background: var(--color-surface);
   padding: var(--space-xl) 0 calc(var(--space-xl) * 0.75);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.12);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.12);
   position: relative;
   overflow: hidden;
 }
@@ -2039,7 +2052,7 @@ a.list-row {
   right: -40px;
   width: 360px;
   height: 360px;
-  background: radial-gradient(circle, rgba(200, 168, 75, 0.06) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(210, 175, 59, 0.06) 0%, transparent 65%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -2114,7 +2127,7 @@ a.list-row {
   align-items: baseline;
   justify-content: space-between;
   padding-bottom: var(--space-md);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.2);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.2);
   margin-bottom: var(--space-lg);
 }
 
@@ -2130,7 +2143,7 @@ a.list-row {
   font-family: var(--font-serif);
   font-size: 0.8rem;
   font-style: italic;
-  color: rgba(200, 168, 75, 0.4);
+  color: rgba(210, 175, 59, 0.4);
 }
 
 .bag-card {
@@ -2168,22 +2181,22 @@ a.list-row {
   font-family: var(--font-serif);
   font-size: 2.5rem;
   font-weight: 600;
-  color: rgba(200, 168, 75, 0.18);
+  color: rgba(210, 175, 59, 0.18);
   line-height: 1;
   text-align: center;
   padding-top: 4px;
 }
 
 .bag-rankings .bag-card:nth-child(1) .bag-card__rank {
-  color: rgba(200, 168, 75, 0.55);
+  color: rgba(210, 175, 59, 0.55);
 }
 
 .bag-rankings .bag-card:nth-child(2) .bag-card__rank {
-  color: rgba(200, 168, 75, 0.35);
+  color: rgba(210, 175, 59, 0.35);
 }
 
 .bag-rankings .bag-card:nth-child(3) .bag-card__rank {
-  color: rgba(200, 168, 75, 0.25);
+  color: rgba(210, 175, 59, 0.25);
 }
 
 .bag-card__body {
@@ -2233,8 +2246,8 @@ a.list-row {
 }
 
 .rating--excellent {
-  background: rgba(200, 168, 75, 0.2);
-  color: #c8a84b;
+  background: rgba(210, 175, 59, 0.2);
+  color: #d2af3b;
 }
 
 .rating--verygood {
@@ -2553,7 +2566,7 @@ a.list-row {
   display: block;
   transition: color 0.15s, border-color 0.15s;
 }
-.article-link:hover { color: #e0c060; border-color: #e0c060; }
+.article-link:hover { color: #d2af3b; border-color: #d2af3b; }
 .article-link::after { content: ' →'; }
 
 /* ---- HOW TO DO 3 DAYS — day sequence cards ---- */
@@ -2704,7 +2717,7 @@ a.list-row {
 
 .about-hero {
   background: var(--color-surface);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.12);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.12);
   overflow: hidden;
 }
 
@@ -2838,7 +2851,7 @@ a.list-row {
 .guides-hero {
   background: var(--color-surface);
   padding: var(--space-xl) 0 calc(var(--space-xl) * 0.75);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.12);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.12);
   position: relative;
   overflow: hidden;
 }
@@ -2850,7 +2863,7 @@ a.list-row {
   right: -40px;
   width: 360px;
   height: 360px;
-  background: radial-gradient(circle, rgba(200, 168, 75, 0.06) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(210, 175, 59, 0.06) 0%, transparent 65%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -2916,7 +2929,7 @@ a.list-row {
   justify-content: space-between;
   margin-bottom: var(--space-lg);
   padding-bottom: var(--space-md);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.2);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.2);
 }
 
 .guides-region__name {
@@ -2930,7 +2943,7 @@ a.list-row {
   font-family: var(--font-serif);
   font-size: 0.8rem;
   font-style: italic;
-  color: rgba(200, 168, 75, 0.4);
+  color: rgba(210, 175, 59, 0.4);
   white-space: nowrap;
 }
 
@@ -2963,8 +2976,8 @@ a.list-row {
 }
 
 .guide-card:hover {
-  background: rgba(200, 168, 75, 0.05);
-  border-color: rgba(200, 168, 75, 0.2);
+  background: rgba(210, 175, 59, 0.05);
+  border-color: rgba(210, 175, 59, 0.2);
   transform: translateY(-2px);
 }
 
@@ -3073,7 +3086,7 @@ a.list-row {
 }
 
 .hero-ctas .button--primary:hover {
-  background: #b8962e;
+  background: #b8932e;
 }
 
 .hero-ctas .button--ghost {
@@ -3090,8 +3103,8 @@ a.list-row {
 /* Custom trip pitch band — sits between hero and explore cards */
 .custom-pitch {
   background: var(--color-surface);
-  border-top: 1px solid rgba(200, 168, 75, 0.15);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+  border-top: 1px solid rgba(210, 175, 59, 0.15);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.15);
   padding: var(--space-xl) 0;
   position: relative;
   overflow: hidden;
@@ -3101,7 +3114,7 @@ a.list-row {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 80% 50%, rgba(200, 168, 75, 0.06) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 80% 50%, rgba(210, 175, 59, 0.06) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -3212,7 +3225,7 @@ a.list-row {
 }
 
 .explore-card:hover {
-  border-color: rgba(200, 168, 75, 0.35);
+  border-color: rgba(210, 175, 59, 0.35);
   background: rgba(255, 255, 255, 0.03);
 }
 
@@ -3231,14 +3244,14 @@ a.list-row {
 
 /* Explore cards — custom trip card gets gold border treatment */
 .explore-card--featured {
-  border-color: rgba(200, 168, 75, 0.3);
-  background: rgba(200, 168, 75, 0.04);
+  border-color: rgba(210, 175, 59, 0.3);
+  background: rgba(210, 175, 59, 0.04);
   position: relative;
 }
 
 .explore-card--featured:hover {
-  border-color: rgba(200, 168, 75, 0.5);
-  background: rgba(200, 168, 75, 0.07);
+  border-color: rgba(210, 175, 59, 0.5);
+  background: rgba(210, 175, 59, 0.07);
 }
 
 .explore-card--featured::before {
@@ -3265,8 +3278,8 @@ a.list-row {
 
 .home .custom-pitch {
   background: var(--color-surface);
-  border-top: 1px solid rgba(200, 168, 75, 0.15);
-  border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+  border-top: 1px solid rgba(210, 175, 59, 0.15);
+  border-bottom: 1px solid rgba(210, 175, 59, 0.15);
 }
 
 @media (max-width: 768px) {
@@ -3361,7 +3374,7 @@ a.list-row {
   }
 
 .itin-tier-link--active:hover  {
-   background: #B8962E;
+   background: #b8932e;
    }
 
 /* Region section header */
@@ -3512,7 +3525,7 @@ a.list-row {
   }
 
 .itin-card__buy:hover  {
-   background: #B8962E;
+   background: #b8932e;
    }
 
 .itin-card__buy--soon  {
