@@ -6,6 +6,8 @@ dist/
 .DS_Store
 Archive.zip
 globe-and-frame-brand-update*/
+globe-and-frame-brand-update*.zip
+globe-and-frame-theme-update*.zip
 
 # data migration artifacts
 src/data/articles.backup-*.json
