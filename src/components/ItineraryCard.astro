@@ -1,5 +1,6 @@
 ---
 import type { Itinerary } from "../data/itineraries";
+import { itineraryImage } from "../lib/itinerary-images";
 
 type Props = {
   itinerary: Itinerary;
@@ -7,9 +8,20 @@ type Props = {
 };
 
 const { itinerary, daysLabel } = Astro.props;
+const image = itineraryImage(itinerary.destinations);
+const initial = itinerary.destinations.trim().charAt(0).toUpperCase();
 ---
 
 <div class="itin-card">
+  {
+    image ? (
+      <div class="itin-card__thumb" style={`background-image: url('${image}')`} />
+    ) : (
+      <div class="itin-card__thumb itin-card__thumb--placeholder">
+        <span>{initial}</span>
+      </div>
+    )
+  }
   <div class="itin-card__destinations">{itinerary.destinations}</div>
   <div class="itin-card__meta">
     <span class="itin-card__days">{daysLabel}</span>
@@ -29,10 +41,7 @@ const { itinerary, daysLabel } = Astro.props;
           >
         </>
       ) : (
-        <>
-          <span class="itin-card__status itin-card__status--soon">Coming Soon</span>
-          <span class="itin-card__buy itin-card__buy--soon">Coming Soon</span>
-        </>
+        <span class="itin-card__status itin-card__status--soon">Coming Soon</span>
       )
     }
   </div>

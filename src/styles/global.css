@@ -2841,6 +2841,27 @@ a.list-row {
   line-height: 1.4;
 }
 
+.about-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  margin: var(--space-lg) 0;
+}
+
+.about-gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .about-gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   .about-hero__inner {
     grid-template-columns: 1fr;
@@ -3090,6 +3111,48 @@ a.list-row {
    HOMEPAGE — custom trip priority
    ============================================= */
 
+/* Home hero — full-bleed photograph with a navy scrim */
+.home .hero {
+  position: relative;
+  padding: calc(var(--space-xl) * 1.5) 0 calc(var(--space-xl) * 1.3);
+  background: var(--color-navy);
+  border: none;
+  overflow: hidden;
+}
+
+.home .hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/images/city-guides/barcelona.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.home .hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(8, 16, 34, 0.94) 0%,
+    rgba(8, 16, 34, 0.8) 42%,
+    rgba(8, 16, 34, 0.5) 100%
+  );
+}
+
+.home .hero__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.home .hero h1 {
+  color: #fff;
+  max-width: 20ch;
+}
+
+.home .hero__lead {
+  color: rgba(255, 255, 255, 0.82);
+}
+
 /* Hero CTA group — primary gold + two ghost secondaries */
 .hero-ctas {
   display: flex;
@@ -3110,13 +3173,14 @@ a.list-row {
 
 .hero-ctas .button--ghost {
   background: transparent;
-  border: 1.5px solid rgba(12, 32, 66, 0.25);
-  color: rgba(12, 32, 66, 0.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .hero-ctas .button--ghost:hover {
-  border-color: rgba(12, 32, 66, 0.5);
+  border-color: #fff;
   color: #fff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Custom trip pitch band — sits between hero and explore cards */
@@ -3233,23 +3297,55 @@ a.list-row {
 }
 
 .explore-card {
+  position: relative;
   display: block;
-  background: var(--color-card);
-  border: 1px solid var(--color-border);
+  min-height: 300px;
   border-radius: var(--radius);
-  padding: var(--space-md);
-  color: inherit;
+  overflow: hidden;
+  background: var(--color-navy);
+  color: #fff;
   text-decoration: none;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  isolation: isolate;
 }
 
-.explore-card:hover {
-  border-color: rgba(210, 175, 59, 0.35);
-  background: rgba(12, 32, 66, 0.03);
+.explore-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+}
+
+.explore-card:hover .explore-card__bg {
+  transform: scale(1.06);
+}
+
+.explore-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 16, 34, 0.94) 0%,
+    rgba(8, 16, 34, 0.58) 44%,
+    rgba(8, 16, 34, 0.12) 80%,
+    transparent 100%
+  );
+}
+
+.explore-card__body {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-md);
 }
 
 .explore-card h3 {
-  color: var(--color-text);
+  font-family: var(--font-serif);
+  color: #fff;
+  margin-bottom: var(--space-xs);
 }
 
 .explore-card:hover h3 {
@@ -3257,27 +3353,22 @@ a.list-row {
 }
 
 .explore-card p {
-  color: var(--color-muted);
-  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* Explore cards — custom trip card gets gold border treatment */
-.explore-card--featured {
-  border-color: rgba(210, 175, 59, 0.3);
-  background: rgba(210, 175, 59, 0.04);
-  position: relative;
-}
-
-.explore-card--featured:hover {
-  border-color: rgba(210, 175, 59, 0.5);
-  background: rgba(210, 175, 59, 0.07);
-}
-
+/* Custom trip card keeps the gold "Premium" ribbon over its photo */
 .explore-card--featured::before {
   content: "Premium";
   position: absolute;
-  top: -1px;
+  top: 0;
   right: 16px;
+  z-index: 2;
   font-size: 0.55rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -3286,6 +3377,37 @@ a.list-row {
   background: var(--color-gold);
   padding: 3px 8px;
   border-radius: 0 0 4px 4px;
+}
+
+.why-points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.why-point__num {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.why-point h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.why-point p {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.65;
+  margin: 0;
 }
 
 .home .custom-pitch,
@@ -3470,6 +3592,28 @@ a.list-row {
 .itin-card:hover::before  {
    opacity: 1;
    }
+
+.itin-card__thumb  {
+    height: 150px;
+    margin: calc(var(--space-md) * -1) calc(var(--space-md) * -1) 0;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--color-navy);
+  }
+
+.itin-card__thumb--placeholder  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #0c2042 0%, #16305c 100%);
+  }
+
+.itin-card__thumb--placeholder span  {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: rgba(210, 175, 59, 0.55);
+  }
 
 .itin-card__destinations  {
     font-family: var(--font-serif);
