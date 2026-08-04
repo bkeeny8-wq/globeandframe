@@ -12,8 +12,6 @@ export type ItineraryRegion = {
   itineraries: Itinerary[];
 };
 
-export const ETSY_SHOP_URL = "https://globeandframeco.etsy.com";
-
 export const threeDayItineraries: ItineraryRegion[] = [
   {
     name: "Europe",

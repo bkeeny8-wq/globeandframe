@@ -2,9 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { webPageSchema } from "../../lib/seo";
-
-const ETSY_SHOP = "https://globeandframeco.etsy.com";
+import { ETSY_SHOP_URL } from "../../lib/seo";
 
 type Shot = {
   src: string;
@@ -17,11 +15,9 @@ const collections: { title: string; description: string; shots: Shot[] }[] = [];
 
 const pageTitle = "Gallery";
 const pageDescription = "Photography from the places, details, and moments that have stayed with me.";
-const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
-const jsonLd = webPageSchema({ title: pageTitle, description: pageDescription, url: pageUrl });
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} {jsonLd}>
+<BaseLayout title={pageTitle} description={pageDescription}>
   <Header />
 
   <main class="page">
@@ -37,7 +33,7 @@ const jsonLd = webPageSchema({ title: pageTitle, description: pageDescription, u
               {collection.shots.map((shot) => (
                 <a
                   class="photo-card"
-                  href={shot.etsy ?? ETSY_SHOP}
+                  href={shot.etsy ?? ETSY_SHOP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

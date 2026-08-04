@@ -3,6 +3,7 @@ export const SITE_NAME = "Globe & Frame";
 export const DEFAULT_DESCRIPTION =
   "Plan better trips with guides built from real experience — city guides, itineraries, and travel advice from first-hand trips.";
 export const DEFAULT_OG_IMAGE = "/images/og-default.png";
+export const ETSY_SHOP_URL = "https://globeandframeco.etsy.com";
 
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).href;
@@ -14,9 +15,9 @@ export function organizationSchema() {
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
     url: SITE_URL,
-    logo: absoluteUrl("/images/logo.svg"),
+    logo: absoluteUrl("/images/logo-on-light.svg"),
     description: DEFAULT_DESCRIPTION,
-    sameAs: ["https://globeandframeco.etsy.com"],
+    sameAs: [ETSY_SHOP_URL],
   };
 }
 
@@ -66,7 +67,7 @@ export function articleSchema({
     description,
     url,
     mainEntityOfPage: { "@id": `${url}#webpage` },
-    author: { "@type": "Person", name: "Brandon Keeney" },
+    author: { "@type": "Person", name: "Brandon Keeny" },
     publisher: { "@id": `${SITE_URL}/#organization` },
   };
 }
