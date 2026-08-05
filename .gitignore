@@ -1,17 +1,24 @@
-# build output
-dist/
-.astro/
-
-# os / editor
+# macOS
 .DS_Store
-Archive.zip
+
+# Backups / temp
+*.bak
+*~
+
+# Local deliverables / one-off imports (not source)
+*.docx
 globe-and-frame-brand-update*/
-globe-and-frame-brand-update*.zip
-globe-and-frame-theme-update*.zip
 
-# data migration artifacts
-src/data/articles.backup-*.json
-src/data/articles.rewritten.preview.json
+# Bundled content photography — large (~57MB), DERIVED from the source /images/
+# library. Re-bundled into the theme at packaging time; not committed here.
+assets/images/articles/
+assets/images/beaches/
+assets/images/business-class/
+assets/images/city-guides/
+assets/images/dreaming/
+assets/images/weekend-bags/
+assets/images/bradon-about.jpg
 
-# deps
+# Build artifacts
 node_modules/
+dist/
