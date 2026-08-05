@@ -1,0 +1,195 @@
+/* ===== Globe & Frame — UX + polish layer (loads after global.css) ===== */
+
+/* ---------- Header ---------- */
+/* Keep logo + menu on one row; shrink the logo at the SAME breakpoint the nav
+   collapses to the hamburger (768), so one component isn't governed by two. */
+@media (max-width: 768px) {
+  .site-header__inner { padding-top: 12px; padding-bottom: 12px; gap: 12px; }
+  .site-logo__img { height: 30px; width: auto; max-width: 60vw; }
+  .site-nav-toggle { flex-shrink: 0; }
+}
+
+/* ---------- Reading column ---------- */
+.container--narrow { max-width: 46rem; }
+
+/* ---------- Accessibility: visible keyboard focus + skip link ---------- */
+.site-nav a:focus-visible,
+.site-footer a:focus-visible,
+.site-logo:focus-visible,
+.site-nav-toggle:focus-visible,
+.button:focus-visible,
+.card:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-navy);
+  color: var(--color-gold);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius);
+  z-index: 200;
+  font-size: 0.9rem;
+}
+.skip-link:focus { left: var(--space-sm); top: var(--space-sm); }
+
+/* ---------- Cards (shared .card component) ---------- */
+/* The .card h3 a rule in global.css never matches the wrapping-anchor markup,
+   so the title inherited gold. Force ink; gold is hover-only. */
+.card h3 { color: var(--color-text); }
+/* a.card never got the text-decoration reset its siblings have, so the anchor's
+   gold underline painted through the title/hook. Reset it (gold is hover-only). */
+.card { text-decoration: none; transition: border-color .15s, color .15s; }
+.card:hover { border-color: var(--color-border-gold); }
+.card:hover h3 { color: var(--color-gold); }
+.card > :last-child { margin-bottom: 0; }
+
+/* ---------- Home ---------- */
+/* auto-fit can only make 3 columns in the 72rem container, orphaning the 4th
+   explore card — force a balanced 2×2 on desktop. */
+@media (min-width: 960px) {
+  .home .explore-grid { grid-template-columns: repeat(2, 1fr); }
+}
+/* Persuasion copy + custom-pitch values were --color-muted (~3.7:1) — lift to AA. */
+.home .why-point p,
+.home .section__intro,
+.home .custom-pitch__detail-value { color: var(--color-muted-mid); }
+/* Collapse the doubled gap before the closing band. */
+.home .dreaming-cta { margin-top: 0; }
+
+/* ---------- About ---------- */
+/* Bio tagline was gold @ 50% (fails contrast); it's real content, not ornament. */
+.about-hero__sub { color: var(--color-muted-mid); }
+
+/* ---------- Long-form guide pages (how-to, booking, jet-lag) ---------- */
+/* Hold sequence/timeline/flight blocks to the prose reading measure on desktop. */
+.day-sequence,
+.timeline,
+.flight-pattern { max-width: 44rem; }
+.day-sequence { margin: var(--space-md) 0; }
+/* Lift the big serif sequence numbers so they read as a deliberate progression. */
+.day-card__num { color: rgba(210, 175, 59, 0.55); }
+/* Even out rhythm where two prose blocks stack (jet-lag). */
+.article-prose + .article-prose { padding-top: 0; }
+/* Let card padding define the bottom gap, not trailing child margins. */
+.day-card__body > *:last-child { margin-bottom: 0; }
+
+/* ---------- Shared prose rhythm ---------- */
+/* First flowed child shouldn't add margin on top of the container's top padding. */
+.article-prose > :first-child,
+.article-content > :first-child { margin-top: 0; }
+/* Roomier hit area for the hero back-link on guide/story pages. */
+.eyebrow a { display: inline-block; padding: 6px 2px; color: inherit; text-decoration: none; }
+
+/* ---------- Tertiary editorial one-liners (were below the muted floor) ---------- */
+.timeline-entry__rule { color: var(--color-muted); }
+.row-card--cta .row-card__excerpt { color: var(--color-muted); }
+
+/* ---------- City Guides landing + region pages ---------- */
+/* On the landing the "N guides →" count IS the region link — make it legible + tappable. */
+.post-type-archive-city_guide .section-count {
+  color: var(--color-muted-mid);
+  font-style: normal;
+  display: inline-block;
+  padding: 4px 0;
+}
+.post-type-archive-city_guide .section-count:hover { color: var(--color-gold); }
+/* Region sections are top-padded only — give the landing + region page a bottom. */
+.post-type-archive-city_guide main > .container,
+.tax-region main > .container { padding-bottom: var(--space-xl); }
+
+/* archive.php uses .gf-archive-head, styled nowhere — give it header rhythm. */
+.gf-archive-head {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border-gold);
+}
+.gf-archive-head .section__intro { margin-bottom: 0; }
+
+/* ---------- Intentional empty / coming-soon states ---------- */
+.gallery-soon {
+  max-width: 46rem;
+  margin-top: var(--space-xl);
+  padding: var(--space-xl) var(--space-lg);
+  text-align: center;
+  background: var(--color-surface-raise);
+  border: 1px solid var(--color-border-gold);
+  border-radius: var(--radius);
+}
+.gallery-soon__label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0 0 var(--space-xs);
+}
+.gallery-soon__note {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--color-muted-mid);
+  line-height: 1.6;
+  max-width: 32rem;
+  margin: 0 auto var(--space-md);
+}
+.empty-state {
+  max-width: 34rem;
+  margin-inline: auto;
+  text-align: center;
+  padding: var(--space-xl) 0;
+}
+
+/* ---------- Mobile (≤640) ---------- */
+@media (max-width: 640px) {
+  /* Guaranteed 44px tap targets */
+  .button { padding: 0.85rem 1.4rem; }
+  .site-nav a { display: flex; align-items: center; min-height: 44px; padding: 0.4rem 0; }
+  .itin-tier-link { min-height: 44px; display: inline-flex; align-items: center; }
+  .itin-card__buy { padding: 8px 14px; }
+
+  /* Home hero CTAs: template uses .hero-ctas, so the .hero__actions rule never applied. */
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .hero-ctas .button { width: 100%; text-align: center; }
+
+  /* Home hero: trim oversized top padding on phones. */
+  .home .hero { padding: var(--space-lg) 0; }
+
+  /* About: tighten loose vertical padding (never got the cg-hero mobile pass). */
+  .about-hero__inner { padding-block: var(--space-lg); }
+  .article-prose { padding-block: var(--space-lg); }
+
+  /* City-guide hub: tighten top spacing + drop the stray facts divider. */
+  .cg-hero { padding-top: var(--space-lg); }
+  .cg-facts .cg-fact:nth-child(2n) { border-right: none; }
+
+  /* City Guides landing: let the region header wrap gracefully. */
+  .post-type-archive-city_guide .section-header { flex-wrap: wrap; gap: 2px var(--space-sm); }
+}
+
+/* ---------- Mobile (≤600) ---------- */
+@media (max-width: 600px) {
+  /* About photo strip has exactly 3 images — span the 3rd full-width as a banner. */
+  .about-gallery img:last-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+
+  /* Weekend-bag cards: lead with the product photo on phones. */
+  .bag-card--photo {
+    grid-template-columns: 48px 1fr;
+    grid-template-areas: "media media" "rank body";
+  }
+  .bag-card--photo .bag-card__media { grid-area: media; }
+  .bag-card--photo .bag-card__rank  { grid-area: rank; }
+  .bag-card--photo .bag-card__body  { grid-area: body; }
+
+  /* Coming-soon panel tighten on phones. */
+  .gallery-soon { padding: var(--space-lg) var(--space-md); margin-top: var(--space-lg); }
+}
+
+/* ---------- About decorative tick alignment ---------- */
+@media (max-width: 768px) {
+  .about-hero__body::before { top: var(--space-md); left: var(--space-md); }
+}

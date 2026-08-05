@@ -1,53 +1,40 @@
-# Globe & Frame
+# Globe & Frame — WordPress theme
 
-Travel guides, itineraries, and photography from real experience.
+The custom WordPress theme powering **globeandframe.com** (self-hosted on
+WordPress.com Business). Ported from the original Astro static site — same design
+language (navy `#0c2042` / gold `#d2af3b` palette, Playfair Display + system sans).
 
-- **Live site (current):** https://globeandframe.com/
-- **Shop:** https://globeandframeco.etsy.com
-- **Contact:** bkeeny8@gmail.com
+> **History note:** this repository previously held the **Astro** static site.
+> That version is preserved in git history and tagged **`astro-final`**. From
+> this commit forward the repo tracks the WordPress theme.
 
-## Local development
+## What's here
 
-```bash
-npm install
-npm run dev
-```
+- **Custom post types** (`functions.php`) — `city_guide` + 10 spotlight types
+  (beach, day_trip, neighborhood, local_dish, market, bar, walk, experience,
+  gift, mcdonalds), plus `city` and `region` taxonomies.
+- **Content model** (`inc/acf-fields.php`) — ACF field groups. Repeaters render
+  via `get_field()` so they work on **free ACF** (the repeater editing UI is a
+  paid feature, but reading the data is not).
+- **Templates** — `front-page.php`, `single-city_guide.php` (city hub),
+  `single.php` (universal story: breadcrumb → pillar CTA → "more from city"),
+  `archive-city_guide.php` / `taxonomy-region.php`, `page-itinerary-tier.php`
+  (3/7/10-day tiers from `inc/itineraries-data.php`), `page-custom-inquiry.php`
+  (native lead form), and the Elevate + static `page-*.php` pages.
+- **Styles** — `assets/global.css` (design tokens + components) and
+  `assets/enhance.css` (UX/mobile polish layer, loaded after global).
+- **Images** — content photography is served from `assets/images/` via an
+  output-buffer rewrite in `functions.php`, so templates can keep root-relative
+  `/images/...` paths. Those photos (~57MB) are **gitignored** and re-bundled
+  from the source library at packaging time.
 
-## Deploy to GitHub Pages
+## Deploy
 
-1. Create a new GitHub repo named `globeandframe`
-2. Push this project to `main`:
+Uploaded to WordPress.com (Appearance → Themes → Upload). Requires the
+**Advanced Custom Fields** (or Secure Custom Fields) plugin. Not GitHub Pages —
+the old deploy workflow was removed at migration.
 
-```bash
-cd ~/Projects/globeandframe
-git add .
-git commit -m "Initial Globe & Frame site"
-git remote add origin git@github.com:YOUR_USERNAME/globeandframe.git
-git push -u origin main
-```
+## Requirements
 
-3. On GitHub, go to **Settings → Pages**
-4. Under **Build and deployment**, set **Source** to **GitHub Actions**
-5. The workflow deploys automatically on every push to `main`
-
-### Custom domain
-
-`public/CNAME` is already set to `globeandframe.com`. After the first deploy:
-
-1. In **Settings → Pages → Custom domain**, enter `globeandframe.com`
-2. Update DNS at your registrar:
-   - `A` records → GitHub Pages IPs: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - Or `CNAME` for `www` → `YOUR_USERNAME.github.io`
-3. Enable **Enforce HTTPS** once DNS propagates
-
-You can keep WordPress live until DNS is switched over.
-
-
-## Add new content
-
-- **Articles:** `src/content/articles/your-slug.md`
-- **Itineraries:** `src/content/itineraries/your-slug.md`
-- **City guides:** `src/content/city-guides/your-slug.md`
-
-Commit and push — the site rebuilds automatically.
-# globeandframe
+- WordPress 6.x · PHP 8.x
+- Advanced Custom Fields (free) or Secure Custom Fields
