@@ -57,9 +57,6 @@ function gf_choices($arr) { return array_combine($arr, $arr); }
 function gf_f($p, $n, $type, $label, $extra = array()) {
   return array_merge(array('key' => "field_gf_{$p}_{$n}", 'label' => $label, 'name' => $n, 'type' => $type), $extra);
 }
-function gf_sub($p, $rep, $n, $type, $label, $extra = array()) {
-  return array_merge(array('key' => "field_gf_{$p}_{$rep}_{$n}", 'label' => $label, 'name' => $n, 'type' => $type), $extra);
-}
 function gf_txt($p, $n, $l)  { return gf_f($p, $n, 'text', $l); }
 function gf_area($p, $n, $l) { return gf_f($p, $n, 'textarea', $l, array('rows' => 3)); }
 function gf_wys($p, $n, $l)  { return gf_f($p, $n, 'wysiwyg', $l, array('media_upload' => 0, 'toolbar' => 'basic')); }
@@ -71,11 +68,13 @@ function gf_num($p, $n, $l, $min = null, $max = null) {
 function gf_date($p, $n, $l) { return gf_f($p, $n, 'date_picker', $l, array('return_format' => 'Y-m-d')); }
 function gf_sel($p, $n, $l, $c)   { return gf_f($p, $n, 'select', $l, array('choices' => gf_choices($c), 'allow_null' => 1, 'ui' => 1)); }
 function gf_multi($p, $n, $l, $c) { return gf_f($p, $n, 'checkbox', $l, array('choices' => gf_choices($c))); }
-function gf_rep($p, $n, $l, $subs, $btn = 'Add row') {
-  return gf_f($p, $n, 'repeater', $l, array('layout' => 'block', 'button_label' => $btn, 'sub_fields' => $subs));
-}
-function gf_selsub($p, $rep, $n, $l, $c) {
-  return gf_sub($p, $rep, $n, 'select', $l, array('choices' => gf_choices($c), 'allow_null' => 1, 'ui' => 1));
+/* List-shaped fields are textareas in the workbook's "one row per line,
+   columns separated by | " format — the repeater editing UI is ACF Pro only,
+   and this works on free ACF. gf_rows() in inc/rows.php reads them back. */
+function gf_rows_field($p, $n, $l) {
+  return gf_f($p, $n, 'textarea', $l, array(
+    'rows' => 6, 'new_lines' => '', 'instructions' => gf_row_instructions($n, $p),
+  ));
 }
 function gf_identity($p) {
   return array(gf_txt($p, 'city', 'City'), gf_txt($p, 'country', 'Country / Region'),
@@ -112,18 +111,12 @@ add_action('acf/init', function () {
     gf_txt('city_guide', 'currency', 'Currency (fact)'),
     gf_txt('city_guide', 'costOfBeer', 'Cost of a beer (fact)'),
     gf_wys('city_guide', 'overview', 'Overview (the take)'),
-    gf_rep('city_guide', 'inShort', 'In short', array(gf_sub('city_guide', 'inShort', 'text', 'textarea', 'Point')), 'Add point'),
+    gf_rows_field('city_guide', 'inShort', 'In short'),
     gf_area('city_guide', 'flightIn', 'The flight in'),
     gf_txt('city_guide', 'flightOperators', 'Flight operators (from NYC)'),
     gf_area('city_guide', 'movingAround', 'Moving around'),
     gf_area('city_guide', 'whatToSeeIntro', 'What to see (intro)'),
-    gf_rep('city_guide', 'sights', 'What to see (sights)', array(
-      gf_sub('city_guide', 'sights', 'name', 'text', 'Sight name'),
-      gf_sub('city_guide', 'sights', 'note', 'textarea', 'Note'),
-      gf_sub('city_guide', 'sights', 'timeToSpend', 'text', 'Time to spend'),
-      gf_sub('city_guide', 'sights', 'ticketCost', 'text', 'Ticket cost'),
-      gf_sub('city_guide', 'sights', 'ticketUrl', 'url', 'Ticket / site URL'),
-    ), 'Add sight'),
+    gf_rows_field('city_guide', 'sights', 'What to see (sights)'),
     gf_txt('city_guide', 'mustTryDish', 'Must-try dish'),
     gf_area('city_guide', 'mustTryDishNote', 'Must-try dish note'),
     gf_wys('city_guide', 'foodDrink', 'Food & drink (the take)'),
@@ -131,10 +124,7 @@ add_action('acf/init', function () {
     gf_txt('city_guide', 'whereStayed', 'Where I stayed (hotel)'),
     gf_area('city_guide', 'whereStayedNote', 'Where I stayed note'),
     gf_area('city_guide', 'dayTripsTake', 'Day trips (the take)'),
-    gf_rep('city_guide', 'dayTrips', 'Day trips', array(
-      gf_sub('city_guide', 'dayTrips', 'name', 'text', 'Name'),
-      gf_sub('city_guide', 'dayTrips', 'note', 'textarea', 'Note'),
-    ), 'Add day trip'),
+    gf_rows_field('city_guide', 'dayTrips', 'Day trips'),
     gf_area('city_guide', 'whatToBringHome', 'What to bring home'),
     gf_area('city_guide', 'languageNote', 'Language note'),
     gf_area('city_guide', 'currencyNote', 'Currency note'),
@@ -183,14 +173,8 @@ add_action('acf/init', function () {
     gf_area('day_trip', 'lastTrain', 'Last-train warning'),
     gf_area('day_trip', 'bestTimeDetail', 'Best time (detail)'),
     gf_area('day_trip', 'booking', 'Booking & opening'),
-    gf_rep('day_trip', 'plan', 'The plan (full day)', array(
-      gf_selsub('day_trip', 'plan', 'part', 'Part of day', gf_vocab('dayPart')),
-      gf_sub('day_trip', 'plan', 'text', 'textarea', 'What you do'),
-    ), 'Add stage'),
-    gf_rep('day_trip', 'costs', 'Cost breakdown', array(
-      gf_sub('day_trip', 'costs', 'label', 'text', 'Item'),
-      gf_sub('day_trip', 'costs', 'amount', 'text', 'Amount'),
-    ), 'Add cost'),
+    gf_rows_field('day_trip', 'plan', 'The plan (full day)'),
+    gf_rows_field('day_trip', 'costs', 'Cost breakdown'),
     gf_area('day_trip', 'skipIf', 'Skip if'),
   ), gf_meta('day_trip')));
 
@@ -202,15 +186,8 @@ add_action('acf/init', function () {
     gf_txt('neighborhood', 'dontMiss', "Don't miss"),
     gf_wys('neighborhood', 'take', 'The take'),
     gf_area('neighborhood', 'shouldYouStay', 'Should you stay here?'),
-    gf_rep('neighborhood', 'thingsToDo', 'What to do', array(
-      gf_sub('neighborhood', 'thingsToDo', 'name', 'text', 'Thing to do'),
-      gf_sub('neighborhood', 'thingsToDo', 'note', 'textarea', 'Note'),
-    ), 'Add item'),
-    gf_rep('neighborhood', 'eatAndDrink', 'Eat & drink', array(
-      gf_sub('neighborhood', 'eatAndDrink', 'name', 'text', 'Name'),
-      gf_sub('neighborhood', 'eatAndDrink', 'note', 'textarea', 'Note'),
-      gf_sub('neighborhood', 'eatAndDrink', 'link', 'url', 'Link'),
-    ), 'Add spot'),
+    gf_rows_field('neighborhood', 'thingsToDo', 'What to do'),
+    gf_rows_field('neighborhood', 'eatAndDrink', 'Eat & drink'),
     gf_area('neighborhood', 'gettingAroundDetail', 'Getting around (detail)'),
     gf_txt('neighborhood', 'whenItShines', 'When it shines'),
     gf_area('neighborhood', 'notForYou', 'Not for you'),
@@ -226,12 +203,7 @@ add_action('acf/init', function () {
     gf_wys('local_dish', 'whatItIs', 'What it is'),
     gf_area('local_dish', 'story', 'The story'),
     gf_area('local_dish', 'howToOrder', 'How to order & eat it'),
-    gf_rep('local_dish', 'spots', 'Where to get it', array(
-      gf_sub('local_dish', 'spots', 'name', 'text', 'Name'),
-      gf_sub('local_dish', 'spots', 'note', 'textarea', 'Note'),
-      gf_selsub('local_dish', 'spots', 'price', 'Price', gf_vocab('priceBand')),
-      gf_selsub('local_dish', 'spots', 'type', 'Spot type', gf_vocab('spotType')),
-    ), 'Add spot'),
+    gf_rows_field('local_dish', 'spots', 'Where to get it'),
     gf_area('local_dish', 'whatToAvoid', 'What to avoid'),
     gf_area('local_dish', 'verdictNote', 'Verdict note'),
   ), gf_meta('local_dish')));
@@ -243,11 +215,7 @@ add_action('acf/init', function () {
     gf_txt('market', 'budget', 'Budget (e.g. ~€15)'),
     gf_txt('market', 'nearest', 'Nearest / area'),
     gf_wys('market', 'intro', 'Market intro (the take)'),
-    gf_rep('market', 'items', 'What to order', array(
-      gf_sub('market', 'items', 'name', 'text', 'Order item'),
-      gf_sub('market', 'items', 'note', 'textarea', 'Note'),
-      gf_selsub('market', 'items', 'priceBand', 'Price band', gf_vocab('priceBand')),
-    ), 'Add item'),
+    gf_rows_field('market', 'items', 'What to order'),
   ), gf_meta('market')));
 
   /* ---------- BAR ---------- */
@@ -307,14 +275,7 @@ add_action('acf/init', function () {
   gf_group('gift', 'Unique Gifts to Bring Home — fields', array_merge(gf_identity('gift'), array(
     gf_wys('gift', 'overview', 'Where to buy — overview'),
     gf_txt('gift', 'budget', 'Budget'),
-    gf_rep('gift', 'items', 'The gifts', array(
-      gf_sub('gift', 'items', 'name', 'text', 'Gift'),
-      gf_selsub('gift', 'items', 'category', 'Category', gf_vocab('giftCat')),
-      gf_selsub('gift', 'items', 'priceBand', 'Price band', gf_vocab('priceBand')),
-      gf_selsub('gift', 'items', 'bestFor', 'Best for', gf_vocab('giftBestFor')),
-      gf_sub('gift', 'items', 'note', 'textarea', 'Note'),
-      gf_sub('gift', 'items', 'where', 'text', 'Where (specific)'),
-    ), 'Add gift'),
+    gf_rows_field('gift', 'items', 'The gifts'),
   ), gf_meta('gift')));
 
   /* ---------- McDONALD'S ---------- */

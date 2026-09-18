@@ -41,7 +41,9 @@ while (have_posts()) : the_post();
     <article class="article-content" style="margin-top:var(--space-lg)">
       <?php if ($overview) : ?><div class="cg-lead"><?php echo wp_kses_post($overview); ?></div><?php endif; ?>
 
-      <?php $sights = get_field('sights'); if (is_array($sights) && $sights) : ?>
+      <?php // gf_rows() (inc/rows.php) reads the flattened row textareas and the
+            // legacy repeater meta alike, so published guides keep rendering. ?>
+      <?php $sights = gf_rows('sights'); if ($sights) : ?>
         <h2>What to see</h2>
         <ul>
         <?php foreach ($sights as $s) :
@@ -54,7 +56,7 @@ while (have_posts()) : the_post();
       <?php $mtd = get_field('mustTryDish'); if ($mtd) : ?><p><strong>Must try:</strong> <?php echo esc_html($mtd); ?><?php $n = get_field('mustTryDishNote'); if ($n) echo ' — ' . esc_html($n); ?></p><?php endif; ?>
       <?php $fd = get_field('foodDrink'); if ($fd) : ?><h2>Where I ate &amp; drank</h2><?php echo wp_kses_post($fd); ?><?php endif; ?>
       <?php $ws = get_field('whereStayed'); if ($ws) : ?><h2>Where I stayed</h2><p><strong><?php echo esc_html($ws); ?>.</strong> <?php echo esc_html(get_field('whereStayedNote')); ?></p><?php endif; ?>
-      <?php $dayTrips = get_field('dayTrips'); if (is_array($dayTrips) && $dayTrips) : ?><h2>Day trips</h2><ul><?php foreach ($dayTrips as $d) : ?><li><strong><?php echo esc_html($d['name'] ?? ''); ?>.</strong> <?php echo esc_html($d['note'] ?? ''); ?></li><?php endforeach; ?></ul><?php endif; ?>
+      <?php $dayTrips = gf_rows('dayTrips'); if ($dayTrips) : ?><h2>Day trips</h2><ul><?php foreach ($dayTrips as $d) : ?><li><strong><?php echo esc_html($d['name'] ?? ''); ?>.</strong> <?php echo esc_html($d['note'] ?? ''); ?></li><?php endforeach; ?></ul><?php endif; ?>
 
       <?php $ib = get_field('itineraryBlurb'); if ($ib) : ?>
         <div class="cg-cta"><p><?php echo esc_html($ib); ?></p><a class="button button--primary" href="<?php echo esc_url(home_url('/custom-inquiry/')); ?>">Plan this trip</a></div>

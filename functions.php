@@ -93,7 +93,10 @@ function gf_register_post_types() {
 }
 add_action('init', 'gf_register_post_types', 5);
 
-/* ---- ACF field groups (the structured content model) ---- */
+/* ---- Content model ----
+   rows.php first: the field groups build their editor instructions from the
+   row schema it defines. */
+require get_theme_file_path('inc/rows.php');
 require get_theme_file_path('inc/acf-fields.php');
 
 /* ---- Storefront ----

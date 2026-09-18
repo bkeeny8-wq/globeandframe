@@ -85,11 +85,12 @@ while (have_posts()) : the_post();
         'dayTrips' => 'Day trips', 'inShort' => 'In short',
       );
       foreach ($repeaters as $rk => $rlabel) :
-        // Use get_field() (returns the rows array on any ACF edition) rather than
-        // have_rows()/get_sub_field(), which need the Repeater field-type class
-        // that ACF Free doesn't load — it would render empty <li> items.
-        $rows = get_field($rk);
-        if (is_array($rows) && $rows) : ?>
+        // gf_rows() (inc/rows.php) parses the flattened row textareas and also
+        // reads the legacy repeater meta, so it works on any ACF edition.
+        // have_rows()/get_sub_field() would need the Repeater field-type class
+        // that free ACF doesn't load.
+        $rows = gf_rows($rk);
+        if ($rows) : ?>
           <h2><?php echo esc_html($rlabel); ?></h2>
           <ul>
           <?php foreach ($rows as $row) :
