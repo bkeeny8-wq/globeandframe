@@ -21,9 +21,12 @@ mysql socket (no Docker).
 - **Content model** — 11 CPTs (`city_guide` + 10 spotlight types) and `city` /
   `region` taxonomies, registered in `functions.php`. ACF field groups in
   `inc/acf-fields.php` (via `acf_add_local_field_group`).
-- **Repeaters** — render with `get_field()` + `foreach`, NOT
-  `have_rows()`/`get_sub_field()`: the latter need the repeater field-type class
-  that free ACF doesn't load and would render blank.
+- **Row fields** — the list-shaped fields are textareas in the workbook format
+ (one row per line, columns separated by ` | `), because the ACF repeater
+ editing UI is Pro-only. Read them with `gf_rows($field)` from `inc/rows.php`,
+ never `get_field()`/`have_rows()`/`get_sub_field()`; `gf_rows()` also
+ reconstructs the legacy `field_0_subfield` repeater meta. Column order lives in
+ `gf_row_schema()`.
 - **Templates** — `front-page.php`, `single-city_guide.php` (city hub),
   `single.php` (universal story), `archive-city_guide.php`, `taxonomy-region.php`,
   `page-itinerary-tier.php` (data in `inc/itineraries-data.php`),

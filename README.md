@@ -13,9 +13,15 @@ language (navy `#0c2042` / gold `#d2af3b` palette, Playfair Display + system san
 - **Custom post types** (`functions.php`) — `city_guide` + 10 spotlight types
   (beach, day_trip, neighborhood, local_dish, market, bar, walk, experience,
   gift, mcdonalds), plus `city` and `region` taxonomies.
-- **Content model** (`inc/acf-fields.php`) — ACF field groups. Repeaters render
-  via `get_field()` so they work on **free ACF** (the repeater editing UI is a
-  paid feature, but reading the data is not).
+- **Content model** (`inc/acf-fields.php`) — ACF field groups, all editable on
+  **free ACF / Secure Custom Fields**.
+- **Row fields** (`inc/rows.php`) — the list-shaped fields (`sights`,
+  `dayTrips`, `plan`, `costs`, `items`, `spots`, `thingsToDo`, `eatAndDrink`,
+  `inShort`) are textareas in the Excel workbook's format — one row per line,
+  columns separated by ` | `. `gf_rows($field)` parses them for the templates
+  and also reads the older ACF repeater meta, so content authored before the
+  switch still renders. `gf_row_schema()` is the single source of truth for the
+  column order.
 - **Templates** — `front-page.php`, `single-city_guide.php` (city hub),
   `single.php` (universal story: breadcrumb → pillar CTA → "more from city"),
   `archive-city_guide.php` / `taxonomy-region.php`, `page-itinerary-tier.php`
