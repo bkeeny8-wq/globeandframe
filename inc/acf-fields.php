@@ -146,6 +146,10 @@ add_action('acf/init', function () {
     gf_url('city_guide', 'itineraryUrl', 'Itinerary URL'),
     gf_url('city_guide', 'mapUrl', 'Map URL'),
     gf_date('city_guide', 'verified', 'Verified'),
+    // Workbook readiness, not visibility — the WordPress post status is what
+    // visitors see. Present on the 10 spotlight types via gf_meta(); the guide
+    // needs it too so every sheet in the post scheme carries one status column.
+    gf_sel('city_guide', 'status', 'Status', gf_vocab('status')),
     gf_sel('city_guide', 'provenance', 'Provenance', gf_vocab('provenance')),
   ));
 
