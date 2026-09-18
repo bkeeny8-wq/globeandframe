@@ -143,6 +143,19 @@ add_action('acf/init', function () {
     gf_sel('city_guide', 'provenance', 'Provenance', gf_vocab('provenance')),
   ));
 
+  /* ---------- ITINERARY ---------- */
+  gf_group('itinerary', 'Itinerary — fields', array(
+    gf_txt('itinerary', 'destinations', 'Destinations (as shown on the card)'),
+    gf_txt('itinerary', 'region', 'Region group (e.g. Europe, USA — West)'),
+    gf_txt('itinerary', 'bestTime', 'Best time (e.g. Best: Apr, Sep)'),
+    gf_area('itinerary', 'why', 'Why this itinerary'),
+    gf_f('itinerary', 'available', 'true_false', 'Available to buy', array(
+      'ui' => 1, 'ui_on_text' => 'Available', 'ui_off_text' => 'Coming soon',
+      'instructions' => 'Off shows a "Coming Soon" badge; on shows the Buy on Etsy link.',
+    )),
+    gf_url('itinerary', 'etsyUrl', 'Etsy listing URL'),
+  ));
+
   /* ---------- BEACH ---------- */
   gf_group('beach', 'Favorite Beach — fields', array_merge(gf_identity('beach'), array(
     gf_sel('beach', 'bestFor', 'Best for', gf_vocab('beachBestFor')),

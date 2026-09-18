@@ -5,14 +5,14 @@
  * One shared template for the 3-day / 7-day / 10-day itinerary listings.
  * The tier comes from the page slug via gf_itinerary_tier_key(), which accepts
  * both slug conventions in use — '3-day' and the live '3-day-itineraries'.
- * Data comes from inc/itineraries-data.php (generated from the Astro
- * src/data/itineraries.ts). Ported from components/ItineraryTierPage.astro +
+ * Itineraries come from the `itinerary` post type via gf_itineraries_for_tier()
+ * (inc/itineraries.php), which falls back to the bundled seed data until the
+ * posts exist. Ported from components/ItineraryTierPage.astro +
  * ItineraryCard.astro — reuses the existing .itin-* styles in global.css.
  */
 get_header();
 
 $slug = get_queried_object() ? gf_itinerary_tier_key(get_queried_object()->post_name) : '';
-$data = require get_theme_file_path('inc/itineraries-data.php');
 $meta = array(
   '3-day' => array(
     'daysLabel' => '3 Days',
@@ -48,7 +48,7 @@ $meta = array(
 );
 
 // Not a recognized tier slug → fall back to the normal page content.
-if (!isset($data[$slug]) || !isset($meta[$slug])) {
+if (!isset($meta[$slug])) {
   while (have_posts()) : the_post(); ?>
     <main id="main" class="page"><div class="container container--narrow"><article class="article-content">
       <h1><?php the_title(); ?></h1><?php the_content(); ?>
@@ -59,10 +59,16 @@ if (!isset($data[$slug]) || !isset($meta[$slug])) {
 }
 
 $m       = $meta[$slug];
-$regions = $data[$slug];
+$regions = gf_itineraries_for_tier($slug);
 $days    = $m['daysLabel'];
 $home    = home_url('/');
 $tiers   = gf_itinerary_tiers();
+
+// The tier term's description, when set, is the editable version of the lead.
+$term = get_term_by('slug', $slug, 'tier');
+if ($term && !is_wp_error($term) && trim(strip_tags($term->description)) !== '') {
+  $m['lead'] = trim(strip_tags($term->description));
+}
 
 /** Tier CTAs resolve through the tier lookup so they never hit a redirect. */
 if (!function_exists('gf_itinerary_cta_url')) {
@@ -101,13 +107,18 @@ if (!function_exists('gf_itinerary_image')) {
   <div class="container">
     <?php foreach ($regions as $region) : ?>
       <section class="itin-region">
-        <div class="itin-region__header">
-          <h2 class="itin-region__name"><?php echo esc_html($region['name']); ?></h2>
-          <span class="itin-region__count"><?php echo esc_html($region['countLabel']); ?></span>
-        </div>
+        <?php if ($region['name'] !== '') : ?>
+          <div class="itin-region__header">
+            <h2 class="itin-region__name"><?php echo esc_html($region['name']); ?></h2>
+            <span class="itin-region__count"><?php echo esc_html($region['countLabel']); ?></span>
+          </div>
+        <?php endif; ?>
         <div class="itin-grid">
           <?php foreach ($region['itineraries'] as $it) :
-            $img     = gf_itinerary_image($it['destinations']);
+            // A featured image on the itinerary wins; otherwise the bundled
+            // photograph for the first destination, as before.
+            $thumb   = !empty($it['thumbId']) ? wp_get_attachment_image_url($it['thumbId'], 'medium_large') : '';
+            $img     = $thumb ? $thumb : gf_itinerary_image($it['destinations']);
             $initial = strtoupper(mb_substr(trim($it['destinations']), 0, 1)); ?>
             <div class="itin-card">
               <?php if ($img) : ?>
@@ -120,9 +131,9 @@ if (!function_exists('gf_itinerary_image')) {
                 <span class="itin-card__days"><?php echo esc_html($days); ?></span>
                 <?php if (!empty($it['bestTime'])) : ?><span class="itin-card__time"><?php echo esc_html($it['bestTime']); ?></span><?php endif; ?>
               </div>
-              <p class="itin-card__why"><?php echo esc_html($it['why']); ?></p>
+              <?php if (!empty($it['why'])) : ?><p class="itin-card__why"><?php echo esc_html($it['why']); ?></p><?php endif; ?>
               <div class="itin-card__footer">
-                <?php if (!empty($it['available'])) : ?>
+                <?php if (!empty($it['available']) && !empty($it['etsyUrl'])) : ?>
                   <span class="itin-card__status itin-card__status--available">Available</span>
                   <a class="itin-card__buy" href="<?php echo esc_url($it['etsyUrl']); ?>" target="_blank" rel="noopener noreferrer">Buy on Etsy &rarr;</a>
                 <?php else : ?>

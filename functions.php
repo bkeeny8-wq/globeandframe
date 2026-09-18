@@ -42,6 +42,19 @@ function gf_register_taxonomies() {
         'rewrite'           => array('slug' => 'city'),
     ));
 
+    // "Tier" is the 3 / 7 / 10-day split for itineraries. Not publicly
+    // queryable: itineraries surface through the tier pages, never as their own
+    // archive. Slugs match gf_itinerary_tiers().
+    register_taxonomy('tier', array('itinerary'), array(
+        'labels'            => array('name' => 'Tiers', 'singular_name' => 'Tier'),
+        'public'            => false,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'hierarchical'      => true,
+        'show_in_rest'      => true,
+        'rewrite'           => false,
+    ));
+
     // "Region" groups City Guides (Europe, United States, Asia…) — powers the
     // region-organized City Guides landing and the /region/<slug>/ browse pages.
     register_taxonomy('region', array('city_guide'), array(
@@ -90,6 +103,30 @@ function gf_register_post_types() {
             'rewrite'      => array('slug' => $slug, 'with_front' => false),
         ));
     }
+
+    /* Itineraries are data, not pages: editable in wp-admin, listed by the
+       tier templates, and deliberately not published as 87 thin URLs of their
+       own. Title carries the destinations; order is the listing order. */
+    register_post_type('itinerary', array(
+        'labels' => array(
+            'name'          => 'Itineraries',
+            'singular_name' => 'Itinerary',
+            'menu_name'     => 'Itineraries',
+            'add_new_item'  => 'Add New Itinerary',
+            'edit_item'     => 'Edit Itinerary',
+        ),
+        'public'              => false,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'publicly_queryable'  => false,
+        'exclude_from_search' => true,
+        'has_archive'         => false,
+        'rewrite'             => false,
+        'menu_icon'           => 'dashicons-list-view',
+        'supports'            => array('title', 'thumbnail', 'page-attributes', 'custom-fields', 'revisions'),
+        'taxonomies'          => array('tier'),
+        'show_in_rest'        => true,
+    ));
 }
 add_action('init', 'gf_register_post_types', 5);
 
@@ -100,6 +137,7 @@ add_action('init', 'gf_register_post_types', 5);
 require get_theme_file_path('inc/rows.php');
 require get_theme_file_path('inc/acf-fields.php');
 require get_theme_file_path('inc/story-sections.php');
+require get_theme_file_path('inc/itineraries.php');
 
 /* ---- Storefront ----
    There is no on-site shop yet; the storefront is Etsy (same link as the
