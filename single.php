@@ -13,10 +13,9 @@ while (have_posts()) : the_post();
   $typeLbl = $typeObj ? $typeObj->labels->singular_name : '';
   $city    = get_field('city');
   $hook    = get_field('hook');
-  $prose   = '';
-  foreach (array('take', 'whatItIs', 'intro', 'overview') as $pf) {
-    if (get_field($pf)) { $prose = get_field($pf); break; }
-  }
+  // What this type renders, and in what order (inc/story-sections.php).
+  $spec    = gf_story_spec($type);
+  $prose   = gf_first_field($spec['lead'], $pid);
 
   // Cluster context: this story's city → its pillar guide + sibling stories.
   $storyTypes = array('beach', 'day_trip', 'neighborhood', 'local_dish', 'market', 'bar', 'walk', 'experience', 'gift', 'mcdonalds');
@@ -61,47 +60,42 @@ while (have_posts()) : the_post();
       <?php if ($prose) : ?><div class="gf-prose"><?php echo wp_kses_post($prose); ?></div><?php endif; ?>
 
       <?php
-      $facts = array(
-        'bestFor' => 'Best for', 'water' => 'Water', 'cost' => 'Cost', 'priceBand' => 'Price', 'price' => 'Price',
-        'scene' => 'Scene', 'type' => 'Type', 'difficulty' => 'Difficulty', 'distance' => 'Distance', 'time' => 'Time',
-        'verdict' => 'Verdict', 'bestTime' => 'Best time', 'journeyTime' => 'Journey', 'marketType' => 'Market',
-        'budget' => 'Budget',
-      );
-      $rows = array();
-      foreach ($facts as $k => $lbl) {
-        $v = get_field($k);
-        if ($v) { if (is_array($v)) $v = implode(', ', $v); $rows[] = array($lbl, $v); }
-      }
-      if ($rows) : ?>
+      // Fallback for anything written in the block editor rather than the
+      // fields — a plain post, or a story typed up before the fields existed.
+      if (!$prose && trim(get_the_content()) !== '') : ?>
+        <div class="gf-prose"><?php the_content(); ?></div>
+      <?php endif; ?>
+
+      <?php $facts = gf_story_facts($spec['facts'], $pid); if ($facts) : ?>
         <ul class="gf-facts">
-          <?php foreach ($rows as $r) : ?><li><span class="gf-facts__k"><?php echo esc_html($r[0]); ?></span><span class="gf-facts__v"><?php echo esc_html($r[1]); ?></span></li><?php endforeach; ?>
+          <?php foreach ($facts as $f) : ?><li><span class="gf-facts__k"><?php echo esc_html($f[0]); ?></span><span class="gf-facts__v"><?php echo esc_html($f[1]); ?></span></li><?php endforeach; ?>
         </ul>
       <?php endif; ?>
 
       <?php
-      $repeaters = array(
-        'sights' => 'What to see', 'spots' => 'Where to get it', 'items' => 'Highlights',
-        'thingsToDo' => 'What to do', 'eatAndDrink' => 'Eat & drink', 'plan' => 'The plan',
-        'dayTrips' => 'Day trips', 'inShort' => 'In short',
-      );
-      foreach ($repeaters as $rk => $rlabel) :
-        // gf_rows() (inc/rows.php) parses the flattened row textareas and also
-        // reads the legacy repeater meta, so it works on any ACF edition.
-        // have_rows()/get_sub_field() would need the Repeater field-type class
-        // that free ACF doesn't load.
-        $rows = gf_rows($rk);
-        if ($rows) : ?>
-          <h2><?php echo esc_html($rlabel); ?></h2>
-          <ul>
-          <?php foreach ($rows as $row) :
-            $nm = ($row['name'] ?? '') ?: (($row['text'] ?? '') ?: ($row['part'] ?? ''));
-            $nt = ($row['note'] ?? '') ?: ($row['amount'] ?? '');
-          ?>
-            <li><?php if ($nm) : ?><strong><?php echo esc_html($nm); ?>.</strong> <?php endif; echo esc_html($nt); ?></li>
+      // Sections in the order this type declares. Row fields (the plan, the
+      // gifts, where to get it…) come back through gf_rows(), so they work on
+      // any ACF edition; everything else is authored plain text.
+      foreach ($spec['sections'] as $field => $heading) :
+        $body = gf_row_columns($field, $type)
+          ? gf_row_list_html($field, null, $pid)
+          : gf_prose_html(gf_field($field, $pid));
+        if ($body === '') continue; ?>
+        <h2><?php echo esc_html($heading); ?></h2>
+        <?php echo $body; // escaped in the helpers above ?>
+      <?php endforeach; ?>
+
+      <?php echo gf_know_block_html($spec['know'], $pid); ?>
+
+      <?php $links = gf_story_links($spec['links'], $pid); if ($links) : ?>
+        <p class="gf-links">
+          <?php foreach ($links as $l) : ?>
+            <a href="<?php echo esc_url($l[1]); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($l[0]); ?> <span aria-hidden="true">&rarr;</span></a>
           <?php endforeach; ?>
-          </ul>
-        <?php endif;
-      endforeach; ?>
+        </p>
+      <?php endif; ?>
+
+      <?php echo gf_verified_html($pid); ?>
 
       <?php if (get_post_status() !== 'publish') : ?>
         <p class="gf-draft-note"><em>Draft — not yet published.</em></p>

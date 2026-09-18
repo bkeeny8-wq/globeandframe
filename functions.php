@@ -95,9 +95,11 @@ add_action('init', 'gf_register_post_types', 5);
 
 /* ---- Content model ----
    rows.php first: the field groups build their editor instructions from the
-   row schema it defines. */
+   row schema it defines. story-sections.php declares what each post type
+   renders and in what order. */
 require get_theme_file_path('inc/rows.php');
 require get_theme_file_path('inc/acf-fields.php');
+require get_theme_file_path('inc/story-sections.php');
 
 /* ---- Storefront ----
    There is no on-site shop yet; the storefront is Etsy (same link as the
