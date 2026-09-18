@@ -116,6 +116,17 @@ function gf_field($field, $post_id = 0) {
   return get_post_meta($post_id, $field, true);
 }
 
+/** Write a value the way ACF would, with or without ACF installed. */
+function gf_set_acf_value($post_id, $type, $name, $value) {
+  $key = "field_gf_{$type}_{$name}";
+  if (function_exists('update_field')) {
+    update_field($key, $value, $post_id);
+    return;
+  }
+  update_post_meta($post_id, $name, $value);
+  update_post_meta($post_id, '_' . $name, $key);
+}
+
 /** Plain-text field → escaped paragraphs, preserving the author's line breaks. */
 function gf_prose_html($value) {
   $value = trim((string) $value);

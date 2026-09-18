@@ -1,14 +1,13 @@
 <?php
 /**
- * Template Name: How to Do a City in 3 Days
- *
- * Ported from Astro: src/pages/elevate-your-travel/how-to-do-3-days/index.astro
+ * Elevate article body: how-to-do-3-days
+ * Extracted verbatim from the old page-how-to-do-3-days.php so the copy can move into
+ * WordPress. Rendered by page-elevate-article.php until the article's page
+ * has content of its own; also the source the Elevate seeder captures.
  */
-get_header();
+if (!defined('ABSPATH')) exit;
+
 ?>
-
-<main id="main">
-
   <section class="article-hero">
     <div class="container">
       <p class="eyebrow">
@@ -167,7 +166,3 @@ get_header();
       </div>
     </div>
   </section>
-
-</main>
-
-<?php get_footer(); ?>

@@ -1,12 +1,11 @@
 <?php
 /**
- * Top 10 Beaches — ported from the Astro elevate-your-travel/top-10-beaches page.
- * Interactive featured-beach swap: click a ranked item to update the feature card.
- *
- * ElevateLayout (Astro) only added the site header/footer + article schema, which
- * WordPress supplies via get_header()/get_footer(). Only the <main> body is ported.
+ * Elevate article body: top-10-beaches
+ * Extracted verbatim from the old page-top-10-beaches.php so the copy can move into
+ * WordPress. Rendered by page-elevate-article.php until the article's page
+ * has content of its own; also the source the Elevate seeder captures.
  */
-get_header();
+if (!defined('ABSPATH')) exit;
 
 $beaches = array(
   array(
@@ -173,8 +172,6 @@ $beaches = array(
 
 $first = $beaches[0];
 ?>
-
-<main id="main">
   <section class="beaches-page-hero">
     <div class="container">
       <p class="eyebrow">
@@ -253,8 +250,6 @@ $first = $beaches[0];
       <a class="button button--primary" href="<?php echo esc_url( home_url('/city-guides/') ); ?>">Explore the City Guides</a>
     </div>
   </section>
-</main>
-
 <script>
   const beaches = <?php echo json_encode( $beaches, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ); ?>;
 
@@ -306,5 +301,3 @@ $first = $beaches[0];
     el.addEventListener("click", () => selectBeach(i));
   });
 </script>
-
-<?php get_footer(); ?>

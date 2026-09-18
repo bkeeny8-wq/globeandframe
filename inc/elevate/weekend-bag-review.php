@@ -1,10 +1,11 @@
 <?php
 /**
- * Elevate Your Travel — My Favorite Weekend Bags review.
- * Ported from the Astro page src/pages/elevate-your-travel/weekend-bag-review/index.astro.
- * Content data (weekendBags + reviewCriteria) is inlined below and looped to
- * reproduce the same markup. Shared classes come from the enqueued global.css.
+ * Elevate article body: weekend-bag-review
+ * Extracted verbatim from the old page-weekend-bag-review.php so the copy can move into
+ * WordPress. Rendered by page-elevate-article.php until the article's page
+ * has content of its own; also the source the Elevate seeder captures.
  */
+if (!defined('ABSPATH')) exit;
 
 $weekend_bags = array(
   array(
@@ -115,11 +116,7 @@ $review_criteria = array(
     'description' => 'Under $300. Spending more for something getting thrown around did not make sense.',
   ),
 );
-
-get_header();
 ?>
-
-  <main id="main">
     <section class="review-hero">
       <div class="container">
         <p class="eyebrow">
@@ -206,6 +203,3 @@ get_header();
         <a class="button button--primary" href="<?php echo esc_url( home_url('/elevate-your-travel/') ); ?>">Back to Elevate Your Travel</a>
       </div>
     </section>
-  </main>
-
-<?php get_footer(); ?>

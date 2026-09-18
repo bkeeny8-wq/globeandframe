@@ -1,10 +1,11 @@
 <?php
 /**
- * Cigar Bars While Traveling — ported from the Astro
- * elevate-your-travel/global-cigar-bars/index.astro.
- * Grouped-by-continent directory list.
+ * Elevate article body: global-cigar-bars
+ * Extracted verbatim from the old page-global-cigar-bars.php so the copy can move into
+ * WordPress. Rendered by page-elevate-article.php until the article's page
+ * has content of its own; also the source the Elevate seeder captures.
  */
-get_header();
+if (!defined('ABSPATH')) exit;
 
 $cigar_continents = array(
   array(
@@ -179,8 +180,6 @@ $cigar_continents = array(
   ),
 );
 ?>
-
-  <main id="main">
     <section class="dir-hero">
       <div class="container">
         <p class="eyebrow">
@@ -254,6 +253,3 @@ $cigar_continents = array(
         </a>
       </div>
     </section>
-  </main>
-
-<?php get_footer(); ?>

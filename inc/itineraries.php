@@ -116,17 +116,6 @@ function gf_itinerary_seed_items($tier) {
   return $items;
 }
 
-/** Write a value the way ACF would, with or without ACF installed. */
-function gf_set_acf_value($post_id, $type, $name, $value) {
-  $key = "field_gf_{$type}_{$name}";
-  if (function_exists('update_field')) {
-    update_field($key, $value, $post_id);
-    return;
-  }
-  update_post_meta($post_id, $name, $value);
-  update_post_meta($post_id, '_' . $name, $key);
-}
-
 /**
  * Create the itinerary posts from the bundled data, once.
  * Idempotent: does nothing when itineraries already exist, so it can't double

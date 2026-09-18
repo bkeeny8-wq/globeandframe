@@ -138,6 +138,7 @@ require get_theme_file_path('inc/rows.php');
 require get_theme_file_path('inc/acf-fields.php');
 require get_theme_file_path('inc/story-sections.php');
 require get_theme_file_path('inc/itineraries.php');
+require get_theme_file_path('inc/elevate-articles.php');
 
 /* ---- Storefront ----
    There is no on-site shop yet; the storefront is Etsy (same link as the

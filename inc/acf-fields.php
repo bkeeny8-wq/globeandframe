@@ -143,6 +143,36 @@ add_action('acf/init', function () {
     gf_sel('city_guide', 'provenance', 'Provenance', gf_vocab('provenance')),
   ));
 
+  /* ---------- ELEVATE ARTICLE (pages on the Elevate Article template) ----------
+     The hub card for an article. Seeded from gf_elevate_registry() the first
+     time wp-admin loads, after which these fields are what the hub reads. */
+  $gf_sections = array();
+  foreach (gf_elevate_sections() as $gf_key => $gf_section) $gf_sections[$gf_key] = $gf_section['title'];
+
+  acf_add_local_field_group(array(
+    'key'    => 'group_gf_elevate',
+    'title'  => 'Elevate article',
+    'fields' => array(
+      gf_f('page', 'elevateSection', 'select', 'Hub section', array('choices' => $gf_sections, 'allow_null' => 1, 'ui' => 1,
+        'instructions' => 'Set this and the article appears on the Elevate hub. Clear it to take it off.')),
+      gf_txt('page', 'elevateTitle', 'Card title (defaults to the page title)'),
+      gf_txt('page', 'elevateCategory', 'Card label (Planning, Reviews, In-flight…)'),
+      gf_area('page', 'elevateExcerpt', 'Card excerpt'),
+      gf_txt('page', 'elevateImage', 'Card image path (e.g. /images/city-guides/paris.jpg)'),
+      gf_f('page', 'elevateLayout', 'select', 'Card layout', array('choices' => array(
+        'feature' => 'Large feature card', 'feature-sm' => 'Small feature card',
+        'row' => 'Row card', 'list' => 'List row',
+      ), 'allow_null' => 1, 'ui' => 1)),
+      gf_f('page', 'elevateAccent', 'select', 'Card accent', array('choices' => gf_choices(
+        array('ocean', 'amber', 'teal', 'dusk', 'slate', 'bronze')
+      ), 'allow_null' => 1, 'ui' => 1)),
+      gf_num('page', 'elevateOrder', 'Order within the section'),
+      gf_area('page', 'elevateLead', 'Article lead (under the title)'),
+    ),
+    'location' => array(array(array('param' => 'page_template', 'operator' => '==', 'value' => 'page-elevate-article.php'))),
+    'menu_order' => 0, 'position' => 'normal', 'style' => 'default', 'label_placement' => 'top',
+  ));
+
   /* ---------- ITINERARY ---------- */
   gf_group('itinerary', 'Itinerary — fields', array(
     gf_txt('itinerary', 'destinations', 'Destinations (as shown on the card)'),

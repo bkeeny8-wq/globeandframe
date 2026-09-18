@@ -1,10 +1,11 @@
 <?php
 /**
- * Template Name: F1 Watching Locations
- *
- * Ported from Astro: src/pages/elevate-your-travel/f1-watching-locations/index.astro
- * Data ported from: src/data/f1-locations.ts
+ * Elevate article body: f1-watching-locations
+ * Extracted verbatim from the old page-f1-watching-locations.php so the copy can move into
+ * WordPress. Rendered by page-elevate-article.php until the article's page
+ * has content of its own; also the source the Elevate seeder captures.
  */
+if (!defined('ABSPATH')) exit;
 
 $f1_continents = array(
 	array(
@@ -81,11 +82,7 @@ $f1_continents = array(
 		'locations' => array(),
 	),
 );
-
-get_header();
 ?>
-
-  <main id="main">
     <section class="dir-hero">
       <div class="container">
         <p class="eyebrow">
@@ -145,6 +142,3 @@ get_header();
         </a>
       </div>
     </section>
-  </main>
-
-<?php get_footer(); ?>
