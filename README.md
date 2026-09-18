@@ -20,7 +20,13 @@ language (navy `#0c2042` / gold `#d2af3b` palette, Playfair Display + system san
   `single.php` (universal story: breadcrumb → pillar CTA → "more from city"),
   `archive-city_guide.php` / `taxonomy-region.php`, `page-itinerary-tier.php`
   (3/7/10-day tiers from `inc/itineraries-data.php`), `page-custom-inquiry.php`
-  (native lead form), and the Elevate + static `page-*.php` pages.
+  (native lead form), `search.php` + `searchform.php`, `404.php`, and the
+  Elevate + static `page-*.php` pages.
+- **Copy that tracks published content** — `gf_city_guide_summary()` computes the
+  home page's destination count, and the itinerary tier lookup
+  (`gf_itinerary_tier_key()` / `gf_itinerary_tier_url()`) accepts both slug
+  conventions (`3-day` and `3-day-itineraries`), so templates never promise or
+  link to something that isn't live.
 - **Styles** — `assets/global.css` (design tokens + components) and
   `assets/enhance.css` (UX/mobile polish layer, loaded after global).
 - **Images** — content photography is served from `assets/images/` via an
