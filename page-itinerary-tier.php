@@ -71,22 +71,15 @@ if (!function_exists('gf_itinerary_cta_url')) {
   }
 }
 
-/** First-city → city-guide photo, mirroring lib/itinerary-images.ts. */
+/** First-city → city-guide photo, mirroring lib/itinerary-images.ts.
+ *  The slug lookup itself lives in gf_city_photo_url(), shared with the guides. */
 if (!function_exists('gf_itinerary_image')) {
   function gf_itinerary_image($destinations) {
     $parts = preg_split('/[,&\/+]|→|–|—|\band\b/i', $destinations);
     $first = trim($parts[0]);
     if ($first === '') return null;
-    $slug = strtolower($first);
-    $slug = strtr($slug, array('á'=>'a','à'=>'a','ã'=>'a','â'=>'a','ä'=>'a','é'=>'e','è'=>'e','ê'=>'e','í'=>'i','ì'=>'i','ó'=>'o','ò'=>'o','ô'=>'o','õ'=>'o','ö'=>'o','ú'=>'u','ü'=>'u','ñ'=>'n','ç'=>'c'));
-    $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
-    $slug = trim($slug, '-');
-    $alias = array('new-york-city' => 'new-york', 'rio-de-janeiro' => 'rio', 'val-d-isere' => 'val-disere');
-    if (isset($alias[$slug])) $slug = $alias[$slug];
-    if ($slug && file_exists(get_theme_file_path('assets/images/city-guides/' . $slug . '.jpg'))) {
-      return '/images/city-guides/' . $slug . '.jpg';
-    }
-    return null;
+    $url = gf_city_photo_url($first);
+    return $url !== '' ? $url : null;
   }
 }
 ?>
