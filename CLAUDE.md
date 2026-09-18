@@ -21,6 +21,14 @@ mysql socket (no Docker).
 - **Content model** — 11 CPTs (`city_guide` + 10 spotlight types) and `city` /
   `region` taxonomies, registered in `functions.php`. ACF field groups in
   `inc/acf-fields.php` (via `acf_add_local_field_group`).
+- **Itineraries** — the `itinerary` CPT + `tier` taxonomy, read through
+ `gf_itineraries_for_tier()` (`inc/itineraries.php`). `inc/itineraries-data.php`
+ is now only the seed source and the pre-seed fallback; don't edit it to change
+ what the site shows.
+- **Elevate articles** — no per-article templates. `page-elevate-article.php`
+ renders page content when it exists, otherwise the bundled body in
+ `inc/elevate/<slug>.php`; the hub reads `gf_elevate_articles()`. Card metadata
+ is ACF fields on each page, seeded from `gf_elevate_registry()`.
 - **Row fields** — the list-shaped fields are textareas in the workbook format
  (one row per line, columns separated by ` | `), because the ACF repeater
  editing UI is Pro-only. Read them with `gf_rows($field)` from `inc/rows.php`,
