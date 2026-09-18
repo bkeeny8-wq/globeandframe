@@ -15,6 +15,12 @@ language (navy `#0c2042` / gold `#d2af3b` palette, Playfair Display + system san
   gift, mcdonalds), plus `city` and `region` taxonomies.
 - **Content model** (`inc/acf-fields.php`) — ACF field groups, all editable on
   **free ACF / Secure Custom Fields**.
+- **Story sections** (`inc/story-sections.php`) — what each spotlight type
+  renders and in what order (lead prose, facts strip, prose sections and row
+  lists, the "Good to know" block, the links row). `single.php` is a renderer
+  over that spec, so adding a field to a type is a one-line change there. Also
+  holds `gf_city_photo_url()`, the bundled-photography lookup shared by the city
+  guide hero and the itinerary cards.
 - **Row fields** (`inc/rows.php`) — the list-shaped fields (`sights`,
   `dayTrips`, `plan`, `costs`, `items`, `spots`, `thingsToDo`, `eatAndDrink`,
   `inShort`) are textareas in the Excel workbook's format — one row per line,

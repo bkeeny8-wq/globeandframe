@@ -27,6 +27,10 @@ mysql socket (no Docker).
  never `get_field()`/`have_rows()`/`get_sub_field()`; `gf_rows()` also
  reconstructs the legacy `field_0_subfield` repeater meta. Column order lives in
  `gf_row_schema()`.
+- **Story sections** — `single.php` renders per-type specs from
+ `inc/story-sections.php` (lead → facts → sections → "Good to know" → links →
+ verified). Surface a new field by adding it to that type's spec, not by
+ hand-editing the template. Empty fields never render.
 - **Templates** — `front-page.php`, `single-city_guide.php` (city hub),
   `single.php` (universal story), `archive-city_guide.php`, `taxonomy-region.php`,
   `page-itinerary-tier.php` (data in `inc/itineraries-data.php`),
