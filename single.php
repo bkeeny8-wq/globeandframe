@@ -139,18 +139,20 @@ while (have_posts()) : the_post();
   .post-single .lead{color:var(--color-muted-mid,var(--color-muted));font-size:1.15rem;line-height:1.5;margin-bottom:var(--space-lg)}
 
   .pf-crumb{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.8rem;margin:0 0 var(--space-md);color:var(--color-muted)}
-  .pf-crumb a{color:var(--color-gold);text-decoration:none}
+  .pf-crumb a{color:var(--color-gold-text);text-decoration:none}
   .pf-crumb a:hover{text-decoration:underline}
   .pf-crumb span[aria-hidden]{color:rgba(12,32,66,.32)}
 
   .gf-facts{list-style:none;display:flex;flex-wrap:wrap;gap:var(--space-md) var(--space-lg);padding:var(--space-md) 0;margin:var(--space-lg) 0;border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
-  .gf-facts__k{display:block;font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--color-gold)}
+  .gf-facts__k{display:block;font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--color-gold-text)}
   .gf-facts__v{display:block;font-size:.9rem;color:var(--color-text);font-family:var(--font-serif)}
   .gf-draft-note{color:var(--color-muted);border-top:1px dashed var(--color-border);padding-top:var(--space-sm);margin-top:var(--space-lg)}
 
   /* Post flow */
   .pf-guide{display:block;margin-top:calc(var(--space-xl) + var(--space-md));padding:20px 22px;background:var(--color-navy);border-radius:var(--radius);text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
   .pf-guide:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(12,32,66,.18)}
+  /* .pf-guide is navy, so the bright gold is the accessible choice here (7.6:1);
+     gold text on the light surfaces uses --color-gold-text instead. */
   .pf-guide__k{display:block;font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-gold);margin-bottom:8px}
   .pf-guide__t{display:block;font-family:var(--font-serif);font-size:1.2rem;line-height:1.25;color:#fff;margin-bottom:10px}
   .pf-guide__go{display:inline-block;font-size:.82rem;font-weight:600;color:var(--color-gold)}
@@ -160,7 +162,7 @@ while (have_posts()) : the_post();
   .pf-more__grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .pf-card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;min-height:90px;border:1px solid var(--color-border);border-radius:var(--radius);background:var(--color-surface);text-decoration:none;transition:border-color .15s ease,transform .15s ease}
   .pf-card:hover{border-color:var(--color-border-gold);transform:translateY(-2px)}
-  .pf-card__cat{font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--color-gold)}
+  .pf-card__cat{font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--color-gold-text)}
   .pf-card__t{font-family:var(--font-serif);font-size:1.02rem;line-height:1.25;color:var(--color-text)}
   /* one companion story: don't leave an empty right cell */
   .pf-more__grid:has(> .pf-card:only-child){grid-template-columns:1fr}

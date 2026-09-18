@@ -5,7 +5,7 @@
    collapses to the hamburger (768), so one component isn't governed by two. */
 @media (max-width: 768px) {
   .site-header__inner { padding-top: 12px; padding-bottom: 12px; gap: 12px; }
-  .site-logo__img { height: 30px; width: auto; max-width: 60vw; }
+  .site-header .site-logo__img { height: 30px; width: auto; max-width: 60vw; }
   .site-nav-toggle { flex-shrink: 0; }
 }
 
@@ -19,7 +19,7 @@
 .site-nav-toggle:focus-visible,
 .button:focus-visible,
 .card:focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-gold-text);
   outline-offset: 3px;
   border-radius: var(--radius);
 }
@@ -37,6 +37,60 @@
 }
 .skip-link:focus { left: var(--space-sm); top: var(--space-sm); }
 
+/* Visible to assistive tech only (nav's external-link hint, search form label). */
+.screen-reader-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
+
+/* ---------- Search results + 404 ---------- */
+.gf-searchform {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  max-width: 30rem;
+  margin-top: var(--space-md);
+}
+.gf-searchform input[type="search"] {
+  flex: 1 1 14rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.85rem;
+}
+.gf-searchform input[type="search"]:focus {
+  outline: none;
+  border-color: var(--color-gold-text);
+  box-shadow: 0 0 0 3px var(--color-gold-ghost);
+}
+.gf-result__cat {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-gold-text);
+  margin-bottom: 6px;
+}
+.gf-notfound__links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-sm);
+}
+.gf-notfound__home { margin-top: var(--space-lg); }
+
 /* ---------- Cards (shared .card component) ---------- */
 /* The .card h3 a rule in global.css never matches the wrapping-anchor markup,
    so the title inherited gold. Force ink; gold is hover-only. */
@@ -45,7 +99,7 @@
    gold underline painted through the title/hook. Reset it (gold is hover-only). */
 .card { text-decoration: none; transition: border-color .15s, color .15s; }
 .card:hover { border-color: var(--color-border-gold); }
-.card:hover h3 { color: var(--color-gold); }
+.card:hover h3 { color: var(--color-gold-text); }
 .card > :last-child { margin-bottom: 0; }
 
 /* ---------- Home ---------- */
@@ -72,7 +126,7 @@
 .flight-pattern { max-width: 44rem; }
 .day-sequence { margin: var(--space-md) 0; }
 /* Lift the big serif sequence numbers so they read as a deliberate progression. */
-.day-card__num { color: rgba(210, 175, 59, 0.55); }
+.day-card__num { color: var(--color-gold-text); }
 /* Even out rhythm where two prose blocks stack (jet-lag). */
 .article-prose + .article-prose { padding-top: 0; }
 /* Let card padding define the bottom gap, not trailing child margins. */
@@ -97,7 +151,7 @@
   display: inline-block;
   padding: 4px 0;
 }
-.post-type-archive-city_guide .section-count:hover { color: var(--color-gold); }
+.post-type-archive-city_guide .section-count:hover { color: var(--color-gold-text); }
 /* Region sections are top-padded only — give the landing + region page a bottom. */
 .post-type-archive-city_guide main > .container,
 .tax-region main > .container { padding-bottom: var(--space-xl); }
@@ -125,7 +179,7 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin: 0 0 var(--space-xs);
 }
 .gallery-soon__note {

@@ -82,7 +82,7 @@ while (have_posts()) : the_post();
 <style>
   .cg-hero{background:var(--color-surface);padding:var(--space-xl) 0 var(--space-md);border-bottom:1px solid var(--color-border)}
   .cg-crumb{font-size:.78rem;color:var(--color-muted);margin:0 0 12px}
-  .cg-crumb a{color:var(--color-gold);text-decoration:none}
+  .cg-crumb a{color:var(--color-gold-text);text-decoration:none}
   .cg-title{font-family:var(--font-serif);font-size:clamp(2.4rem,6vw,3.6rem);font-weight:600;color:var(--color-text);line-height:1;margin:0 0 12px}
   .cg-hook{font-size:1.05rem;color:var(--color-muted-mid);max-width:48ch;margin:0}
   .cg-facts-outer{background:var(--color-gold)}
@@ -96,7 +96,7 @@ while (have_posts()) : the_post();
   .cg-cta p{margin:0;color:var(--color-text)}
   .cg-stories{padding:var(--space-xl) 0}
   .cg-stories__head h2{font-family:var(--font-serif);font-size:clamp(1.6rem,3vw,2rem);color:var(--color-text);border-bottom:1px solid var(--color-border-gold);padding-bottom:var(--space-sm);margin-bottom:var(--space-lg)}
-  .cg-story__cat{display:block;font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--color-gold);margin-bottom:6px}
+  .cg-story__cat{display:block;font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--color-gold-text);margin-bottom:6px}
   @media(max-width:640px){.cg-facts{grid-template-columns:1fr 1fr}}
 </style>
 <?php endwhile; get_footer(); ?>
