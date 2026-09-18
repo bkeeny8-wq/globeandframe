@@ -65,7 +65,7 @@ $home = home_url('/');
           <span class="explore-card__overlay"></span>
           <span class="explore-card__body">
             <h3>Explore Destinations</h3>
-            <p>Start with city guides shaped by the places, people, and experiences that stay with you. 57 destinations across 7 regions.</p>
+            <p>Start with city guides shaped by the places, people, and experiences that stay with you. <?php echo esc_html(gf_city_guide_summary()); ?></p>
           </span>
         </a>
         <a class="explore-card" href="<?php echo esc_url($home . 'itineraries/'); ?>">

@@ -20,13 +20,29 @@
       <span class="site-nav-toggle__bar" aria-hidden="true"></span>
     </button>
 
+    <?php
+    // Hard-coded nav (no WordPress menu). "Shop" points at the Etsy storefront
+    // via gf_shop_url() — /shop/ doesn't exist, so linking it here 404s. The
+    // item drops out entirely if that URL is ever filtered to empty.
+    $gf_shop = gf_shop_url();
+    $gf_nav  = array(
+      array('label' => 'City Guides',        'url' => home_url('/city-guides/')),
+      array('label' => 'Itineraries',        'url' => home_url('/itineraries/')),
+      array('label' => 'Elevate Your Travel','url' => home_url('/elevate-your-travel/')),
+      array('label' => 'Gallery',            'url' => home_url('/gallery/')),
+      array('label' => 'About',              'url' => home_url('/about/')),
+    );
+    if ($gf_shop) {
+      array_splice($gf_nav, 4, 0, array(array('label' => 'Shop', 'url' => $gf_shop)));
+    }
+    ?>
     <nav class="site-nav" id="site-nav" aria-label="Main">
-      <a href="<?php echo esc_url(home_url('/city-guides/')); ?>">City Guides</a>
-      <a href="<?php echo esc_url(home_url('/itineraries/')); ?>">Itineraries</a>
-      <a href="<?php echo esc_url(home_url('/elevate-your-travel/')); ?>">Elevate Your Travel</a>
-      <a href="<?php echo esc_url(home_url('/gallery/')); ?>">Gallery</a>
-      <a href="<?php echo esc_url(home_url('/shop/')); ?>">Shop</a>
-      <a href="<?php echo esc_url(home_url('/about/')); ?>">About</a>
+      <?php foreach ($gf_nav as $gf_item) :
+        $gf_external = gf_is_external_url($gf_item['url']); ?>
+        <a href="<?php echo esc_url($gf_item['url']); ?>"<?php if ($gf_external) echo ' target="_blank" rel="noopener noreferrer"'; ?>>
+          <?php echo esc_html($gf_item['label']); ?><?php if ($gf_external) : ?><span class="screen-reader-text"> (Etsy, opens in a new tab)</span><?php endif; ?>
+        </a>
+      <?php endforeach; ?>
     </nav>
   </div>
 </header>
