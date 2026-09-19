@@ -21,9 +21,24 @@ mysql socket (no Docker).
 - **Content model** — 11 CPTs (`city_guide` + 10 spotlight types) and `city` /
   `region` taxonomies, registered in `functions.php`. ACF field groups in
   `inc/acf-fields.php` (via `acf_add_local_field_group`).
-- **Repeaters** — render with `get_field()` + `foreach`, NOT
-  `have_rows()`/`get_sub_field()`: the latter need the repeater field-type class
-  that free ACF doesn't load and would render blank.
+- **Itineraries** — the `itinerary` CPT + `tier` taxonomy, read through
+ `gf_itineraries_for_tier()` (`inc/itineraries.php`). `inc/itineraries-data.php`
+ is now only the seed source and the pre-seed fallback; don't edit it to change
+ what the site shows.
+- **Elevate articles** — no per-article templates. `page-elevate-article.php`
+ renders page content when it exists, otherwise the bundled body in
+ `inc/elevate/<slug>.php`; the hub reads `gf_elevate_articles()`. Card metadata
+ is ACF fields on each page, seeded from `gf_elevate_registry()`.
+- **Row fields** — the list-shaped fields are textareas in the workbook format
+ (one row per line, columns separated by ` | `), because the ACF repeater
+ editing UI is Pro-only. Read them with `gf_rows($field)` from `inc/rows.php`,
+ never `get_field()`/`have_rows()`/`get_sub_field()`; `gf_rows()` also
+ reconstructs the legacy `field_0_subfield` repeater meta. Column order lives in
+ `gf_row_schema()`.
+- **Story sections** — `single.php` renders per-type specs from
+ `inc/story-sections.php` (lead → facts → sections → "Good to know" → links →
+ verified). Surface a new field by adding it to that type's spec, not by
+ hand-editing the template. Empty fields never render.
 - **Templates** — `front-page.php`, `single-city_guide.php` (city hub),
   `single.php` (universal story), `archive-city_guide.php`, `taxonomy-region.php`,
   `page-itinerary-tier.php` (data in `inc/itineraries-data.php`),

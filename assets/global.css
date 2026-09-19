@@ -19,10 +19,15 @@
   --color-navy: var(--navy);
   --color-navy-deep: var(--navy);
 
-  /* Gold — unchanged accent */
+  /* Gold — unchanged accent for fills, borders and gold-on-navy text */
   --color-gold: var(--gold);
   --color-gold-dim: rgba(210, 175, 59, 0.5);
   --color-gold-ghost: rgba(210, 175, 59, 0.14);
+  /* Gold TEXT on the light surfaces: #d2af3b only reaches 1.7–2.1:1 on
+     paper/white/sand. This darker gold clears WCAG AA everywhere the palette
+     puts type: 5.9:1 on white, 5.5:1 on paper, 4.8:1 on sand. Navy sections
+     re-point the token at the bright gold (see the dark-section block below). */
+  --color-gold-text: #7a6212;
   --color-gold-light: var(--sand);
   --color-sand: var(--sand);
 
@@ -89,7 +94,7 @@ img {
 }
 
 a {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   transition: color 0.15s;
@@ -189,7 +194,10 @@ p {
   line-height: 0;
 }
 
-.site-logo__img {
+/* Scoped to .site-header so it outranks WooCommerce's `.woocommerce-page img
+   { height: auto }`, which otherwise collapses the wordmark to 0×0 on any
+   commerce-templated page. */
+.site-header .site-logo__img {
   display: block;
   height: 52px;
   width: auto;
@@ -209,7 +217,7 @@ p {
 }
 
 .site-nav a:hover {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .site-footer {
@@ -235,7 +243,7 @@ p {
 }
 
 .site-footer a:hover {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .hero {
@@ -250,7 +258,7 @@ p {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.75rem;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: var(--space-sm);
 }
 
@@ -290,14 +298,14 @@ p {
 
 .button--secondary {
   background: transparent;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   border: 1.5px solid var(--color-border-gold);
 }
 
 .button--secondary:hover {
   background: var(--color-gold-ghost);
   border-color: var(--color-gold);
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .section {
@@ -347,7 +355,7 @@ p {
 }
 
 .card h3 a:hover {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .card p {
@@ -465,7 +473,7 @@ p {
 }
 
 .shop-cta h2 {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .shop-cta p {
@@ -473,7 +481,7 @@ p {
 }
 
 .shop-cta a:not(.button) {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .shop-cta .button--primary {
@@ -539,7 +547,7 @@ p {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: var(--space-md);
   display: flex;
   align-items: center;
@@ -593,7 +601,7 @@ p {
 .section-count {
   font-family: var(--font-serif);
   font-size: 0.8rem;
-  color: var(--color-gold-dim);
+  color: var(--color-gold-text);
   font-style: italic;
   white-space: nowrap;
 }
@@ -664,8 +672,11 @@ a.card-feature {
 .card-feature__img {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.6s ease;
 }
 
@@ -697,7 +708,7 @@ a.card-feature {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   display: block;
   margin-bottom: var(--space-xs);
 }
@@ -735,7 +746,7 @@ a.card-feature {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .side-stack {
@@ -793,7 +804,7 @@ a.row-card {
   font-family: var(--font-serif);
   font-size: 2rem;
   font-weight: 600;
-  color: var(--color-gold-ghost);
+  color: var(--color-gold-text);
   line-height: 1;
   margin-bottom: var(--space-sm);
 }
@@ -824,12 +835,12 @@ a.row-card {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-gold-dim);
+  color: var(--color-gold-text);
   transition: color 0.15s;
 }
 
 .row-card:hover .row-card__read {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .row-card--cta {
@@ -842,7 +853,7 @@ a.row-card {
 }
 
 .row-card--cta .row-card__title {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .row-card--cta .row-card__excerpt {
@@ -850,7 +861,7 @@ a.row-card {
 }
 
 .row-card--cta .row-card__read {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .list-rows {
@@ -879,13 +890,13 @@ a.list-row {
 }
 
 .list-row:hover .list-row__title {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .list-row__num {
   font-family: var(--font-serif);
   font-size: 0.8rem;
-  color: var(--color-gold-dim);
+  color: var(--color-gold-text);
   font-style: italic;
 }
 
@@ -907,12 +918,12 @@ a.list-row {
 
 .list-row__arrow {
   font-size: 1.1rem;
-  color: var(--color-gold-dim);
+  color: var(--color-gold-text);
   transition: color 0.2s, transform 0.2s;
 }
 
 .list-row:hover .list-row__arrow {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   transform: translateX(3px);
 }
 
@@ -1016,7 +1027,11 @@ a.list-row {
 .beach-feature__img {
   position: absolute;
   inset: 0;
-  background-size: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
   background-position: center 40%;
   transition: transform 0.5s ease;
 }
@@ -1114,7 +1129,7 @@ a.list-row {
   font-family: var(--font-serif);
   font-size: 1.15rem;
   font-style: italic;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   line-height: 1.4;
   margin: 0 0 var(--space-md);
 }
@@ -1140,7 +1155,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: 6px;
 }
 
@@ -1199,7 +1214,7 @@ a.list-row {
 }
 
 .beach-rank-item:not(.is-active):hover .bri-name {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .bri-num {
@@ -1226,7 +1241,11 @@ a.list-row {
 .bri-thumb__bg {
   position: absolute;
   inset: 0;
-  background-size: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
   background-position: center 35%;
   transition: transform 0.3s ease;
 }
@@ -1368,6 +1387,26 @@ a.list-row {
 
   body.nav-open {
     overflow: hidden;
+  }
+
+  /* Scrim behind the open mobile nav: without it, whatever the visitor had
+     scrolled to stays visible under the menu with no visual separation, and
+     the scroll lock above makes it feel like a broken page rather than an
+     open menu. Sits under the sticky header (z-index: 100) so the nav itself
+     stays on top, and above ordinary content. */
+  body.nav-open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgba(12, 32, 66, 0.55);
+    /* Neutralised to ~0 by the sitewide prefers-reduced-motion rule above. */
+    animation: gf-scrim-in 0.15s ease;
+  }
+
+  @keyframes gf-scrim-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   .hero {
@@ -1832,7 +1871,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: var(--space-sm);
   padding-top: calc(var(--space-lg) * 0.5);
 }
@@ -1850,7 +1889,7 @@ a.list-row {
   font-family: var(--font-serif);
   font-size: 1rem;
   font-style: italic;
-  color: var(--color-gold-dim);
+  color: var(--color-gold-text);
   margin-bottom: var(--space-md);
   padding-bottom: var(--space-md);
   border-bottom: 1px solid rgba(12, 32, 66, 0.07);
@@ -1991,7 +2030,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: 6px;
 }
 
@@ -2033,7 +2072,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .dir-field__value {
@@ -2143,7 +2182,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .review-criterion__desc {
@@ -2330,7 +2369,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .bag-field__value {
@@ -2402,7 +2441,7 @@ a.list-row {
   font-family: var(--font-serif);
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .airline-score__denom {
@@ -2430,7 +2469,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   flex-shrink: 0;
 }
 
@@ -2477,7 +2516,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   padding-top: 2px;
 }
 
@@ -2588,7 +2627,7 @@ a.list-row {
   align-items: center;
   gap: 6px;
   font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--color-gold);
+  text-transform: uppercase; color: var(--color-gold-text);
   text-decoration: none;
   border-bottom: 1px solid rgba(210,175,59,0.3);
   padding-bottom: 2px;
@@ -2651,7 +2690,7 @@ a.list-row {
 }
 .tip-card__label {
   font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--color-gold);
+  text-transform: uppercase; color: var(--color-gold-text);
 }
 .tip-card__text {
   font-size: 0.85rem; color: var(--color-muted-mid); line-height: 1.65;
@@ -2703,7 +2742,7 @@ a.list-row {
 }
 .timeline-entry__when {
   font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--color-gold);
+  text-transform: uppercase; color: var(--color-gold-text);
   margin-bottom: 4px;
 }
 .timeline-entry__title {
@@ -2800,7 +2839,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: var(--space-sm);
   padding-top: calc(var(--space-md) * 0.5);
 }
@@ -2816,7 +2855,7 @@ a.list-row {
 
 .about-hero__sub {
   font-size: 0.9rem;
-  color: var(--color-gold-dim);
+  color: var(--color-gold-text);
   font-style: italic;
   margin-bottom: var(--space-lg);
 }
@@ -2841,7 +2880,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: 4px;
 }
 
@@ -2952,7 +2991,7 @@ a.list-row {
   font-family: var(--font-serif);
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   line-height: 1;
   display: block;
   margin-bottom: 4px;
@@ -3062,7 +3101,7 @@ a.list-row {
 }
 
 .guide-card:hover .guide-card__name a {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .guide-card__region {
@@ -3070,7 +3109,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: var(--space-sm);
 }
 
@@ -3090,13 +3129,13 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-gold-dim);
+  color: var(--color-gold-text);
   text-decoration: none;
   transition: color 0.15s;
 }
 
 .guide-card:hover .guide-card__read {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .guide-card__read--soon {
@@ -3226,7 +3265,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: var(--space-sm);
   display: flex;
   align-items: center;
@@ -3275,7 +3314,7 @@ a.list-row {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .custom-pitch__detail-value {
@@ -3322,8 +3361,11 @@ a.list-row {
 .explore-card__bg {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.6s ease;
 }
 
@@ -3360,7 +3402,7 @@ a.list-row {
 }
 
 .explore-card:hover h3 {
-  color: var(--color-gold);
+  color: var(--color-gold-text);
 }
 
 .explore-card p {
@@ -3401,7 +3443,7 @@ a.list-row {
   font-family: var(--font-serif);
   font-size: 1.4rem;
   font-weight: 600;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   display: block;
   margin-bottom: var(--space-xs);
 }
@@ -3509,7 +3551,7 @@ a.list-row {
    font-weight: 600;
    letter-spacing: 0.08em;
     text-transform: uppercase;
-   color: var(--color-gold);
+   color: var(--color-gold-text);
     text-decoration: none;
     transition: background 0.15s, border-color 0.15s;
   }
@@ -3605,10 +3647,12 @@ a.list-row {
    }
 
 .itin-card__thumb  {
+    display: block;
+    width: calc(100% + var(--space-md) * 2);
     height: 150px;
     margin: calc(var(--space-md) * -1) calc(var(--space-md) * -1) 0;
-    background-size: cover;
-    background-position: center;
+    object-fit: cover;
+    object-position: center;
     background-color: var(--color-navy);
   }
 
@@ -3645,7 +3689,7 @@ a.list-row {
    font-weight: 600;
    letter-spacing: 0.14em;
     text-transform: uppercase;
-   color: var(--color-gold);
+   color: var(--color-gold-text);
   }
 
 .itin-card__time  {
@@ -3743,7 +3787,7 @@ a.list-row {
     font-family: var(--font-serif);
     font-size: 2.2rem;
    font-weight: 600;
-   color: var(--color-gold);
+   color: var(--color-gold-text);
     line-height: 1;
   }
 
@@ -3766,7 +3810,7 @@ a.list-row {
    font-weight: 600;
    letter-spacing: 0.1em;
     text-transform: uppercase;
-   color: var(--color-gold);
+   color: var(--color-gold-text);
     margin-top: auto;
    padding-top: var(--space-sm);
   }
@@ -3802,9 +3846,23 @@ a.list-row {
 .custom-pitch a:not(.button) { color: var(--color-gold); }
 .card-feature__overlay, .dreaming-card__overlay { color: rgba(255, 255, 255, 0.88); }
 
+/* Gold text on those navy/photographic surfaces goes back to the bright gold,
+   which passes AA on navy at 7.6:1 — the darker text gold is for light backgrounds. */
+.site-footer,
+.shop-cta,
+.cta-editorial,
+.dreaming-cta,
+.custom-pitch,
+.card-feature,
+.dreaming-card,
+.explore-card,
+.beach-feature__media,
+.home .hero { --color-gold-text: var(--gold); }
+
 /* Home custom-pitch sits on a light surface, not the navy band — use dark text. */
 .home .custom-pitch,
 .home .custom-pitch p,
 .home .custom-pitch__body,
 .home .custom-pitch__text { color: var(--color-muted-mid); }
 .home .custom-pitch h2 { color: var(--color-navy); }
+.home .custom-pitch { --color-gold-text: #7a6212; }

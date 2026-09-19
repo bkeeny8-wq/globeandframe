@@ -34,7 +34,12 @@ $regions = get_terms(array('taxonomy' => 'region', 'hide_empty' => false, 'order
           <section class="section-block">
             <div class="section-header">
               <div><h2><?php echo esc_html($r->name); ?></h2></div>
-              <a class="section-count" href="<?php echo esc_url(get_term_link($r)); ?>"><?php echo (int) $q->found_posts; ?> guides &rarr;</a>
+              <a class="section-count" href="<?php echo esc_url(get_term_link($r)); ?>"><?php
+                echo esc_html(sprintf(
+                  _n('%s guide', '%s guides', (int) $q->found_posts, 'globe-and-frame'),
+                  number_format_i18n((int) $q->found_posts)
+                ));
+              ?> &rarr;</a>
             </div>
             <div class="card-grid">
               <?php while ($q->have_posts()) : $q->the_post(); $hook = get_field('hook'); ?>

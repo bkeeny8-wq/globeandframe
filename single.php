@@ -13,10 +13,9 @@ while (have_posts()) : the_post();
   $typeLbl = $typeObj ? $typeObj->labels->singular_name : '';
   $city    = get_field('city');
   $hook    = get_field('hook');
-  $prose   = '';
-  foreach (array('take', 'whatItIs', 'intro', 'overview') as $pf) {
-    if (get_field($pf)) { $prose = get_field($pf); break; }
-  }
+  // What this type renders, and in what order (inc/story-sections.php).
+  $spec    = gf_story_spec($type);
+  $prose   = gf_first_field($spec['lead'], $pid);
 
   // Cluster context: this story's city → its pillar guide + sibling stories.
   $storyTypes = array('beach', 'day_trip', 'neighborhood', 'local_dish', 'market', 'bar', 'walk', 'experience', 'gift', 'mcdonalds');
@@ -61,46 +60,42 @@ while (have_posts()) : the_post();
       <?php if ($prose) : ?><div class="gf-prose"><?php echo wp_kses_post($prose); ?></div><?php endif; ?>
 
       <?php
-      $facts = array(
-        'bestFor' => 'Best for', 'water' => 'Water', 'cost' => 'Cost', 'priceBand' => 'Price', 'price' => 'Price',
-        'scene' => 'Scene', 'type' => 'Type', 'difficulty' => 'Difficulty', 'distance' => 'Distance', 'time' => 'Time',
-        'verdict' => 'Verdict', 'bestTime' => 'Best time', 'journeyTime' => 'Journey', 'marketType' => 'Market',
-        'budget' => 'Budget',
-      );
-      $rows = array();
-      foreach ($facts as $k => $lbl) {
-        $v = get_field($k);
-        if ($v) { if (is_array($v)) $v = implode(', ', $v); $rows[] = array($lbl, $v); }
-      }
-      if ($rows) : ?>
+      // Fallback for anything written in the block editor rather than the
+      // fields — a plain post, or a story typed up before the fields existed.
+      if (!$prose && trim(get_the_content()) !== '') : ?>
+        <div class="gf-prose"><?php the_content(); ?></div>
+      <?php endif; ?>
+
+      <?php $facts = gf_story_facts($spec['facts'], $pid); if ($facts) : ?>
         <ul class="gf-facts">
-          <?php foreach ($rows as $r) : ?><li><span class="gf-facts__k"><?php echo esc_html($r[0]); ?></span><span class="gf-facts__v"><?php echo esc_html($r[1]); ?></span></li><?php endforeach; ?>
+          <?php foreach ($facts as $f) : ?><li><span class="gf-facts__k"><?php echo esc_html($f[0]); ?></span><span class="gf-facts__v"><?php echo esc_html($f[1]); ?></span></li><?php endforeach; ?>
         </ul>
       <?php endif; ?>
 
       <?php
-      $repeaters = array(
-        'sights' => 'What to see', 'spots' => 'Where to get it', 'items' => 'Highlights',
-        'thingsToDo' => 'What to do', 'eatAndDrink' => 'Eat & drink', 'plan' => 'The plan',
-        'dayTrips' => 'Day trips', 'inShort' => 'In short',
-      );
-      foreach ($repeaters as $rk => $rlabel) :
-        // Use get_field() (returns the rows array on any ACF edition) rather than
-        // have_rows()/get_sub_field(), which need the Repeater field-type class
-        // that ACF Free doesn't load — it would render empty <li> items.
-        $rows = get_field($rk);
-        if (is_array($rows) && $rows) : ?>
-          <h2><?php echo esc_html($rlabel); ?></h2>
-          <ul>
-          <?php foreach ($rows as $row) :
-            $nm = ($row['name'] ?? '') ?: (($row['text'] ?? '') ?: ($row['part'] ?? ''));
-            $nt = ($row['note'] ?? '') ?: ($row['amount'] ?? '');
-          ?>
-            <li><?php if ($nm) : ?><strong><?php echo esc_html($nm); ?>.</strong> <?php endif; echo esc_html($nt); ?></li>
+      // Sections in the order this type declares. Row fields (the plan, the
+      // gifts, where to get it…) come back through gf_rows(), so they work on
+      // any ACF edition; everything else is authored plain text.
+      foreach ($spec['sections'] as $field => $heading) :
+        $body = gf_row_columns($field, $type)
+          ? gf_row_list_html($field, null, $pid)
+          : gf_prose_html(gf_field($field, $pid));
+        if ($body === '') continue; ?>
+        <h2><?php echo esc_html($heading); ?></h2>
+        <?php echo $body; // escaped in the helpers above ?>
+      <?php endforeach; ?>
+
+      <?php echo gf_know_block_html($spec['know'], $pid); ?>
+
+      <?php $links = gf_story_links($spec['links'], $pid); if ($links) : ?>
+        <p class="gf-links">
+          <?php foreach ($links as $l) : ?>
+            <a href="<?php echo esc_url($l[1]); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($l[0]); ?> <span aria-hidden="true">&rarr;</span></a>
           <?php endforeach; ?>
-          </ul>
-        <?php endif;
-      endforeach; ?>
+        </p>
+      <?php endif; ?>
+
+      <?php echo gf_verified_html($pid); ?>
 
       <?php if (get_post_status() !== 'publish') : ?>
         <p class="gf-draft-note"><em>Draft — not yet published.</em></p>
@@ -139,18 +134,20 @@ while (have_posts()) : the_post();
   .post-single .lead{color:var(--color-muted-mid,var(--color-muted));font-size:1.15rem;line-height:1.5;margin-bottom:var(--space-lg)}
 
   .pf-crumb{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.8rem;margin:0 0 var(--space-md);color:var(--color-muted)}
-  .pf-crumb a{color:var(--color-gold);text-decoration:none}
+  .pf-crumb a{color:var(--color-gold-text);text-decoration:none}
   .pf-crumb a:hover{text-decoration:underline}
   .pf-crumb span[aria-hidden]{color:rgba(12,32,66,.32)}
 
   .gf-facts{list-style:none;display:flex;flex-wrap:wrap;gap:var(--space-md) var(--space-lg);padding:var(--space-md) 0;margin:var(--space-lg) 0;border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
-  .gf-facts__k{display:block;font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--color-gold)}
+  .gf-facts__k{display:block;font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--color-gold-text)}
   .gf-facts__v{display:block;font-size:.9rem;color:var(--color-text);font-family:var(--font-serif)}
   .gf-draft-note{color:var(--color-muted);border-top:1px dashed var(--color-border);padding-top:var(--space-sm);margin-top:var(--space-lg)}
 
   /* Post flow */
   .pf-guide{display:block;margin-top:calc(var(--space-xl) + var(--space-md));padding:20px 22px;background:var(--color-navy);border-radius:var(--radius);text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
   .pf-guide:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(12,32,66,.18)}
+  /* .pf-guide is navy, so the bright gold is the accessible choice here (7.6:1);
+     gold text on the light surfaces uses --color-gold-text instead. */
   .pf-guide__k{display:block;font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-gold);margin-bottom:8px}
   .pf-guide__t{display:block;font-family:var(--font-serif);font-size:1.2rem;line-height:1.25;color:#fff;margin-bottom:10px}
   .pf-guide__go{display:inline-block;font-size:.82rem;font-weight:600;color:var(--color-gold)}
@@ -160,7 +157,7 @@ while (have_posts()) : the_post();
   .pf-more__grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .pf-card{display:flex;flex-direction:column;gap:6px;padding:16px 18px;min-height:90px;border:1px solid var(--color-border);border-radius:var(--radius);background:var(--color-surface);text-decoration:none;transition:border-color .15s ease,transform .15s ease}
   .pf-card:hover{border-color:var(--color-border-gold);transform:translateY(-2px)}
-  .pf-card__cat{font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--color-gold)}
+  .pf-card__cat{font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--color-gold-text)}
   .pf-card__t{font-family:var(--font-serif);font-size:1.02rem;line-height:1.25;color:var(--color-text)}
   /* one companion story: don't leave an empty right cell */
   .pf-more__grid:has(> .pf-card:only-child){grid-template-columns:1fr}

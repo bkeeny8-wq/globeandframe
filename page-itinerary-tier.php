@@ -3,15 +3,16 @@
  * Template Name: Itinerary Tier
  *
  * One shared template for the 3-day / 7-day / 10-day itinerary listings.
- * The tier is taken from the page slug; data comes from inc/itineraries-data.php
- * (generated from the Astro src/data/itineraries.ts). Ported from
- * components/ItineraryTierPage.astro + ItineraryCard.astro — reuses the
- * existing .itin-* styles in global.css.
+ * The tier comes from the page slug via gf_itinerary_tier_key(), which accepts
+ * both slug conventions in use — '3-day' and the live '3-day-itineraries'.
+ * Itineraries come from the `itinerary` post type via gf_itineraries_for_tier()
+ * (inc/itineraries.php), which falls back to the bundled seed data until the
+ * posts exist. Ported from components/ItineraryTierPage.astro +
+ * ItineraryCard.astro — reuses the existing .itin-* styles in global.css.
  */
 get_header();
 
-$slug = get_queried_object() ? get_queried_object()->post_name : '';
-$data = require get_theme_file_path('inc/itineraries-data.php');
+$slug = get_queried_object() ? gf_itinerary_tier_key(get_queried_object()->post_name) : '';
 $meta = array(
   '3-day' => array(
     'daysLabel' => '3 Days',
@@ -20,8 +21,8 @@ $meta = array(
     'ctaTitle'  => 'Want 7 or 10 days?',
     'ctaBody'   => '3-day guides stack into multi-city itineraries. Browse the 7 and 10-day routes built from these same destinations.',
     'cta'       => array(
-      array('label' => '7-Day Itineraries', 'href' => 'itineraries/7-day/', 'variant' => 'primary'),
-      array('label' => '10-Day Itineraries', 'href' => 'itineraries/10-day/', 'variant' => 'secondary'),
+      array('label' => '7-Day Itineraries', 'tier' => '7-day', 'variant' => 'primary'),
+      array('label' => '10-Day Itineraries', 'tier' => '10-day', 'variant' => 'secondary'),
     ),
   ),
   '7-day' => array(
@@ -31,7 +32,7 @@ $meta = array(
     'ctaTitle'  => 'Want to add a third city?',
     'ctaBody'   => 'Any 7-day itinerary can be extended into a 10-day route. Browse the full multi-city options.',
     'cta'       => array(
-      array('label' => 'Browse 10-Day Routes', 'href' => 'itineraries/10-day/', 'variant' => 'primary'),
+      array('label' => 'Browse 10-Day Routes', 'tier' => '10-day', 'variant' => 'primary'),
     ),
   ),
   '10-day' => array(
@@ -41,13 +42,13 @@ $meta = array(
     'ctaTitle'  => 'Need something different?',
     'ctaBody'   => "Different trip length, different destinations, or a specific experience in mind — tell me what you're after.",
     'cta'       => array(
-      array('label' => 'Plan a Custom Trip', 'href' => 'custom-inquiry/', 'variant' => 'primary'),
+      array('label' => 'Plan a Custom Trip', 'path' => 'custom-inquiry/', 'variant' => 'primary'),
     ),
   ),
 );
 
 // Not a recognized tier slug → fall back to the normal page content.
-if (!isset($data[$slug]) || !isset($meta[$slug])) {
+if (!isset($meta[$slug])) {
   while (have_posts()) : the_post(); ?>
     <main id="main" class="page"><div class="container container--narrow"><article class="article-content">
       <h1><?php the_title(); ?></h1><?php the_content(); ?>
@@ -58,27 +59,33 @@ if (!isset($data[$slug]) || !isset($meta[$slug])) {
 }
 
 $m       = $meta[$slug];
-$regions = $data[$slug];
+$regions = gf_itineraries_for_tier($slug);
 $days    = $m['daysLabel'];
 $home    = home_url('/');
-$tiers   = array('3-day' => '3 Days', '7-day' => '7 Days', '10-day' => '10 Days');
+$tiers   = gf_itinerary_tiers();
 
-/** First-city → city-guide photo, mirroring lib/itinerary-images.ts. */
+// The tier term's description, when set, is the editable version of the lead.
+$term = get_term_by('slug', $slug, 'tier');
+if ($term && !is_wp_error($term) && trim(strip_tags($term->description)) !== '') {
+  $m['lead'] = trim(strip_tags($term->description));
+}
+
+/** Tier CTAs resolve through the tier lookup so they never hit a redirect. */
+if (!function_exists('gf_itinerary_cta_url')) {
+  function gf_itinerary_cta_url($cta) {
+    return isset($cta['tier']) ? gf_itinerary_tier_url($cta['tier']) : home_url('/' . ltrim($cta['path'], '/'));
+  }
+}
+
+/** First-city → city-guide photo, mirroring lib/itinerary-images.ts.
+ *  The slug lookup itself lives in gf_city_photo_url(), shared with the guides. */
 if (!function_exists('gf_itinerary_image')) {
   function gf_itinerary_image($destinations) {
     $parts = preg_split('/[,&\/+]|→|–|—|\band\b/i', $destinations);
     $first = trim($parts[0]);
     if ($first === '') return null;
-    $slug = strtolower($first);
-    $slug = strtr($slug, array('á'=>'a','à'=>'a','ã'=>'a','â'=>'a','ä'=>'a','é'=>'e','è'=>'e','ê'=>'e','í'=>'i','ì'=>'i','ó'=>'o','ò'=>'o','ô'=>'o','õ'=>'o','ö'=>'o','ú'=>'u','ü'=>'u','ñ'=>'n','ç'=>'c'));
-    $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
-    $slug = trim($slug, '-');
-    $alias = array('new-york-city' => 'new-york', 'rio-de-janeiro' => 'rio', 'val-d-isere' => 'val-disere');
-    if (isset($alias[$slug])) $slug = $alias[$slug];
-    if ($slug && file_exists(get_theme_file_path('assets/images/city-guides/' . $slug . '.jpg'))) {
-      return '/images/city-guides/' . $slug . '.jpg';
-    }
-    return null;
+    $url = gf_city_photo_url($first);
+    return $url !== '' ? $url : null;
   }
 }
 ?>
@@ -91,7 +98,7 @@ if (!function_exists('gf_itinerary_image')) {
       <div class="itin-hero__tiers">
         <?php foreach ($tiers as $tid => $tlabel) :
           $active = ($tid === $slug) ? ' itin-tier-link--active' : ''; ?>
-          <a class="itin-tier-link<?php echo $active; ?>" href="<?php echo esc_url($home . 'itineraries/' . $tid . '/'); ?>"><?php echo esc_html($tlabel); ?></a>
+          <a class="itin-tier-link<?php echo $active; ?>" href="<?php echo esc_url(gf_itinerary_tier_url($tid)); ?>"><?php echo esc_html($tlabel); ?></a>
         <?php endforeach; ?>
       </div>
     </div>
@@ -100,17 +107,22 @@ if (!function_exists('gf_itinerary_image')) {
   <div class="container">
     <?php foreach ($regions as $region) : ?>
       <section class="itin-region">
-        <div class="itin-region__header">
-          <h2 class="itin-region__name"><?php echo esc_html($region['name']); ?></h2>
-          <span class="itin-region__count"><?php echo esc_html($region['countLabel']); ?></span>
-        </div>
+        <?php if ($region['name'] !== '') : ?>
+          <div class="itin-region__header">
+            <h2 class="itin-region__name"><?php echo esc_html($region['name']); ?></h2>
+            <span class="itin-region__count"><?php echo esc_html($region['countLabel']); ?></span>
+          </div>
+        <?php endif; ?>
         <div class="itin-grid">
           <?php foreach ($region['itineraries'] as $it) :
-            $img     = gf_itinerary_image($it['destinations']);
+            // A featured image on the itinerary wins; otherwise the bundled
+            // photograph for the first destination, as before.
+            $thumb   = !empty($it['thumbId']) ? wp_get_attachment_image_url($it['thumbId'], 'medium_large') : '';
+            $img     = $thumb ? $thumb : gf_itinerary_image($it['destinations']);
             $initial = strtoupper(mb_substr(trim($it['destinations']), 0, 1)); ?>
             <div class="itin-card">
               <?php if ($img) : ?>
-                <div class="itin-card__thumb" style="background-image:url('<?php echo esc_url($img); ?>')"></div>
+                <?php echo gf_img($img, $it['destinations'], array('class' => 'itin-card__thumb', 'sizes' => '(max-width: 640px) 100vw, 320px')); ?>
               <?php else : ?>
                 <div class="itin-card__thumb itin-card__thumb--placeholder"><span><?php echo esc_html($initial); ?></span></div>
               <?php endif; ?>
@@ -119,9 +131,9 @@ if (!function_exists('gf_itinerary_image')) {
                 <span class="itin-card__days"><?php echo esc_html($days); ?></span>
                 <?php if (!empty($it['bestTime'])) : ?><span class="itin-card__time"><?php echo esc_html($it['bestTime']); ?></span><?php endif; ?>
               </div>
-              <p class="itin-card__why"><?php echo esc_html($it['why']); ?></p>
+              <?php if (!empty($it['why'])) : ?><p class="itin-card__why"><?php echo esc_html($it['why']); ?></p><?php endif; ?>
               <div class="itin-card__footer">
-                <?php if (!empty($it['available'])) : ?>
+                <?php if (!empty($it['available']) && !empty($it['etsyUrl'])) : ?>
                   <span class="itin-card__status itin-card__status--available">Available</span>
                   <a class="itin-card__buy" href="<?php echo esc_url($it['etsyUrl']); ?>" target="_blank" rel="noopener noreferrer">Buy on Etsy &rarr;</a>
                 <?php else : ?>
@@ -145,11 +157,11 @@ if (!function_exists('gf_itinerary_image')) {
         <div style="display:flex;gap:var(--space-sm);flex-wrap:wrap;">
           <?php foreach ($m['cta'] as $a) :
             $cls = ($a['variant'] === 'secondary') ? 'button--secondary' : 'button--primary'; ?>
-            <a class="button <?php echo $cls; ?>" href="<?php echo esc_url($home . $a['href']); ?>"><?php echo esc_html($a['label']); ?></a>
+            <a class="button <?php echo $cls; ?>" href="<?php echo esc_url(gf_itinerary_cta_url($a)); ?>"><?php echo esc_html($a['label']); ?></a>
           <?php endforeach; ?>
         </div>
       <?php else : $a = $m['cta'][0]; ?>
-        <a class="button button--primary" href="<?php echo esc_url($home . $a['href']); ?>"><?php echo esc_html($a['label']); ?></a>
+        <a class="button button--primary" href="<?php echo esc_url(gf_itinerary_cta_url($a)); ?>"><?php echo esc_html($a['label']); ?></a>
       <?php endif; ?>
     </div>
   </section>

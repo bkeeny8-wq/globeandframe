@@ -1,6 +1,13 @@
-<?php get_header(); ?>
+<?php
+/**
+ * Elevate article body: where-i-am-dreaming
+ * Extracted verbatim from the old page-where-i-am-dreaming.php so the copy can move into
+ * WordPress. Rendered by page-elevate-article.php until the article's page
+ * has content of its own; also the source the Elevate seeder captures.
+ */
+if (!defined('ABSPATH')) exit;
 
-  <main id="main">
+?>
     <section class="dreaming-hero">
       <div class="container">
         <p class="eyebrow">
@@ -239,6 +246,3 @@
         <a class="button button--primary" href="<?php echo esc_url( home_url('/city-guides/') ); ?>">Explore the Guides</a>
       </div>
     </section>
-  </main>
-
-<?php get_footer(); ?>

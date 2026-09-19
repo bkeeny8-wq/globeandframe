@@ -1,12 +1,13 @@
 <?php
 /**
- * Top 10 Beaches — ported from the Astro elevate-your-travel/top-10-beaches page.
- * Interactive featured-beach swap: click a ranked item to update the feature card.
- *
- * ElevateLayout (Astro) only added the site header/footer + article schema, which
- * WordPress supplies via get_header()/get_footer(). Only the <main> body is ported.
+ * Top 10 Beaches — the interactive ranked list (data + featured-beach widget
+ * + rank list + swap script). Split out of top-10-beaches.php so it can be
+ * appended after page-authored copy too: this is the part that genuinely
+ * needs code (the beach data drives an inline script), so it stays
+ * theme-owned even once the article's hero/intro copy is editable in
+ * wp-admin. See gf_elevate_registry()['top-10-beaches']['appendAfterContent'].
  */
-get_header();
+if (!defined('ABSPATH')) exit;
 
 $beaches = array(
   array(
@@ -173,29 +174,19 @@ $beaches = array(
 
 $first = $beaches[0];
 ?>
-
-<main id="main">
-  <section class="beaches-page-hero">
-    <div class="container">
-      <p class="eyebrow">
-        <a href="<?php echo esc_url( home_url('/elevate-your-travel/') ); ?>" style="color:inherit;text-decoration:none;">← Elevate Your Travel</a>
-      </p>
-      <h1>My Top Beaches Around the World</h1>
-      <p>
-        The beaches that stay with you are not always the easiest ones to get to. Some are polished and effortless,
-        others feel earned. This list is a mix of both.
-      </p>
-    </div>
-  </section>
-
   <div class="container">
     <article class="beach-feature" id="beach-featured">
       <div class="beach-feature__media">
-        <div
-          class="beach-feature__img bg-1"
-          id="beach-bg"
-          <?php echo $first['photo'] ? 'style="background-image: url(\'' . $first['photo'] . '\')"' : ''; ?>
-        ></div>
+        <?php if ($first['photo']) : ?>
+          <?php echo gf_img($first['photo'], $first['name'] . ', ' . $first['location'], array(
+            'class'   => 'beach-feature__img bg-1',
+            'id'      => 'beach-bg',
+            'loading' => 'eager',
+            'sizes'   => '(max-width: 640px) 100vw, 960px',
+          )); ?>
+        <?php else : ?>
+          <div class="beach-feature__img bg-1" id="beach-bg"></div>
+        <?php endif; ?>
         <span class="beach-feature__badge" id="bf-rank">No. <?php echo $first['num']; ?></span>
         <div class="beach-feature__caption">
           <h2 class="beach-feature__name" id="bf-name"><?php echo $first['name']; ?></h2>
@@ -221,11 +212,13 @@ $first = $beaches[0];
         <div class="beach-rank-item<?php echo $index === 0 ? ' is-active' : ''; ?>" data-index="<?php echo $index; ?>">
           <div class="bri-num"><?php echo $beach['num']; ?></div>
           <div class="bri-thumb">
-            <div
-              class="bri-thumb__bg th-<?php echo $beach['num']; ?>"
-              <?php echo $beach['photo'] ? 'style="background-image: url(\'' . $beach['photo'] . '\')"' : ''; ?>
-            ></div>
-            <?php if ( empty( $beach['photo'] ) ) : ?>
+            <?php if ($beach['photo']) : ?>
+              <?php echo gf_img($beach['photo'], $beach['name'] . ', ' . $beach['location'], array(
+                'class' => 'bri-thumb__bg th-' . $beach['num'],
+                'sizes' => '96px',
+              )); ?>
+            <?php else : ?>
+              <div class="bri-thumb__bg th-<?php echo $beach['num']; ?>"></div>
               <div class="bri-thumb__emoji"><?php echo $beach['emoji']; ?></div>
             <?php endif; ?>
           </div>
@@ -243,18 +236,6 @@ $first = $beaches[0];
       <?php endforeach; ?>
     </div>
   </div>
-
-  <section class="dreaming-cta">
-    <div class="container dreaming-cta__inner">
-      <div>
-        <h3>Chasing the next one?</h3>
-        <p>These ten stuck. The city guides go deeper on where to stay, eat, and spend the days around them.</p>
-      </div>
-      <a class="button button--primary" href="<?php echo esc_url( home_url('/city-guides/') ); ?>">Explore the City Guides</a>
-    </div>
-  </section>
-</main>
-
 <script>
   const beaches = <?php echo json_encode( $beaches, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ); ?>;
 
@@ -271,7 +252,12 @@ $first = $beaches[0];
     const bg = document.getElementById("beach-bg");
     if (bg) {
       bg.className = "beach-feature__img bg-" + (index + 1);
-      bg.style.backgroundImage = b.photo ? `url('${b.photo}')` : "";
+      if (bg.tagName === "IMG") {
+        bg.src = b.photo || "";
+        bg.alt = b.name + ", " + b.location;
+      } else {
+        bg.style.backgroundImage = b.photo ? `url('${b.photo}')` : "";
+      }
     }
 
     const content = document.getElementById("bf-content");
@@ -306,5 +292,3 @@ $first = $beaches[0];
     el.addEventListener("click", () => selectBeach(i));
   });
 </script>
-
-<?php get_footer(); ?>

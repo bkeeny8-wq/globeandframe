@@ -1,10 +1,12 @@
 <?php
 /**
- * Business Class Rankings — ported from the Astro
- * elevate-your-travel/business-class-rankings/index.astro.
- * Ranked airline review cards with photo galleries.
+ * Elevate article body: business-class-rankings
+ * Extracted verbatim from the old page-business-class-rankings.php so the copy can move into
+ * WordPress. Rendered by page-elevate-article.php until the article's page
+ * has content of its own; also the source the Elevate seeder captures.
  */
-get_header();
+if (!defined('ABSPATH')) exit;
+
 $home = home_url('/');
 
 $airlineRankings = array(
@@ -159,7 +161,6 @@ $airlineRankings = array(
   ),
 );
 ?>
-<main id="main">
   <section class="review-hero">
     <div class="container">
       <p class="eyebrow">
@@ -257,5 +258,3 @@ $airlineRankings = array(
       <a class="button button--primary" href="<?php echo esc_url($home . 'elevate-your-travel/jet-lag/'); ?>">Read the Jet Lag Guide</a>
     </div>
   </section>
-</main>
-<?php get_footer(); ?>

@@ -1,9 +1,54 @@
 <?php
 /**
- * Elevate Your Travel hub — card-feature grid + row-cards + list-rows linking
- * to all the Elevate articles. Ported from the Astro ElevateLayout page body.
+ * Elevate Your Travel hub — built from a query, not hand-written cards.
+ * Sections, cards, counts and numbering all come from gf_elevate_articles()
+ * (inc/elevate-articles.php), so counts can't drift and an article added in
+ * wp-admin appears here on its own.
  */
 get_header();
+$sections = gf_elevate_sections();
+$articles = gf_elevate_articles();
+
+/** One card, in whichever of the four layouts the article uses. */
+if (!function_exists('gf_elevate_card_html')) :
+function gf_elevate_card_html($card, $number = 0) {
+  $thumb = !empty($card['thumbId']) ? wp_get_attachment_image_url($card['thumbId'], 'large') : '';
+  $image = $thumb ? $thumb : $card['image'];
+  $url   = esc_url($card['url']);
+  $title = esc_html($card['title']);
+  $cat   = $card['category'] !== '' ? '<span class="card-cat">' . esc_html($card['category']) . '</span>' : '';
+  $num   = $number ? sprintf('%02d', $number) : '';
+
+  if ($card['layout'] === 'row' || $card['layout'] === 'list') {
+    $excerpt = $card['excerpt'] !== '' ? esc_html($card['excerpt']) : '';
+    if ($card['layout'] === 'row') {
+      return '<a class="row-card" href="' . $url . '">'
+        . ($num ? '<div class="row-card__num">' . esc_html($num) . '</div>' : '')
+        . '<div class="row-card__title">' . $title . '</div>'
+        . ($excerpt ? '<div class="row-card__excerpt">' . $excerpt . '</div>' : '')
+        . '<span class="row-card__read">' . esc_html($card['read']) . '</span></a>';
+    }
+    return '<a class="list-row" href="' . $url . '">'
+      . ($num ? '<span class="list-row__num">' . esc_html($num) . '</span>' : '')
+      . '<div><div class="list-row__title">' . $title . '</div>'
+      . ($excerpt ? '<div class="list-row__excerpt">' . $excerpt . '</div>' : '')
+      . '</div><span class="list-row__arrow" aria-hidden="true">&rarr;</span></a>';
+  }
+
+  $small   = ($card['layout'] === 'feature-sm');
+  $classes = 'card-feature' . ($small ? ' card-feature--sm' : '') . ' card-feature--' . sanitize_html_class($card['accent']);
+  $body    = $cat . '<div class="card-feature__title">' . $title . '</div>';
+  if (!$small && $card['excerpt'] !== '') {
+    $body .= '<div class="card-feature__excerpt">' . esc_html($card['excerpt']) . '</div>'
+      . '<span class="card-feature__read">' . esc_html($card['read']) . '</span>';
+  }
+
+  return '<a class="' . esc_attr($classes) . '" href="' . $url . '">'
+    . ($image ? gf_img($image, $card['title'], array('class' => 'card-feature__img', 'sizes' => $small ? '(max-width: 640px) 100vw, 320px' : '(max-width: 640px) 100vw, 640px')) : '')
+    . '<div class="card-feature__overlay"></div>'
+    . '<div class="card-feature__body">' . $body . '</div></a>';
+}
+endif;
 ?>
 <main id="main">
   <section class="page-hero">
@@ -18,176 +63,66 @@ get_header();
   </section>
 
   <div class="container">
-    <div class="section-block">
-      <div class="section-header">
-        <div>
-          <h2>Destinations &amp; Inspiration</h2>
-          <p>Places worth dreaming about, returning to, and experiencing more fully.</p>
-        </div>
-        <span class="section-count">5 articles</span>
-      </div>
+    <?php foreach ($sections as $key => $section) :
+      $cards = isset($articles[$key]) ? $articles[$key] : array();
+      if (!$cards) continue;
 
-      <div class="feature-grid">
-        <a class="card-feature card-feature--ocean" href="<?php echo esc_url( home_url('/elevate-your-travel/cities-i-would-visit-again/') ); ?>">
-          <div class="card-feature__img" style="background-image: url('/images/city-guides/paris.jpg')"></div>
-          <div class="card-feature__overlay"></div>
-          <div class="card-feature__body">
-            <span class="card-cat">Destinations</span>
-            <div class="card-feature__title">Cities I Would Visit Again</div>
-            <div class="card-feature__excerpt">
-              The cities I would go back to — not because I missed something, but because I know how to be there.
-            </div>
-            <span class="card-feature__read">Read the guide →</span>
-          </div>
-        </a>
-        <div class="side-stack">
-          <a class="card-feature card-feature--sm card-feature--amber" href="<?php echo esc_url( home_url('/elevate-your-travel/where-i-am-dreaming/') ); ?>">
-            <div class="card-feature__img" style="background-image: url('/images/dreaming/maldives.jpg')"></div>
-            <div class="card-feature__overlay"></div>
-            <div class="card-feature__body">
-              <span class="card-cat">Inspiration</span>
-              <div class="card-feature__title">Where I Am Dreaming</div>
-            </div>
-          </a>
-          <a class="card-feature card-feature--sm card-feature--teal" href="<?php echo esc_url( home_url('/elevate-your-travel/top-10-beaches/') ); ?>">
-            <div class="card-feature__img" style="background-image: url('/images/beaches/bondi-beach.jpg')"></div>
-            <div class="card-feature__overlay"></div>
-            <div class="card-feature__body">
-              <span class="card-cat">Beaches</span>
-              <div class="card-feature__title">Top 10 Beaches</div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <div class="row-cards">
-        <a class="row-card" href="<?php echo esc_url( home_url('/elevate-your-travel/f1-watching-locations/') ); ?>">
-          <div class="row-card__num">01</div>
-          <div class="row-card__title">F1 Watching Locations</div>
-          <div class="row-card__excerpt">
-            A running list of spots I've found while traveling where the race actually feels like an event,
-            not background noise.
-          </div>
-          <span class="row-card__read">Read →</span>
-        </a>
-        <a class="row-card" href="<?php echo esc_url( home_url('/elevate-your-travel/global-cigar-bars/') ); ?>">
-          <div class="row-card__num">02</div>
-          <div class="row-card__title">Global Cigar Bars</div>
-          <div class="row-card__excerpt">
-            Sometimes the best way to slow down while traveling is with a cigar, a drink, and a good place to
-            sit for a while.
-          </div>
-          <span class="row-card__read">Read →</span>
-        </a>
-        <a class="row-card row-card--cta" href="<?php echo esc_url( home_url('/custom-inquiry/') ); ?>">
-          <div class="row-card__num">✦</div>
-          <div class="row-card__title">Plan a Custom Trip</div>
-          <div class="row-card__excerpt">
-            Tell me where you want to go and I'll help you build a plan around the experience you're looking for.
-          </div>
-          <span class="row-card__read">Get in touch →</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="section-block">
-      <div class="section-header">
-        <div>
-          <h2>Planning &amp; Pacing</h2>
-          <p>How to structure a trip so the days actually work.</p>
-        </div>
-        <span class="section-count">3 articles</span>
-      </div>
-      <div class="row-cards">
-        <a class="card-feature card-feature--ocean" href="<?php echo esc_url( home_url('/elevate-your-travel/how-to-do-3-days/') ); ?>">
-          <div class="card-feature__img" style="background-image: url('/images/city-guides/prague.jpg')"></div>
-          <div class="card-feature__overlay"></div>
-          <div class="card-feature__body">
-            <span class="card-cat">Planning</span>
-            <div class="card-feature__title">How to Do 3 Days</div>
-            <div class="card-feature__excerpt">A simple framework for getting the feel of a city without overcommitting to it.</div>
-            <span class="card-feature__read">Read the guide →</span>
-          </div>
-        </a>
-        <a class="card-feature card-feature--dusk" href="<?php echo esc_url( home_url('/elevate-your-travel/booking-to-boarding/') ); ?>">
-          <div class="card-feature__img" style="background-image: url('/images/business-class/air-france-1.jpg')"></div>
-          <div class="card-feature__overlay"></div>
-          <div class="card-feature__body">
-            <span class="card-cat">Planning</span>
-            <div class="card-feature__title">Booking to Boarding</div>
-            <div class="card-feature__excerpt">A planning timeline for making travel feel smoother before you ever leave home.</div>
-            <span class="card-feature__read">Read the guide →</span>
-          </div>
-        </a>
-        <a class="card-feature card-feature--slate" href="<?php echo esc_url( home_url('/elevate-your-travel/jet-lag/') ); ?>">
-          <div class="card-feature__img" style="background-image: url('/images/city-guides/tokyo.jpg')"></div>
-          <div class="card-feature__overlay"></div>
-          <div class="card-feature__body">
-            <span class="card-cat">Planning</span>
-            <div class="card-feature__title">Jet Lag</div>
-            <div class="card-feature__excerpt">Jet Lag. 0/10. Would not recommend. 50+ long-haul flights worth of hard-won advice.</div>
-            <span class="card-feature__read">Read the guide →</span>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <div class="section-block">
-      <div class="section-header">
-        <div>
-          <h2>Elevate the Journey</h2>
-          <p>Small upgrades that make flights and travel days feel more intentional.</p>
-        </div>
-        <span class="section-count">4 articles</span>
-      </div>
-
-      <div class="feature-grid feature-grid--spaced">
-        <a class="card-feature card-feature--dusk" href="<?php echo esc_url( home_url('/elevate-your-travel/business-class-rankings/') ); ?>">
-          <div class="card-feature__img" style="background-image: url('/images/business-class/singapore-1.jpg')"></div>
-          <div class="card-feature__overlay"></div>
-          <div class="card-feature__body">
-            <span class="card-cat">Reviews</span>
-            <div class="card-feature__title">Business Class Rankings</div>
-            <div class="card-feature__excerpt">
-              A personal look at which business class experiences are actually worth it, and which ones fall short
-              of the price.
-            </div>
-            <span class="card-feature__read">Read the rankings →</span>
-          </div>
-        </a>
-        <div class="side-stack">
-          <a class="card-feature card-feature--sm card-feature--slate" href="<?php echo esc_url( home_url('/elevate-your-travel/amenity-kit-diy/') ); ?>">
-            <div class="card-feature__img" style="background-image: url('/images/articles/img_0506.jpg')"></div>
-            <div class="card-feature__overlay"></div>
-            <div class="card-feature__body">
-              <span class="card-cat">In-flight</span>
-              <div class="card-feature__title">Amenity Kit DIY</div>
-            </div>
-          </a>
-          <a class="card-feature card-feature--sm card-feature--bronze" href="<?php echo esc_url( home_url('/elevate-your-travel/snack-box-diy/') ); ?>">
-            <div class="card-feature__img" style="background-image: url('/images/articles/IMG_1777.jpeg')"></div>
-            <div class="card-feature__overlay"></div>
-            <div class="card-feature__body">
-              <span class="card-cat">In-flight</span>
-              <div class="card-feature__title">Snack Box DIY</div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <div class="list-rows">
-        <a class="list-row" href="<?php echo esc_url( home_url('/elevate-your-travel/weekend-bag-review/') ); ?>">
-          <span class="list-row__num">iv</span>
+      // Position in the section drives the numbering, so it can't go stale.
+      $number  = 0;
+      $features = $smalls = $rows = $lists = array();
+      foreach ($cards as $card) {
+        $number++;
+        if ($card['layout'] === 'feature-sm')   { $smalls[]   = array($card, $number); }
+        elseif ($card['layout'] === 'row')      { $rows[]     = array($card, $number); }
+        elseif ($card['layout'] === 'list')     { $lists[]    = array($card, $number); }
+        else                                    { $features[] = array($card, $number); }
+      }
+    ?>
+      <div class="section-block">
+        <div class="section-header">
           <div>
-            <div class="list-row__title">Weekend Bag Review</div>
-            <div class="list-row__excerpt">
-              Breaking a zipper forces your hand. My previous weekend bag had been great — until it wasn't.
-            </div>
+            <h2><?php echo esc_html($section['title']); ?></h2>
+            <p><?php echo esc_html($section['intro']); ?></p>
           </div>
-          <span class="list-row__arrow">→</span>
-        </a>
+          <span class="section-count"><?php
+            echo esc_html(sprintf(
+              _n('%s article', '%s articles', count($cards), 'globe-and-frame'),
+              number_format_i18n(count($cards))
+            ));
+          ?></span>
+        </div>
+
+        <?php if ($features || $smalls) : ?>
+          <div class="<?php echo esc_attr($section['grid']); ?>">
+            <?php foreach ($features as $entry) echo gf_elevate_card_html($entry[0]); ?>
+            <?php if ($smalls) : ?>
+              <div class="side-stack">
+                <?php foreach ($smalls as $entry) echo gf_elevate_card_html($entry[0]); ?>
+              </div>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
+
+        <?php if ($rows || !empty($section['cta'])) : ?>
+          <div class="row-cards">
+            <?php foreach ($rows as $entry) echo gf_elevate_card_html($entry[0], $entry[1]); ?>
+            <?php if (!empty($section['cta'])) : $cta = $section['cta']; ?>
+              <a class="row-card row-card--cta" href="<?php echo esc_url(home_url('/' . ltrim($cta['path'], '/'))); ?>">
+                <div class="row-card__title"><?php echo esc_html($cta['title']); ?></div>
+                <div class="row-card__excerpt"><?php echo esc_html($cta['excerpt']); ?></div>
+                <span class="row-card__read"><?php echo esc_html($cta['read']); ?></span>
+              </a>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
+
+        <?php if ($lists) : ?>
+          <div class="list-rows">
+            <?php foreach ($lists as $entry) echo gf_elevate_card_html($entry[0], $entry[1]); ?>
+          </div>
+        <?php endif; ?>
       </div>
-    </div>
+    <?php endforeach; ?>
   </div>
 
   <section class="cta-editorial">
@@ -199,7 +134,7 @@ get_header();
           looking for.
         </p>
       </div>
-      <a class="button button--primary" href="<?php echo esc_url( home_url('/custom-inquiry/') ); ?>">Plan a Custom Trip</a>
+      <a class="button button--primary" href="<?php echo esc_url(home_url('/custom-inquiry/')); ?>">Plan a Custom Trip</a>
     </div>
   </section>
 </main>

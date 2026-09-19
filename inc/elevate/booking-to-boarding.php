@@ -1,7 +1,13 @@
-<?php get_header(); ?>
+<?php
+/**
+ * Elevate article body: booking-to-boarding
+ * Extracted verbatim from the old page-booking-to-boarding.php so the copy can move into
+ * WordPress. Rendered by page-elevate-article.php until the article's page
+ * has content of its own; also the source the Elevate seeder captures.
+ */
+if (!defined('ABSPATH')) exit;
 
-<main id="main">
-
+?>
   <section class="article-hero">
     <div class="container">
       <p class="eyebrow">
@@ -148,7 +154,3 @@
       <a class="button button--primary" href="<?php echo esc_url( home_url('/elevate-your-travel/') ); ?>">Back to Elevate Your Travel</a>
     </div>
   </section>
-
-</main>
-
-<?php get_footer(); ?>
