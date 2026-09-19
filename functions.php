@@ -135,6 +135,7 @@ add_action('init', 'gf_register_post_types', 5);
    row schema it defines. story-sections.php declares what each post type
    renders and in what order. */
 require get_theme_file_path('inc/rows.php');
+require get_theme_file_path('inc/images.php');
 require get_theme_file_path('inc/acf-fields.php');
 require get_theme_file_path('inc/story-sections.php');
 require get_theme_file_path('inc/itineraries.php');

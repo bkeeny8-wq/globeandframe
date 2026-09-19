@@ -53,7 +53,7 @@ $home = home_url('/');
       <h2 class="section__title">Explore Globe &amp; Frame</h2>
       <div class="explore-grid">
         <a class="explore-card explore-card--featured" href="<?php echo esc_url($home . 'custom-inquiry/'); ?>">
-          <span class="explore-card__bg" style="background-image: url('/images/city-guides/venice.jpg')"></span>
+          <?php echo gf_img('/images/city-guides/venice.jpg', 'Venice', array('class' => 'explore-card__bg')); ?>
           <span class="explore-card__overlay"></span>
           <span class="explore-card__body">
             <h3>Custom Trip Planning</h3>
@@ -61,7 +61,7 @@ $home = home_url('/');
           </span>
         </a>
         <a class="explore-card" href="<?php echo esc_url($home . 'city-guides/'); ?>">
-          <span class="explore-card__bg" style="background-image: url('/images/city-guides/tokyo.jpg')"></span>
+          <?php echo gf_img('/images/city-guides/tokyo.jpg', 'Tokyo', array('class' => 'explore-card__bg')); ?>
           <span class="explore-card__overlay"></span>
           <span class="explore-card__body">
             <h3>Explore Destinations</h3>
@@ -69,7 +69,7 @@ $home = home_url('/');
           </span>
         </a>
         <a class="explore-card" href="<?php echo esc_url($home . 'itineraries/'); ?>">
-          <span class="explore-card__bg" style="background-image: url('/images/city-guides/rome.jpg')"></span>
+          <?php echo gf_img('/images/city-guides/rome.jpg', 'Rome', array('class' => 'explore-card__bg')); ?>
           <span class="explore-card__overlay"></span>
           <span class="explore-card__body">
             <h3>Ready-Made Itineraries</h3>
@@ -77,7 +77,7 @@ $home = home_url('/');
           </span>
         </a>
         <a class="explore-card" href="<?php echo esc_url($home . 'elevate-your-travel/'); ?>">
-          <span class="explore-card__bg" style="background-image: url('/images/city-guides/rio.jpg')"></span>
+          <?php echo gf_img('/images/city-guides/rio.jpg', 'Rio de Janeiro', array('class' => 'explore-card__bg')); ?>
           <span class="explore-card__overlay"></span>
           <span class="explore-card__body">
             <h3>Elevate Your Travel</h3>

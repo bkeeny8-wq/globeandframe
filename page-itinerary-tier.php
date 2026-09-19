@@ -122,7 +122,7 @@ if (!function_exists('gf_itinerary_image')) {
             $initial = strtoupper(mb_substr(trim($it['destinations']), 0, 1)); ?>
             <div class="itin-card">
               <?php if ($img) : ?>
-                <div class="itin-card__thumb" style="background-image:url('<?php echo esc_url($img); ?>')"></div>
+                <?php echo gf_img($img, $it['destinations'], array('class' => 'itin-card__thumb', 'sizes' => '(max-width: 640px) 100vw, 320px')); ?>
               <?php else : ?>
                 <div class="itin-card__thumb itin-card__thumb--placeholder"><span><?php echo esc_html($initial); ?></span></div>
               <?php endif; ?>

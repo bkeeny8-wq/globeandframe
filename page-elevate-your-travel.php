@@ -44,7 +44,7 @@ function gf_elevate_card_html($card, $number = 0) {
   }
 
   return '<a class="' . esc_attr($classes) . '" href="' . $url . '">'
-    . ($image ? '<div class="card-feature__img" style="background-image: url(\'' . esc_url($image) . '\')"></div>' : '')
+    . ($image ? gf_img($image, $card['title'], array('class' => 'card-feature__img', 'sizes' => $small ? '(max-width: 640px) 100vw, 320px' : '(max-width: 640px) 100vw, 640px')) : '')
     . '<div class="card-feature__overlay"></div>'
     . '<div class="card-feature__body">' . $body . '</div></a>';
 }
