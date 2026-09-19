@@ -1389,6 +1389,26 @@ a.list-row {
     overflow: hidden;
   }
 
+  /* Scrim behind the open mobile nav: without it, whatever the visitor had
+     scrolled to stays visible under the menu with no visual separation, and
+     the scroll lock above makes it feel like a broken page rather than an
+     open menu. Sits under the sticky header (z-index: 100) so the nav itself
+     stays on top, and above ordinary content. */
+  body.nav-open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgba(12, 32, 66, 0.55);
+    /* Neutralised to ~0 by the sitewide prefers-reduced-motion rule above. */
+    animation: gf-scrim-in 0.15s ease;
+  }
+
+  @keyframes gf-scrim-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
   .hero {
     min-height: 60vh;
   }
