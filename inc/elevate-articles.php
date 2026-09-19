@@ -66,9 +66,15 @@ function gf_elevate_registry() {
       'title' => 'Top 10 Beaches', 'section' => 'destinations', 'category' => 'Beaches',
       'image' => '/images/beaches/bondi-beach.jpg', 'layout' => 'feature-sm', 'accent' => 'teal',
       'order' => 30, 'body' => 'top-10-beaches',
-      // Keeps its bundled body: the ranked list is interactive, and its markup
-      // carries the script that swaps the featured beach.
+      // The hero/intro copy is not migrated into page content — the ranked
+      // list is interactive, and its markup carries the script that swaps the
+      // featured beach, so the full bundled body isn't a good fit for the
+      // block editor. But if an editor writes their own hero/intro for this
+      // page anyway, page-elevate-article.php still appends the interactive
+      // list (top-10-beaches-list.php) after it, so the list can't be lost by
+      // editing the copy above it.
       'migrate' => false,
+      'appendAfterContent' => 'top-10-beaches-list',
     ),
     'f1-watching-locations' => array(
       'title' => 'F1 Watching Locations', 'section' => 'destinations',

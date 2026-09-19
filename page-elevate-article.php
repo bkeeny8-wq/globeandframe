@@ -18,6 +18,15 @@ while (have_posts()) : the_post();
   $gf_has  = trim((string) get_the_content()) !== '';
   $gf_lead = trim((string) gf_field('elevateLead', get_the_ID()));
   if ($gf_lead === '') $gf_lead = trim((string) get_the_excerpt());
+
+  // Some articles carry an interactive part (currently just Top 10 Beaches'
+  // ranked list) that has to stay theme-owned even once the copy above it is
+  // written in wp-admin, so it's appended after the_content() rather than
+  // being part of what gets migrated into the page.
+  $gf_registry = gf_elevate_registry();
+  $gf_append = isset($gf_registry[$gf_slug]['appendAfterContent']) ? $gf_registry[$gf_slug]['appendAfterContent'] : '';
+  $gf_append_path = $gf_append !== '' ? get_theme_file_path('inc/elevate/' . $gf_append . '.php') : '';
+  if ($gf_append_path !== '' && !file_exists($gf_append_path)) $gf_append_path = '';
 ?>
 <main id="main">
   <?php if ($gf_has && $gf_full) : ?>
@@ -36,6 +45,9 @@ while (have_posts()) : the_post();
     <div class="container">
       <div class="article-prose"><?php the_content(); ?></div>
     </div>
+    <?php if ($gf_append_path) : ?>
+      <?php include $gf_append_path; ?>
+    <?php endif; ?>
 
   <?php elseif ($gf_body) : ?>
     <?php include $gf_body; ?>
@@ -48,6 +60,9 @@ while (have_posts()) : the_post();
         <?php if ($gf_lead) : ?><p class="article-hero__lead"><?php echo esc_html($gf_lead); ?></p><?php endif; ?>
       </div>
     </section>
+    <?php if ($gf_append_path) : ?>
+      <?php include $gf_append_path; ?>
+    <?php endif; ?>
   <?php endif; ?>
 </main>
 <?php endwhile; get_footer();
